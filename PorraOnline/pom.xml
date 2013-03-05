@@ -1,0 +1,193 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.aap</groupId>
+	<artifactId>PorraOnline</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Porra Online</name>
+	
+	
+	<properties>
+        <org.richfaces.bom.version>4.3.0.Final</org.richfaces.bom.version>
+        <slf4jVersion>1.7.2</slf4jVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+	<build>
+        <finalName>PorraOnline</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+        
+		<!-- Para filtrar los recursos y poder usar properties en los perfiles de construccion -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+	
+	
+    <!-- Perfiles de construccion del proyecto -->
+    <profiles>
+        <profile>
+            <id>desarrollo</id>
+            <activation><activeByDefault>true</activeByDefault></activation>
+            <properties>
+                <Hibernate.connection.url>jdbc:mysql://localhost:3306/PorraOnline</Hibernate.connection.url>
+                <Hibernate.connection.username>porraonline</Hibernate.connection.username>
+                <Hibernate.connection.password>porraonline</Hibernate.connection.password>
+                <Hibernate.show_sql>true</Hibernate.show_sql>
+                
+                <Log.ficheroLog>/tmp/log/tomcat/PorraOnline_Log_</Log.ficheroLog>
+                <Log.nivelLog>INFO,A1,R</Log.nivelLog>
+            </properties>
+        </profile>
+        <profile>
+            <id>produccion</id>
+            <properties>
+                <Hibernate.connection.url>xx</Hibernate.connection.url>
+                <Hibernate.connection.username>xx</Hibernate.connection.username>
+                <Hibernate.connection.password>xx</Hibernate.connection.password>
+                <Hibernate.show_sql>false</Hibernate.show_sql>
+                
+                <Log.ficheroLog>/var/log/tomcat/PorraOnline_Log_</Log.ficheroLog>
+                <Log.nivelLog>INFO,R</Log.nivelLog>
+            </properties>
+        </profile>
+    </profiles>
+	
+	
+    <!-- Project dependencies -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${org.richfaces.bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <dependencies>
+    
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.sun.el</groupId>
+            <artifactId>el-ri</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+    
+        <!-- MyFaces -->
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>2.1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>2.1.10</version>
+        </dependency>
+
+        <!-- RichFaces -->
+		<dependency>
+			<groupId>org.richfaces.ui</groupId>
+			<artifactId>richfaces-components-ui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.richfaces.core</groupId>
+			<artifactId>richfaces-core-impl</artifactId>
+		</dependency>
+		
+        <!-- SLF4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4jVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4jVersion}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4jVersion}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- Hibernate -->
+	    <dependency>
+	        <groupId>org.hibernate</groupId>
+	        <artifactId>hibernate-core</artifactId>
+	        <version>4.1.10.Final</version>
+	        <scope>compile</scope>
+	    </dependency>
+	    
+	    <!-- MySQL -->
+	    <dependency>
+		   <groupId>mysql</groupId>
+		   <artifactId>mysql-connector-java</artifactId>
+		   <version>5.1.23</version>
+		   <scope>compile</scope>
+		</dependency>
+    </dependencies>
+    
+
+
+    <repositories>
+        <repository>
+            <id>java.net.m2</id>
+            <name>java.net m2 repo</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository>       
+    </repositories>
+</project>

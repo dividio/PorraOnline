@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+ 
+    <h:head>
+    	<h:outputStylesheet name="reset.css" library="css"/>
+    	<h:outputStylesheet name="text.css" library="css"/>
+    	<h:outputStylesheet name="960.css" library="css"/>
+    	<ui:insert name="title"><title>JSF 2.0 Hello World</title></ui:insert>
+    </h:head>
+    <h:body>
+		<div class="container_12">
+	    	<div class="grid_12">
+                <header id="web_header">
+                    <ui:insert name="header">
+                        <h1>Porra Online</h1>
+                    </ui:insert>
+	    		</header>
+	    		
+		    	<ui:insert name="body">Body</ui:insert>
+		    	
+		    	<ui:insert name="footer">Footer</ui:insert>
+	    	</div>
+	    </div>	
+    </h:body>
+</html>

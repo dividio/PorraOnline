@@ -21,7 +21,11 @@
     <h1>Mensajes</h1>
     <h2>#{mensajesPartidaBean.partida.pa_nombre}</h2>
 	<h:form>
-		<rich:dataTable value="#{mensajesPartidaBean.listaMensajes}" var="mensaje">
+        <a4j:commandLink value="Nuevo Mensaje" 
+            action="#{mensajesPartidaBean.nuevoMensaje}" 
+            render="panelNuevoMensaje"
+            oncomplete="#{rich:component('panelNuevoMensaje')}.show();"/>
+		<rich:dataTable id="listaMensajes" value="#{mensajesPartidaBean.listaMensajes}" var="mensaje" rows="15">
             <rich:column>
                 <f:facet name="header">Mensajes</f:facet>
                 #{mensaje.me_fecha} - #{mensaje.me_asunto}<br/>
@@ -32,6 +36,25 @@
             </f:facet>
 		</rich:dataTable>
     </h:form>
+    
+    <rich:popupPanel id="panelNuevoMensaje" onmaskclick="#{rich:component('panelNuevoMensaje')}.hide();" autosized="true">
+        <h:form>
+            <a4j:commandLink value="Guardar" 
+                action="#{mensajesPartidaBean.guardarNuevoMensaje}"
+                oncomplete="#{rich:component('panelNuevoMensaje')}.hide();"
+                render="listaMensajes"/>
+            <br/>
+            <br/>                    
+            <h:inputText value="#{mensajesPartidaBean.mensaje.me_asunto}">
+                <rich:placeholder value="Asunto del mensaje" />
+            </h:inputText>
+            <br/>
+            <br/>
+            <h:inputTextarea id="textoMensaje" value="#{mensajesPartidaBean.mensaje.me_texto}" rows="5" cols="40">
+                <rich:placeholder value="Texto del mensaje" />
+            </h:inputTextarea>
+        </h:form>
+    </rich:popupPanel>
 </ui:define>
 
 </ui:composition>

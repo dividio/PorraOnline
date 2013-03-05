@@ -2,10 +2,11 @@ package com.aap.bean.partidas;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -13,10 +14,12 @@ import org.hibernate.criterion.Restrictions;
 
 import com.aap.dto.Mensajes;
 import com.aap.dto.Partidas;
+import com.aap.dto.Usuarios;
 import com.aap.util.jsf.Contexts;
+import com.aap.util.jsf.FuncionesJSF;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class MensajesPartidaBean implements Serializable {
 
     private static final long serialVersionUID = 8390445542162327520L;
@@ -26,7 +29,40 @@ public class MensajesPartidaBean implements Serializable {
     private Long idPartida;
     
     private Partidas partida = new Partidas();
+    
+    private Mensajes mensaje = new Mensajes();
 
+    public String nuevoMensaje() {
+    	mensaje = new Mensajes();
+    	return null;
+    }
+    
+    public String guardarNuevoMensaje() {
+    	if(validaGuardarNuevoMensaje()) {
+    		Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+    		
+    		mensaje.setMe_fecha(new Date());
+    		mensaje.setMe_pa_id(partida);
+    		mensaje.setMe_usu_id(usuario);
+    		
+    		Session session = Contexts.getHibernateSession();
+    		session.save(mensaje);
+    		session.flush();
+    		Contexts.addInfoMessage("Mensaje guardado correctamente.");
+    		cargarListaMensajes();
+    	}
+    	return null;
+    }
+    
+    private boolean validaGuardarNuevoMensaje() {
+    	if(mensaje == null) {
+    		Contexts.addErrorMessage("No hay ningún mensaje para guardar.");
+    	} else if(mensaje.getMe_texto() == null || mensaje.getMe_texto().isEmpty()){
+    		Contexts.addErrorMessage("Debe indicar un texto para el mensaje.");
+    	}
+    	return !FuncionesJSF.hayErrores();
+    }
+    
     public String cargarListaMensajes() {
     	if(partida != null && partida.getPa_id() != null) {
     		Session session = Contexts.getHibernateSession();
@@ -66,6 +102,14 @@ public class MensajesPartidaBean implements Serializable {
 
 	public void setPartida(Partidas partida) {
 		this.partida = partida;
+	}
+
+	public Mensajes getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(Mensajes mensaje) {
+		this.mensaje = mensaje;
 	}
 
 	

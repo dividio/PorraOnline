@@ -2,26 +2,72 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"    
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
  
     <h:head>
     	<h:outputStylesheet name="reset.css" library="css"/>
     	<h:outputStylesheet name="text.css" library="css"/>
     	<h:outputStylesheet name="960.css" library="css"/>
-    	<ui:insert name="title"><title>JSF 2.0 Hello World</title></ui:insert>
+    	<title>Porra Online</title>
     </h:head>
     <h:body>
 		<div class="container_12">
 	    	<div class="grid_12">
-                <header id="web_header">
-                    <ui:insert name="header">
+                <a4j:commandLink ajaxSingle="true" >
+		            <rich:messages layout="table" tooltip="true" showDetail="true" showSummary="true" 
+		                       errorClass="error" infoClass="success" warnClass="warning" 
+		                       style="position:fixed; 
+		                                top: 35px;
+		                                left: 50%;
+		                                margin-left: -400px;
+		                                width: 800px;
+		                                z-index: 1000;">
+		            </rich:messages>
+		        </a4j:commandLink>
+		        
+                <header id="top_header">
+                    <ui:insert name="top_header">
                         <h1>Porra Online</h1>
                     </ui:insert>
 	    		</header>
 	    		
-		    	<ui:insert name="body">Body</ui:insert>
-		    	
-		    	<ui:insert name="footer">Footer</ui:insert>
+	    		<nav id="top_menu">
+					<ui:insert name="top_menu">
+					    <ul>
+					       <li>
+					           <h:link outcome="menuPrincipal">Inicio</h:link>
+					       </li>
+					       <li>
+					           <h:link outcome="listaPartidas">Partidas</h:link>
+					       </li>
+					    </ul>
+					</ui:insert>
+	    		</nav>
+	    	</div>
+	    	<div class="grid_9">
+                <section id="main_section">
+                    <ui:insert name="body">Body</ui:insert>
+		    	</section>
+		    </div>
+		    <div class="grid_3">
+                <aside id="login_menu">
+                    <ui:insert name="login_menu">
+                        <ui:include src="/jsf/Login.xhtml"/>
+                    </ui:insert>
+                </aside>
+                
+                <aside id="side_menu">
+                    <ui:insert name="side_menu">
+                        
+                    </ui:insert>
+                </aside>
+            </div>
+		    <div class="grid_12">
+                <footer id="web_footer">
+                    <ui:insert name="footer">Footer</ui:insert>
+		    	</footer>
 	    	</div>
 	    </div>	
     </h:body>

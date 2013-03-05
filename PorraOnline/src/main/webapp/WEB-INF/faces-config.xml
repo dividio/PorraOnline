@@ -18,6 +18,21 @@
 		<to-view-id>/jsf/MenuPrincipal.xhtml</to-view-id>
 		<redirect/>
 	</navigation-case>
+	<navigation-case>
+        <from-outcome>listaPartidas</from-outcome>
+        <to-view-id>/jsf/partidas/ListaPartidas.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+    <navigation-case>
+        <from-outcome>mensajesPartida</from-outcome>
+        <to-view-id>/jsf/partidas/MensajesPartida.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+    <navigation-case>
+        <from-outcome>clasificacionPartida</from-outcome>
+        <to-view-id>/jsf/partidas/ClasificacionPartida.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
 </navigation-rule>
 
 </faces-config>

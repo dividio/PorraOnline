@@ -10,18 +10,19 @@
                 xmlns:rich="http://richfaces.org/rich" 
 				template="/WEB-INF/templates/template.xhtml">
 
+<f:metadata>
+    <f:viewParam name="idPartida" value="#{clasificacionPartidaBean.idPartida}" required="true" />
+</f:metadata>
+
+<ui:define name="side_menu">
+    <ui:include src="/jsf/partidas/MenuPartida.xhtml"/>
+</ui:define>
+
 <ui:define name="body">
+    <h1>Clasificación General</h1>
+    <h2>#{clasificacionPartidaBean.partida}</h2>
 	<h:form>
-		<rich:dataTable value="#{menuPrincipalBean.listaNoticias}" var="noticia">
-            <rich:column>
-                <f:facet name="header">Noticias</f:facet>
-                #{noticia.no_fecha} - #{noticia.no_asunto}<br/>
-                #{noticia.no_texto} 
-            </rich:column>
-            <f:facet name="footer">
-                <rich:dataScroller renderIfSinglePage="false" />
-            </f:facet>
-		</rich:dataTable>
+
     </h:form>
 </ui:define>
 

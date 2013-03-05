@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich">
+
+
+<h:form>
+<a4j:outputPanel id="loginPanel">
+    <a4j:outputPanel rendered="#{not loginBean.logueado}">
+		<h:inputText value="#{loginBean.username}">
+		   <rich:placeholder value="Usuario..."/>
+		</h:inputText>
+		<h:inputSecret value="#{loginBean.password}">
+		</h:inputSecret>
+		<a4j:commandLink action="#{loginBean.login}" value="Acepar" render="loginPanel"/>
+		<br/>
+		<a4j:commandLink action="#{loginBean.guardarNuevoUsuario}" value="Nuevo Usuario" render="loginPanel"/>
+	</a4j:outputPanel>
+	<a4j:outputPanel rendered="#{loginBean.logueado}">
+        #{loginBean.username}
+        <a4j:commandLink action="#{loginBean.logout}" value="Desconectar" render="loginPanel"/>
+    </a4j:outputPanel>
+</a4j:outputPanel>
+</h:form>
+
+</ui:composition>

@@ -9,14 +9,23 @@
 				xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:rich="http://richfaces.org/rich" 
 				template="/WEB-INF/templates/template.xhtml">
+<f:metadata>
+    <f:viewParam name="idPartida" value="#{mensajesPartidaBean.idPartida}" required="true" />
+</f:metadata>
+
+<ui:define name="side_menu">
+    <ui:include src="/jsf/partidas/MenuPartida.xhtml"/>
+</ui:define>
 
 <ui:define name="body">
+    <h1>Mensajes</h1>
+    <h2>#{mensajesPartidaBean.partida.pa_nombre}</h2>
 	<h:form>
-		<rich:dataTable value="#{menuPrincipalBean.listaNoticias}" var="noticia">
+		<rich:dataTable value="#{mensajesPartidaBean.listaMensajes}" var="mensaje">
             <rich:column>
-                <f:facet name="header">Noticias</f:facet>
-                #{noticia.no_fecha} - #{noticia.no_asunto}<br/>
-                #{noticia.no_texto} 
+                <f:facet name="header">Mensajes</f:facet>
+                #{mensaje.me_fecha} - #{mensaje.me_asunto}<br/>
+                #{mensaje.me_texto} 
             </rich:column>
             <f:facet name="footer">
                 <rich:dataScroller renderIfSinglePage="false" />

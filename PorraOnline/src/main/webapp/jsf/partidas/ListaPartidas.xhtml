@@ -11,12 +11,14 @@
 				template="/WEB-INF/templates/template.xhtml">
 
 <ui:define name="body">
+    <h1>Lista de Partidas</h1>
 	<h:form>
-		<rich:dataTable value="#{menuPrincipalBean.listaNoticias}" var="noticia">
+		<rich:dataTable value="#{listaPartidasBean.listaPartidas}" var="partida">
             <rich:column>
-                <f:facet name="header">Noticias</f:facet>
-                #{noticia.no_fecha} - #{noticia.no_asunto}<br/>
-                #{noticia.no_texto} 
+                <f:facet name="header">Partidas</f:facet>
+                <h:link value="#{partida.pa_nombre}" outcome="mensajesPartida">
+                    <f:param name="idPartida" value="#{partida.pa_id}"/>
+                </h:link> 
             </rich:column>
             <f:facet name="footer">
                 <rich:dataScroller renderIfSinglePage="false" />

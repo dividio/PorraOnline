@@ -16,30 +16,43 @@ import com.aap.util.jsf.Contexts;
 public class AccesoPassword {
 	private static final Logger logger = LoggerFactory.getLogger(AccesoPassword.class);
 
-	public static boolean existe_usuario(String login, String password)
-			throws Exception {
+	public static Usuarios obtenerUsuario(String login, String password) {
 
 		boolean valido = false;
 
 		Session session = Contexts.getHibernateSession();
 		Usuarios usu;
 		login = login.trim();
+		
 		try{
 			usu = (Usuarios)session.createCriteria(Usuarios.class)
 											.add(Restrictions.eq("usu_username", login))
 											.uniqueResult();
 		} catch (NonUniqueResultException e) {
 			Contexts.addErrorMessage("Username duplicado");
-			return false;
+			return null;
 		}
+		
 		if(usu != null) {
 			String md5 = usu.getUsu_password();
 			if(md5 != null) {
-				valido = iguales(password, md5);
+				try {
+	                valido = iguales(password, md5);
+                } catch (NoSuchAlgorithmException e) {
+	                Contexts.addErrorMessage("Error al calcular el SHA.");
+	                logger.error("Error al calcular el SHA", e);
+                }
 			}
+			
+			if(!valido) {
+				Contexts.addErrorMessage("Contraseña incorrecta.");
+				usu = null;
+			}
+		} else {
+			Contexts.addErrorMessage("No existe el usuario.");
 		}
-
-		return valido;
+		
+		return usu;
 
 	}
 

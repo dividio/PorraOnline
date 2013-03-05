@@ -23,7 +23,7 @@ public class MensajesPartidaBean implements Serializable {
 	
     private List<Mensajes> listaMensajes = new ArrayList<Mensajes>();
     
-    private String idPartida;
+    private Long idPartida;
     
     private Partidas partida = new Partidas();
 
@@ -47,22 +47,16 @@ public class MensajesPartidaBean implements Serializable {
 		this.listaMensajes = listaMensajes;
 	}
 
-	public String getIdPartida() {
+	public Long getIdPartida() {
 		return idPartida;
 	}
 
-	public void setIdPartida(String idPartida) {
-		System.out.println(idPartida);
+	public void setIdPartida(Long idPartida) {
 		this.idPartida = idPartida;
 		if(idPartida != null) {
-			try {
-				Long id = Long.parseLong(idPartida);
-				Session session = Contexts.getHibernateSession();
-				partida = (Partidas) session.get(Partidas.class, id);
-				cargarListaMensajes();
-			} catch(NumberFormatException e) {
-				Contexts.addErrorMessage("Identificador de partida incorrecto.");
-			}
+			Session session = Contexts.getHibernateSession();
+			partida = (Partidas) session.get(Partidas.class, idPartida);
+			cargarListaMensajes();
 		}
 	}
 

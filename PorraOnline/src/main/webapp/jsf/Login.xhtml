@@ -18,12 +18,14 @@
 		<h:inputSecret id="password" value="#{loginBean.password}">
             <rich:placeholder value="Contraseña..."/>
 		</h:inputSecret>
+		<br/>
 		<a4j:commandLink action="#{loginBean.login}" value="Acepar" render="loginPanel"/>
 		<br/>
 		<a4j:commandLink action="#{loginBean.guardarNuevoUsuario}" value="Nuevo Usuario" render="loginPanel"/>
 	</a4j:outputPanel>
 	<a4j:outputPanel rendered="#{loginBean.logueado}">
         #{loginBean.username}
+        <br/>
         <a4j:commandLink action="#{loginBean.logout}" value="Desconectar" render="loginPanel"/>
     </a4j:outputPanel>
 </a4j:outputPanel>

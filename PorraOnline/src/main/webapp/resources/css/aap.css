@@ -1,5 +1,36 @@
 /* CSS para las aplicaciones AAP */
 
+
+a {
+	text-decoration: none;
+}
+
 table {
-	width: 100%
+    width: 100%
+}
+
+#top_header {
+	margin: 20px auto;
+}
+
+#top_menu li {
+	display: inline-block;
+	list-style: none;
+	margin-left: 5px;
+}
+
+#side_menu li {
+    list-style: none;
+    margin-left: 0px;
+}
+
+#login_menu {
+	margin-bottom: 20px;
+}
+
+#web_footer {
+	clear: both;
+	text-align: center;
+	padding: 20px;
+	border-top: 1px solid #C4C0C9;
 }

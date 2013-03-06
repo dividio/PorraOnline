@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich" 
+				template="/WEB-INF/templates/template.xhtml">
+
+<f:metadata>
+    <f:viewParam name="idPartida" value="#{administrarPartidaBean.idPartida}" required="true" />
+</f:metadata>
+
+<ui:define name="side_menu">
+    <ui:include src="/jsf/partidas/MenuPartida.xhtml"/>
+</ui:define>
+
+<ui:define name="body">
+    <a4j:outputPanel id="panel">
+    <h1>Administrar Partida</h1>
+    <h2>#{administrarPartidaBean.partida}</h2>
+	<h:form>
+
+        <a4j:commandLink value="Guardar" action="#{administrarPartidaBean.guardarPartida}" render="panel"/>
+        <fieldset class="formulario">
+            <h:outputLabel for="nombre">Nombre:</h:outputLabel>
+            <h:inputText id="nombre" value="#{administrarPartidaBean.partida.pa_nombre}"/>
+            
+            <h:outputLabel for="alias">Alias Competidores:</h:outputLabel>
+            <h:inputText id="alias" value="#{administrarPartidaBean.partida.pa_alias_competidores}"/>
+            
+            <h:outputLabel for="fecha_inicio">Fecha Inicio:</h:outputLabel>
+            <rich:calendar id="fecha_inicio" value="#{administrarPartidaBean.partida.pa_fecha_inicio}"/>
+            
+            <h:outputLabel for="fecha_fin">Fecha Fin:</h:outputLabel>
+            <rich:calendar id="fecha_fin" value="#{administrarPartidaBean.partida.pa_fecha_fin}"/>
+            
+            <h:outputLabel for="descripcion">Descripción:</h:outputLabel>
+            <h:inputTextarea id="descripcion" value="#{administrarPartidaBean.partida.pa_descripcion}" rows="5" cols="40"/>
+        </fieldset>
+        
+        <a4j:commandLink value="Nuevo Competidor" 
+            action="#{administrarPartidaBean.nuevoCompetidor}" 
+            render="panelCompetidor"
+            oncomplete="#{rich:component('panelCompetidor')}.show();"/>
+        <rich:dataTable id="listaCompetidores" value="#{administrarPartidaBean.listaCompetidores}" var="competidor" rows="10">
+            <f:facet name="header">Competidores</f:facet>
+            <rich:column>
+                <f:facet name="header">Nombre</f:facet>
+                #{competidor.co_nombre}
+            </rich:column>
+            <rich:column>
+                <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelCompetidor')}.show();" render="panelCompetidor">
+                    <f:setPropertyActionListener target="#{administrarPartidaBean.competidor}" value="#{competidor}"/>
+                </a4j:commandLink>
+                | Eliminar
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller renderIfSinglePage="false" />
+            </f:facet>
+        </rich:dataTable>
+        
+        <a4j:commandLink value="Nuevo Evento" 
+            action="#{administrarPartidaBean.nuevoEvento}" 
+            render="panelEvento"
+            oncomplete="#{rich:component('panelEvento')}.show();"/>
+        <rich:dataTable id="listaEventos" value="#{administrarPartidaBean.listaEventos}" var="evento" rows="10">
+            <f:facet name="header">Eventos</f:facet>
+            <rich:column>
+                <f:facet name="header">Nombre</f:facet>
+                #{evento.ev_nombre}
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Fecha Evento</f:facet>
+                #{evento.ev_fecha_evento}
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Fecha Limite</f:facet>
+                #{evento.ev_fecha_limite_pronosticos}
+            </rich:column>
+            <rich:column>
+                <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelEvento')}.show();" render="panelEvento">
+                    <f:setPropertyActionListener target="#{administrarPartidaBean.evento}" value="#{evento}"/>
+                </a4j:commandLink>
+                | Eliminar
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller renderIfSinglePage="false" />
+            </f:facet>
+        </rich:dataTable>
+    </h:form>
+    </a4j:outputPanel>
+    
+    <rich:popupPanel id="panelCompetidor" onmaskclick="#{rich:component('panelCompetidor')}.hide();" autosized="true">
+        <h:form>
+            <a4j:commandLink value="Guardar" 
+                action="#{administrarPartidaBean.guardarCompetidor}"
+                oncomplete="#{rich:component('panelCompetidor')}.hide();"
+                render="listaCompetidores"/>
+            <fieldset class="formulario">
+                <h:outputLabel for="nombreCompetidor" value="Nombre:"/>
+	            <h:inputText id="nombreCompetidor" value="#{administrarPartidaBean.competidor.co_nombre}"/>
+            </fieldset>
+        </h:form>
+    </rich:popupPanel>
+    
+    <rich:popupPanel id="panelEvento" onmaskclick="#{rich:component('panelEvento')}.hide();" autosized="true">
+        <h:form>
+            <a4j:commandLink value="Guardar" 
+                action="#{administrarPartidaBean.guardarEvento}"
+                oncomplete="#{rich:component('panelEvento')}.hide();"
+                render="listaEventos"/>
+            <fieldset class="formulario">
+                <h:outputLabel for="nombreEvento" value="Nombre:"/>
+                <h:inputText id="nombreEvento" value="#{administrarPartidaBean.evento.ev_nombre}"/>
+                
+                <h:outputLabel for="fechaEvento" value="Fecha Evento:"/>
+                <rich:calendar id="fechaEvento" value="#{administrarPartidaBean.evento.ev_fecha_evento}"/>
+                
+                <h:outputLabel for="fechaLimiteEvento" value="Fecha Limite:"/>
+                <rich:calendar id="fechaLimiteEvento" value="#{administrarPartidaBean.evento.ev_fecha_limite_pronosticos}"/>
+            </fieldset>
+        </h:form>
+    </rich:popupPanel>
+</ui:define>
+
+</ui:composition>

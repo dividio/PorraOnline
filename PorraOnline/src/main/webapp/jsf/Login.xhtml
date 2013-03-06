@@ -12,21 +12,23 @@
 <h:form>
 <a4j:outputPanel id="loginPanel">
     <a4j:outputPanel rendered="#{not loginBean.logueado}">
-		<h:inputText value="#{loginBean.username}">
-		   <rich:placeholder value="Usuario..."/>
-		</h:inputText>
-		<h:inputSecret id="password" value="#{loginBean.password}">
-            <rich:placeholder value="Contraseña..."/>
-		</h:inputSecret>
-		<br/>
-		<a4j:commandLink action="#{loginBean.login}" value="Acepar" render="loginPanel"/>
-		<br/>
-		<a4j:commandLink action="#{loginBean.guardarNuevoUsuario}" value="Nuevo Usuario" render="loginPanel"/>
+        <fieldset class="formulario">
+			<h:inputText id="login" value="#{loginBean.username}">
+			   <rich:placeholder value="Usuario..."/>
+			</h:inputText>
+			<h:inputSecret id="password" value="#{loginBean.password}">
+	            <rich:placeholder value="Contraseña..."/>
+			</h:inputSecret>
+			<br/>
+			<a4j:commandLink action="#{loginBean.login}" value="Aceptar" render="loginPanel, controles_top_menu"/>
+			<br/>
+			<a4j:commandLink action="#{loginBean.guardarNuevoUsuario}" value="Nuevo Usuario" render="loginPanel, controles_top_menu"/>
+		</fieldset>
 	</a4j:outputPanel>
 	<a4j:outputPanel rendered="#{loginBean.logueado}">
         #{loginBean.username}
         <br/>
-        <a4j:commandLink action="#{loginBean.logout}" value="Desconectar" render="loginPanel"/>
+        <a4j:commandLink action="#{loginBean.logout}" value="Desconectar"/>
     </a4j:outputPanel>
 </a4j:outputPanel>
 </h:form>

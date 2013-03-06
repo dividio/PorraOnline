@@ -29,11 +29,13 @@ public class Partidas implements Serializable {
 
 	private String pa_descripcion;
 
-	private Date pa_fecha_inicial;
+	private Date pa_fecha_inicio;
 
-	private Date pa_fecha_final;
+	private Date pa_fecha_fin;
 
 	private String pa_nombre;
+	
+	private String pa_alias_competidores;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USUARIOS_PARTIDAS", 
@@ -46,6 +48,9 @@ public class Partidas implements Serializable {
 	
 	@OneToMany(mappedBy="ev_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Eventos> listaEventos;
+	
+	@OneToMany(mappedBy="co_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
+	private List<Competidores> listaCompetidores;
 	
 	public Long getPa_id() {
 		return pa_id;
@@ -63,20 +68,20 @@ public class Partidas implements Serializable {
 		this.pa_descripcion = pa_descripcion;
 	}
 
-	public Date getPa_fecha_inicial() {
-		return pa_fecha_inicial;
+	public Date getPa_fecha_inicio() {
+		return pa_fecha_inicio;
 	}
 
-	public void setPa_fecha_inicial(Date pa_fecha_inicial) {
-		this.pa_fecha_inicial = pa_fecha_inicial;
+	public void setPa_fecha_inicio(Date pa_fecha_inicio) {
+		this.pa_fecha_inicio = pa_fecha_inicio;
 	}
 
-	public Date getPa_fecha_final() {
-		return pa_fecha_final;
+	public Date getPa_fecha_fin() {
+		return pa_fecha_fin;
 	}
 
-	public void setPa_fecha_final(Date pa_fecha_final) {
-		this.pa_fecha_final = pa_fecha_final;
+	public void setPa_fecha_fin(Date pa_fecha_fin) {
+		this.pa_fecha_fin = pa_fecha_fin;
 	}
 
 	public String getPa_nombre() {
@@ -109,6 +114,22 @@ public class Partidas implements Serializable {
 
 	public void setListaEventos(List<Eventos> listaEventos) {
 		this.listaEventos = listaEventos;
+	}
+
+	public String getPa_alias_competidores() {
+		return pa_alias_competidores;
+	}
+
+	public void setPa_alias_competidores(String pa_alias_competidores) {
+		this.pa_alias_competidores = pa_alias_competidores;
+	}
+
+	public List<Competidores> getListaCompetidores() {
+		return listaCompetidores;
+	}
+
+	public void setListaCompetidores(List<Competidores> listaCompetidores) {
+		this.listaCompetidores = listaCompetidores;
 	}
 
 	@Override

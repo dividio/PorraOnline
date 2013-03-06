@@ -16,17 +16,6 @@
     <h:body>
 		<div id="div_principal" class="container_12">
 	    	<div class="grid_12">
-                <a4j:commandLink ajaxSingle="true" >
-		            <rich:messages layout="table" tooltip="true" showDetail="true" showSummary="true" 
-		                       errorClass="error" infoClass="success" warnClass="warning" 
-		                       style="position:fixed; 
-		                                top: 35px;
-		                                left: 50%;
-		                                margin-left: -400px;
-		                                width: 800px;
-		                                z-index: 1000;">
-		            </rich:messages>
-		        </a4j:commandLink>
 		        
                 <header id="top_header">
                     <ui:insert name="top_header">
@@ -36,16 +25,28 @@
 	    		
 	    		<nav id="top_menu">
 					<ui:insert name="top_menu">
+                        <a4j:outputPanel id="controles_top_menu">
 					    <ul>
 					       <li>
 					           <h:link outcome="menuPrincipal">Inicio</h:link>
 					       </li>
 					       <li>
-					           <h:link outcome="listaPartidas">Partidas</h:link>
+					           <h:link rendered="#{loginBean.logueado}" outcome="listaPartidas">Partidas</h:link>
 					       </li>
+					       <li>
+                               <h:link rendered="#{loginBean.logueado}" outcome="crearPartida">Crear Partida</h:link>
+                           </li>
 					    </ul>
+					    </a4j:outputPanel>
 					</ui:insert>
 	    		</nav>
+	    		
+	    		<a4j:commandLink ajaxSingle="true" >
+                    <rich:messages layout="table" tooltip="true" showDetail="true" showSummary="true" 
+                               errorClass="error" infoClass="success" warnClass="warning" 
+                               >
+                    </rich:messages>
+                </a4j:commandLink>
 	    	</div>
 	    	<div class="grid_9">
                 <section id="main_section">

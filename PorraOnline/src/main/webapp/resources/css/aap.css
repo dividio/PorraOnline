@@ -5,7 +5,7 @@ a {
 	text-decoration: none;
 }
 
-table {
+.rf-dt {
     width: 100%
 }
 
@@ -33,4 +33,14 @@ table {
 	text-align: center;
 	padding: 20px;
 	border-top: 1px solid #C4C0C9;
+}
+
+.formulario label {
+  display: block;
+  margin: .5em 0 0 0;
+}
+
+.formulario input a {
+  display: inline-block;
+  margin: 5px auto;
 }

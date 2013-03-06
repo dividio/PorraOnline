@@ -24,6 +24,11 @@
         <redirect/>
     </navigation-case>
     <navigation-case>
+        <from-outcome>crearPartida</from-outcome>
+        <to-view-id>/jsf/partidas/CrearPartida.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+    <navigation-case>
         <from-outcome>mensajesPartida</from-outcome>
         <to-view-id>/jsf/partidas/MensajesPartida.xhtml</to-view-id>
         <redirect/>

@@ -43,7 +43,7 @@ public class LoginBean implements Serializable {
     	logueado = Boolean.FALSE;
     	password = null;
     	username = null;
-    	return null;
+    	return "menuPrincipal";
     }
     
     public String guardarNuevoUsuario() {

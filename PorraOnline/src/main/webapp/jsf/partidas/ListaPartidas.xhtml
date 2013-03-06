@@ -12,7 +12,11 @@
 <ui:define name="body">
     <h1>Lista de Partidas</h1>
 	<h:form>
-		<rich:dataTable value="#{listaPartidasBean.listaPartidas}" var="partida">
+        <a4j:commandLink value="Nueva Suscripción" 
+            action="#{listaPartidasBean.mostrarPanelNuevaSuscripcion}" 
+            render="panelNuevaSuscripcion"
+            oncomplete="#{rich:component('panelNuevaSuscripcion')}.show();"/>
+		<rich:dataTable id="listaPartidas" value="#{listaPartidasBean.listaPartidas}" var="partida">
             <rich:column>
                 <f:facet name="header">Partidas</f:facet>
                 <h:link value="#{partida.pa_nombre}" outcome="mensajesPartida">
@@ -24,6 +28,35 @@
             </f:facet>
 		</rich:dataTable>
     </h:form>
+    
+    <rich:popupPanel id="panelNuevaSuscripcion" onmaskclick="#{rich:component('panelNuevaSuscripcion')}.hide();" autosized="true">
+        <h:form>
+            <rich:dataTable value="#{listaPartidasBean.listaPartidasDisponibles}" var="partida">
+	            <rich:column>
+	                <f:facet name="header">Partida</f:facet>
+	                <h:outputText value="#{partida.pa_nombre}"/>
+	            </rich:column>
+	            <rich:column>
+                    <f:facet name="header">Descripcion</f:facet>
+                    <h:outputText value="#{partida.pa_descripcion}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Fecha Fin</f:facet>
+                    <h:outputText value="#{partida.pa_fecha_fin}"/>
+                </rich:column>
+                <rich:column>
+                    <a4j:commandLink value="Suscribir" action="#{listaPartidasBean.suscribirPartida}"
+                            render="listaPartidas"
+                            oncomplete="#{rich:component('panelNuevaSuscripcion')}.hide();">
+                        <f:setPropertyActionListener target="#{listaPartidasBean.partida}" value="#{partida}"/>
+                    </a4j:commandLink> 
+                </rich:column>
+	            <f:facet name="footer">
+	                <rich:dataScroller renderIfSinglePage="false" />
+	            </f:facet>
+	        </rich:dataTable>
+        </h:form>
+    </rich:popupPanel>
 </ui:define>
 
 </ui:composition>

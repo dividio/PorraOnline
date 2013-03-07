@@ -26,17 +26,13 @@
 	    		<nav id="top_menu">
 					<ui:insert name="top_menu">
                         <a4j:outputPanel id="controles_top_menu">
-					    <ul>
-					       <li>
-					           <h:link outcome="menuPrincipal">Inicio</h:link>
-					       </li>
-					       <li>
-					           <h:link rendered="#{loginBean.logueado}" outcome="listaPartidas">Partidas</h:link>
-					       </li>
-					       <li>
-                               <h:link rendered="#{loginBean.logueado}" outcome="crearPartida">Crear Partida</h:link>
-                           </li>
-					    </ul>
+                            <div class="menu_horizontal">
+							<h:link outcome="menuPrincipal">Inicio</h:link>
+							
+							<h:link rendered="#{loginBean.logueado}" outcome="listaPartidas">Partidas</h:link>
+							
+							<h:link rendered="#{loginBean.logueado}" outcome="crearPartida">Crear Partida</h:link>
+							</div>
 					    </a4j:outputPanel>
 					</ui:insert>
 	    		</nav>

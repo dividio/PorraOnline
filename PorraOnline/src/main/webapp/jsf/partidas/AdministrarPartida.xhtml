@@ -91,10 +91,15 @@
             </f:facet>
         </rich:dataTable>
         
+        <div class="menu_horizontal">
         <a4j:commandLink value="Nueva Posición" 
             action="#{administrarPartidaBean.nuevaPosicion}" 
             render="panelPuntosPosicion"
             oncomplete="#{rich:component('panelPuntosPosicion')}.show();"/>
+        <a4j:commandLink value="Eliminar Ultima Posición" 
+            action="#{administrarPartidaBean.eliminarUltimaPosicion}"
+            render="listaPuntosPosicion"/>
+        </div>
         <rich:dataTable id="listaPuntosPosicion" value="#{administrarPartidaBean.listaPuntosPosicion}" var="posicion" rows="10">
             <f:facet name="header">Puntos por Posición</f:facet>
             <rich:column>
@@ -109,7 +114,6 @@
                 <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelPuntosPosicion')}.show();" render="panelPuntosPosicion">
                     <f:setPropertyActionListener target="#{administrarPartidaBean.puntosPosicion}" value="#{posicion}"/>
                 </a4j:commandLink>
-                | Eliminar
             </rich:column>
             <f:facet name="footer">
                 <rich:dataScroller renderIfSinglePage="false" />
@@ -161,7 +165,7 @@
                 render="listaPuntosPosicion"/>
             <fieldset class="formulario">
                 <h:outputLabel for="posicion" value="Posición:"/>
-                <h:inputText id="posicion" value="#{administrarPartidaBean.puntosPosicion.pp_posicion}"/>
+                <h:outputText id="posicion" value="#{administrarPartidaBean.puntosPosicion.pp_posicion}"/>
                                 
                 <h:outputLabel for="puntos" value="Puntos para el que acierte:"/>
                 <h:inputText id="puntos" value="#{administrarPartidaBean.puntosPosicion.pp_puntos}"/>

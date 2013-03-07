@@ -81,6 +81,16 @@ public class AdministrarPartidaBean implements Serializable {
     
     public String nuevaPosicion() {
     	puntosPosicion = new PuntosPosicion();
+    	
+    	Session session = Contexts.getHibernateSession();
+		String hql = "select count(*) + 1 " +
+				"from PuntosPosicion PP " +
+				"where PP.pp_pa_id = :PARTIDA ";
+		Query hqlQ = session.createQuery(hql);
+		hqlQ.setParameter("PARTIDA", partida);
+		Long nuevaPosicion = (Long) hqlQ.uniqueResult();
+		puntosPosicion.setPp_posicion(nuevaPosicion);
+    	
     	return null;
     }
     
@@ -161,32 +171,31 @@ public class AdministrarPartidaBean implements Serializable {
     		Long posicion = puntosPosicion.getPp_posicion();
     		if(posicion == null) {
     			Contexts.addErrorMessage("Debe indicar una posición.");
-    		} else {
-    			Session session = Contexts.getHibernateSession();
-    			String hql = "select count(*) " +
-    					"from PuntosPosicion PP " +
-    					"where PP.pp_posicion = :POSICION " +
-    					"and PP.pp_pa_id = :PARTIDA " +
-    					"and PP.pp_id != :ID";
-    			Query hqlQ = session.createQuery(hql);
-    			if(puntosPosicion.getPp_id() != null) {
-    				hqlQ.setLong("ID", puntosPosicion.getPp_id());
-    			} else {
-    				hqlQ.setLong("ID", Long.valueOf(-1));
-    			}
-    			hqlQ.setParameter("PARTIDA", partida);
-    			hqlQ.setLong("POSICION", posicion);
-    			Long cont = (Long) hqlQ.uniqueResult();
-    			if(cont.compareTo(Long.valueOf(0)) != 0) {
-    				Contexts.addErrorMessage("La posición " + posicion + " ya está asignada.");
-    			}
     		}
-    		
     		if(puntosPosicion.getPp_puntos() == null) {
     			Contexts.addErrorMessage("Debe indicar los puntos para el que acierte.");
     		}
     	}
     	return !FuncionesJSF.hayErrores();
+    }
+    
+    public String eliminarUltimaPosicion() {
+    	Session session = Contexts.getHibernateSession();
+		String hql = "select PP " +
+				"from PuntosPosicion PP " +
+				"where PP.pp_pa_id = :PARTIDA " +
+				"and PP.pp_posicion = " +
+				"(select max(PP1.pp_posicion) " +
+				"from PuntosPosicion PP1 " +
+				"where PP1.pp_pa_id = :PARTIDA)";
+		Query hqlQ = session.createQuery(hql);
+		hqlQ.setParameter("PARTIDA", partida);
+		PuntosPosicion posicion = (PuntosPosicion) hqlQ.uniqueResult();
+    	session.delete(posicion);
+    	session.flush();
+    	Contexts.addInfoMessage("Última posición eliminada correctamente.");
+    	cargarListaPuntosPosicion();
+    	return null;
     }
     
 	public void setIdPartida(Long idPartida) {

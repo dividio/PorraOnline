@@ -13,10 +13,9 @@ a {
 	margin: 20px auto;
 }
 
-#top_menu li {
-	display: inline-block;
-	list-style: none;
+#top_menu {
 	margin-left: 5px;
+	margin-bottom: 20px
 }
 
 #side_menu li {
@@ -43,4 +42,14 @@ a {
 .formulario input a {
   display: inline-block;
   margin: 5px auto;
+}
+
+.menu_horizontal a {
+    margin-right: 10px;
+}
+
+.menu_horizontal a + a {
+	margin-left: 10px;
+	/*padding-left: 10px;
+	border-left: 1px solid black;*/
 }

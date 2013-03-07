@@ -26,6 +26,15 @@
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">${Hibernate.show_sql}</property>
+        
+        <!-- configuration pool via c3p0. Mas opciones en c3p0.properties -->
+        <property name="connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.min_size">1</property>
+        <property name="hibernate.c3p0.max_size">10</property>
+        <property name="hibernate.c3p0.acquire_increment">2</property> 
+        <property name="hibernate.c3p0.idle_test_period">300</property> <!-- seconds --> 
+        <property name="hibernate.c3p0.max_statements">0</property> 
+        <property name="hibernate.c3p0.timeout">36000</property> <!-- seconds -->
 		
     </session-factory>
 

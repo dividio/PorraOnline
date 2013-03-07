@@ -26,6 +26,14 @@
                     <encoding>utf-8</encoding>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <webXml>${project.build.directory}/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
         </plugins>
         
 		<!-- Para filtrar los recursos y poder usar properties en los perfiles de construccion -->
@@ -34,6 +42,14 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
+			<resource>
+                <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                <includes>
+                    <include>web.xml</include>
+                </includes>
+                <filtering>true</filtering>
+                <targetPath>${project.build.directory}/WEB-INF</targetPath>
+            </resource>
 		</resources>
 	</build>
 	
@@ -44,6 +60,8 @@
             <id>desarrollo</id>
             <activation><activeByDefault>true</activeByDefault></activation>
             <properties>
+                <WebXml.javax.faces.PROJECT_STAGE>Development</WebXml.javax.faces.PROJECT_STAGE>
+                
                 <Hibernate.connection.url>jdbc:mysql://localhost:3306/PorraOnline</Hibernate.connection.url>
                 <Hibernate.connection.username>porraonline</Hibernate.connection.username>
                 <Hibernate.connection.password>porraonline</Hibernate.connection.password>
@@ -56,12 +74,14 @@
         <profile>
             <id>produccion</id>
             <properties>
+                <WebXml.javax.faces.PROJECT_STAGE>Production</WebXml.javax.faces.PROJECT_STAGE>
+            
                 <Hibernate.connection.url>xx</Hibernate.connection.url>
                 <Hibernate.connection.username>xx</Hibernate.connection.username>
                 <Hibernate.connection.password>xx</Hibernate.connection.password>
                 <Hibernate.show_sql>false</Hibernate.show_sql>
                 
-                <Log.ficheroLog>/var/log/tomcat/PorraOnline_Log_</Log.ficheroLog>
+                <Log.ficheroLog>/tmp/log/tomcat/PorraOnline_Log_</Log.ficheroLog>
                 <Log.nivelLog>INFO,R</Log.nivelLog>
             </properties>
         </profile>
@@ -171,6 +191,13 @@
 	        <version>4.1.10.Final</version>
 	        <scope>compile</scope>
 	    </dependency>
+	    <dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-c3p0</artifactId>
+		    <version>4.1.10.Final</version>
+		    <scope>compile</scope>
+		</dependency>
+		            
 	    
 	    <!-- MySQL -->
 	    <dependency>

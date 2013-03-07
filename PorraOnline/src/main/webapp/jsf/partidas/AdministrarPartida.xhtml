@@ -90,10 +90,36 @@
                 <rich:dataScroller renderIfSinglePage="false" />
             </f:facet>
         </rich:dataTable>
+        
+        <a4j:commandLink value="Nueva Posición" 
+            action="#{administrarPartidaBean.nuevaPosicion}" 
+            render="panelPuntosPosicion"
+            oncomplete="#{rich:component('panelPuntosPosicion')}.show();"/>
+        <rich:dataTable id="listaPuntosPosicion" value="#{administrarPartidaBean.listaPuntosPosicion}" var="posicion" rows="10">
+            <f:facet name="header">Puntos por Posición</f:facet>
+            <rich:column>
+                <f:facet name="header">Posición</f:facet>
+                #{posicion.pp_posicion}
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Puntos para el que acierte</f:facet>
+                #{posicion.pp_puntos}
+            </rich:column>
+            <rich:column>
+                <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelPuntosPosicion')}.show();" render="panelPuntosPosicion">
+                    <f:setPropertyActionListener target="#{administrarPartidaBean.puntosPosicion}" value="#{posicion}"/>
+                </a4j:commandLink>
+                | Eliminar
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller renderIfSinglePage="false" />
+            </f:facet>
+        </rich:dataTable>
     </h:form>
     </a4j:outputPanel>
     
     <rich:popupPanel id="panelCompetidor" onmaskclick="#{rich:component('panelCompetidor')}.hide();" autosized="true">
+        <f:facet name="header">Competidor</f:facet>
         <h:form>
             <a4j:commandLink value="Guardar" 
                 action="#{administrarPartidaBean.guardarCompetidor}"
@@ -107,6 +133,7 @@
     </rich:popupPanel>
     
     <rich:popupPanel id="panelEvento" onmaskclick="#{rich:component('panelEvento')}.hide();" autosized="true">
+        <f:facet name="header">Evento</f:facet>
         <h:form>
             <a4j:commandLink value="Guardar" 
                 action="#{administrarPartidaBean.guardarEvento}"
@@ -121,6 +148,23 @@
                 
                 <h:outputLabel for="fechaLimiteEvento" value="Fecha Limite:"/>
                 <rich:calendar id="fechaLimiteEvento" value="#{administrarPartidaBean.evento.ev_fecha_limite_pronosticos}"/>
+            </fieldset>
+        </h:form>
+    </rich:popupPanel>
+    
+    <rich:popupPanel id="panelPuntosPosicion" onmaskclick="#{rich:component('panelPuntosPosicion')}.hide();" autosized="true">
+        <f:facet name="header">Puntos por posición</f:facet>
+        <h:form>
+            <a4j:commandLink value="Guardar" 
+                action="#{administrarPartidaBean.guardarPuntosPosicion}"
+                oncomplete="#{rich:component('panelPuntosPosicion')}.hide();"
+                render="listaPuntosPosicion"/>
+            <fieldset class="formulario">
+                <h:outputLabel for="posicion" value="Posición:"/>
+                <h:inputText id="posicion" value="#{administrarPartidaBean.puntosPosicion.pp_posicion}"/>
+                                
+                <h:outputLabel for="puntos" value="Puntos para el que acierte:"/>
+                <h:inputText id="puntos" value="#{administrarPartidaBean.puntosPosicion.pp_puntos}"/>
             </fieldset>
         </h:form>
     </rich:popupPanel>

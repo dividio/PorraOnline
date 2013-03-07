@@ -52,6 +52,9 @@ public class Partidas implements Serializable {
 	@OneToMany(mappedBy="co_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Competidores> listaCompetidores;
 	
+	@OneToMany(mappedBy="pp_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
+	private List<PuntosPosicion> listaPuntosPosicion;
+	
 	public Long getPa_id() {
 		return pa_id;
 	}
@@ -130,6 +133,14 @@ public class Partidas implements Serializable {
 
 	public void setListaCompetidores(List<Competidores> listaCompetidores) {
 		this.listaCompetidores = listaCompetidores;
+	}
+
+	public List<PuntosPosicion> getListaPuntosPosicion() {
+		return listaPuntosPosicion;
+	}
+
+	public void setListaPuntosPosicion(List<PuntosPosicion> listaPuntosPosicion) {
+		this.listaPuntosPosicion = listaPuntosPosicion;
 	}
 
 	@Override

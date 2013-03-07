@@ -8,6 +8,7 @@ import com.aap.dto.Mensajes;
 import com.aap.dto.Noticias;
 import com.aap.dto.Partidas;
 import com.aap.dto.Pronosticos;
+import com.aap.dto.PuntosPosicion;
 import com.aap.dto.Resultados;
 import com.aap.dto.Roles;
 import com.aap.dto.Usuarios;
@@ -24,6 +25,7 @@ public class ConfiguracionAnotaciones {
 		configuration.addAnnotatedClass(Noticias.class);
 		configuration.addAnnotatedClass(Partidas.class);
 		configuration.addAnnotatedClass(Pronosticos.class);
+		configuration.addAnnotatedClass(PuntosPosicion.class);
 		configuration.addAnnotatedClass(Resultados.class);
 	}
 }

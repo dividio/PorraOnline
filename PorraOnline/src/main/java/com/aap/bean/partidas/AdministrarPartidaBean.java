@@ -7,11 +7,15 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import com.aap.dto.Competidores;
 import com.aap.dto.Eventos;
 import com.aap.dto.Partidas;
+import com.aap.dto.PuntosPosicion;
 import com.aap.util.jsf.Contexts;
 import com.aap.util.jsf.FuncionesJSF;
 
@@ -28,10 +32,14 @@ public class AdministrarPartidaBean implements Serializable {
     private List<Competidores> listaCompetidores = new ArrayList<Competidores>();
     
     private List<Eventos> listaEventos = new ArrayList<Eventos>();
+    
+    private List<PuntosPosicion> listaPuntosPosicion = new ArrayList<PuntosPosicion>();
 
 	private Competidores competidor = null;
 
 	private Eventos evento = null;
+	
+	private PuntosPosicion puntosPosicion = null;
     
     public String guardarPartida() {
     	if(validaGuardarPartida()) {
@@ -68,6 +76,11 @@ public class AdministrarPartidaBean implements Serializable {
     
     public String nuevoEvento() {
     	evento = new Eventos();
+    	return null;
+    }
+    
+    public String nuevaPosicion() {
+    	puntosPosicion = new PuntosPosicion();
     	return null;
     }
     
@@ -125,6 +138,57 @@ public class AdministrarPartidaBean implements Serializable {
     	return !FuncionesJSF.hayErrores();
     }
     
+    public String guardarPuntosPosicion() {
+    	if(validaGuardarPuntosPosicion()) {
+    		Session session = Contexts.getHibernateSession();
+    		if(puntosPosicion.getPp_id() == null) {
+    			puntosPosicion.setPp_pa_id(partida);
+    			session.save(puntosPosicion);
+    		} else {
+    			session.merge(puntosPosicion);
+    		}
+    		session.flush();
+    		cargarListaPuntosPosicion();
+    		Contexts.addInfoMessage("Evento guardado correctamente.");
+    	}
+    	return null;
+    }
+    
+    private boolean validaGuardarPuntosPosicion() {
+    	if(puntosPosicion == null) {
+    		Contexts.addErrorMessage("No hay ninguna posición seleccionada.");
+    	} else {
+    		Long posicion = puntosPosicion.getPp_posicion();
+    		if(posicion == null) {
+    			Contexts.addErrorMessage("Debe indicar una posición.");
+    		} else {
+    			Session session = Contexts.getHibernateSession();
+    			String hql = "select count(*) " +
+    					"from PuntosPosicion PP " +
+    					"where PP.pp_posicion = :POSICION " +
+    					"and PP.pp_pa_id = :PARTIDA " +
+    					"and PP.pp_id != :ID";
+    			Query hqlQ = session.createQuery(hql);
+    			if(puntosPosicion.getPp_id() != null) {
+    				hqlQ.setLong("ID", puntosPosicion.getPp_id());
+    			} else {
+    				hqlQ.setLong("ID", Long.valueOf(-1));
+    			}
+    			hqlQ.setParameter("PARTIDA", partida);
+    			hqlQ.setLong("POSICION", posicion);
+    			Long cont = (Long) hqlQ.uniqueResult();
+    			if(cont.compareTo(Long.valueOf(0)) != 0) {
+    				Contexts.addErrorMessage("La posición " + posicion + " ya está asignada.");
+    			}
+    		}
+    		
+    		if(puntosPosicion.getPp_puntos() == null) {
+    			Contexts.addErrorMessage("Debe indicar los puntos para el que acierte.");
+    		}
+    	}
+    	return !FuncionesJSF.hayErrores();
+    }
+    
 	public void setIdPartida(Long idPartida) {
 		this.idPartida = idPartida;
 		if(idPartida != null) {
@@ -132,19 +196,32 @@ public class AdministrarPartidaBean implements Serializable {
 			partida = (Partidas) session.get(Partidas.class, idPartida);
 			cargarListaCompetidores();
 			cargarListaEventos();
+			cargarListaPuntosPosicion();
 		}
 	}
 	
     private void cargarListaCompetidores() {
     	Session session = Contexts.getHibernateSession();
-		partida = (Partidas) session.get(Partidas.class, idPartida);
-    	listaCompetidores = partida.getListaCompetidores();
+    	listaCompetidores = session.createCriteria(Competidores.class)
+    			.add(Restrictions.eq("co_pa_id", partida))
+    			.addOrder(Order.asc("co_nombre"))
+    			.list();
     }
     
     private void cargarListaEventos() {
     	Session session = Contexts.getHibernateSession();
-		partida = (Partidas) session.get(Partidas.class, idPartida);
-    	listaEventos = partida.getListaEventos();
+    	listaEventos = session.createCriteria(Eventos.class)
+    			.add(Restrictions.eq("ev_pa_id", partida))
+    			.addOrder(Order.asc("ev_fecha_evento"))
+    			.list();
+    }
+    
+    private void cargarListaPuntosPosicion() {
+    	Session session = Contexts.getHibernateSession();
+    	listaPuntosPosicion = session.createCriteria(PuntosPosicion.class)
+    			.add(Restrictions.eq("pp_pa_id", partida))
+    			.addOrder(Order.asc("pp_posicion"))
+    			.list();
     }
 
 	public Long getIdPartida() {
@@ -189,6 +266,22 @@ public class AdministrarPartidaBean implements Serializable {
 
 	public void setEvento(Eventos evento) {
 		this.evento = evento;
+	}
+
+	public List<PuntosPosicion> getListaPuntosPosicion() {
+		return listaPuntosPosicion;
+	}
+
+	public void setListaPuntosPosicion(List<PuntosPosicion> listaPuntosPosicion) {
+		this.listaPuntosPosicion = listaPuntosPosicion;
+	}
+
+	public PuntosPosicion getPuntosPosicion() {
+		return puntosPosicion;
+	}
+
+	public void setPuntosPosicion(PuntosPosicion puntosPosicion) {
+		this.puntosPosicion = puntosPosicion;
 	}
 
 	

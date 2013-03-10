@@ -47,14 +47,15 @@ public class ProximoEventoBean implements Serializable {
     	int posicion = 1;
     	for(Pronosticos pronostico:listaPronosticos) {
     		pronostico.setPr_posicion(Long.valueOf(posicion++));
-    		if(pronostico.getPr_id() == null) {
+    		if(pronostico.getPr_id() == null || pronostico.getPr_id().compareTo(Long.valueOf(0)) <= 0) {
+    			pronostico.setPr_id(null);
     			session.save(pronostico);
     		} else {
     			session.merge(pronostico);
     		}
     	}
     	for(Pronosticos pronostico:listaPronosticosSinAsignar) {
-    		if(pronostico.getPr_id() != null) {
+    		if(pronostico.getPr_id() != null && pronostico.getPr_id().compareTo(Long.valueOf(0)) > 0) {
     			session.delete(pronostico);
     		}
     	}
@@ -66,11 +67,13 @@ public class ProximoEventoBean implements Serializable {
     }
     
     public String agregarPronostico() {    	
-    	Long posicion = Long.valueOf(listaPronosticos.size() + 1);
-    	pronostico.setPr_posicion(posicion);
     	
     	listaPronosticos.add(pronostico);
     	listaPronosticosSinAsignar.remove(pronostico);
+    	
+    	Long posicion = Long.valueOf(listaPronosticos.size());
+    	pronostico.setPr_posicion(posicion);
+    	
     	hayCambios = Boolean.TRUE;
     	
     	return null;
@@ -180,10 +183,12 @@ public class ProximoEventoBean implements Serializable {
 	    	hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
 	    	hqlQ.setParameter("USUARIO", usuario);
 	    	hqlQ.setParameter("EVENTO", evento);
-	    	List<Competidores> competidoresLibres = hqlQ.list();	    	
+	    	List<Competidores> competidoresLibres = hqlQ.list();
+	    	int indice = -1;
 	    	for(Competidores competidor:competidoresLibres) {
 	    		
 	        	Pronosticos pronostico = new Pronosticos();
+	        	pronostico.setPr_id(Long.valueOf(indice--));
 	        	pronostico.setPr_ev_id(evento);
 	        	pronostico.setPr_usu_id(usuario);
 	        	pronostico.setPr_co_id(competidor);

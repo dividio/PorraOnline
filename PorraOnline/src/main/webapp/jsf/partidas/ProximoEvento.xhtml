@@ -77,7 +77,7 @@
     
     <rich:popupPanel id="panelCompetidores" onmaskclick="#{rich:component('panelCompetidores')}.hide();" autosized="true">
         <h:form>
-            <rich:dataTable value="#{proximoEventoBean.listaPronosticosSinAsignar}" var="pronostico">
+            <rich:dataTable value="#{proximoEventoBean.listaPronosticosSinAsignar}" var="pronostico" rows="15">
                 <f:facet name="header">Lista de #{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
                 <rich:column>
                     <a4j:commandLink action="#{proximoEventoBean.agregarPronostico}"
@@ -87,6 +87,9 @@
                         <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
                     </a4j:commandLink> 
                 </rich:column>
+                <f:facet name="footer">
+	                <rich:dataScroller renderIfSinglePage="false" />
+	            </f:facet>
             </rich:dataTable>
         </h:form>
     </rich:popupPanel>

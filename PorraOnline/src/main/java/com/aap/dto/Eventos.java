@@ -31,8 +31,18 @@ public class Eventos implements Serializable {
 
 	private Date ev_fecha_evento;
 
+	private Date ev_fecha_inicio_pronosticos;
+	
 	private Date ev_fecha_limite_pronosticos;
+	
+	private Long ev_numero_pronosticos;
 
+	@Size(max=100)
+	private String ev_lugar;
+	
+	@Size(max=250)
+	private String ev_url_referencia;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "ev_pa_id", referencedColumnName = "pa_id")
 	private Partidas ev_pa_id;
@@ -86,6 +96,38 @@ public class Eventos implements Serializable {
 
 	public void setListaResultados(List<Resultados> listaResultados) {
 		this.listaResultados = listaResultados;
+	}
+
+	public Date getEv_fecha_inicio_pronosticos() {
+		return ev_fecha_inicio_pronosticos;
+	}
+
+	public void setEv_fecha_inicio_pronosticos(Date ev_fecha_inicio_pronosticos) {
+		this.ev_fecha_inicio_pronosticos = ev_fecha_inicio_pronosticos;
+	}
+
+	public Long getEv_numero_pronosticos() {
+		return ev_numero_pronosticos;
+	}
+
+	public void setEv_numero_pronosticos(Long ev_numero_pronosticos) {
+		this.ev_numero_pronosticos = ev_numero_pronosticos;
+	}
+
+	public String getEv_lugar() {
+		return ev_lugar;
+	}
+
+	public void setEv_lugar(String ev_lugar) {
+		this.ev_lugar = ev_lugar;
+	}
+
+	public String getEv_url_referencia() {
+		return ev_url_referencia;
+	}
+
+	public void setEv_url_referencia(String ev_url_referencia) {
+		this.ev_url_referencia = ev_url_referencia;
 	}
 
 	@Override

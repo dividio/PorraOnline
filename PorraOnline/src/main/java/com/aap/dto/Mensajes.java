@@ -28,7 +28,7 @@ public class Mensajes implements Serializable {
 	@Size(max=100)
 	private String me_asunto;
 	
-	@Size(max=1000)
+	@Size(max=2500)
 	private String me_texto;
 
 	@ManyToOne(fetch=FetchType.LAZY)

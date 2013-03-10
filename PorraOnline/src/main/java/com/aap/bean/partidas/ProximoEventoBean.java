@@ -33,6 +33,8 @@ public class ProximoEventoBean implements Serializable {
     private Eventos evento = new Eventos();
     
     private Boolean hayCambios = Boolean.FALSE;
+    
+    private Boolean editable = Boolean.FALSE;
         
     private Pronosticos pronostico = new Pronosticos();
         
@@ -153,6 +155,17 @@ public class ProximoEventoBean implements Serializable {
 		hqlQ.setDate("FECHA", new Date());
 		
 		evento = (Eventos) hqlQ.uniqueResult();
+		
+		if(evento != null) {
+			Date fechaInicio = evento.getEv_fecha_inicio_pronosticos();
+			Date fechaFin = evento.getEv_fecha_limite_pronosticos();
+			Date fechaActual = new Date();
+			if(fechaInicio.before(fechaActual) && fechaFin.after(fechaActual)) {
+				editable = Boolean.TRUE;
+			} else {
+				editable = Boolean.FALSE;
+			}
+		}
 	}
 	
 	private void cargarPronosticosEvento() {
@@ -244,6 +257,14 @@ public class ProximoEventoBean implements Serializable {
 
 	public void setHayCambios(Boolean hayCambios) {
 		this.hayCambios = hayCambios;
+	}
+
+	public Boolean getEditable() {
+		return editable;
+	}
+
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
 	
 	

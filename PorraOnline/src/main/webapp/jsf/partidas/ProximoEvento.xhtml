@@ -26,7 +26,12 @@
         </a4j:outputPanel>
         <a4j:outputPanel id="panelEvento" rendered="#{proximoEventoBean.evento != null}">
         
-	        <p>#{proximoEventoBean.evento.ev_nombre} - (#{proximoEventoBean.evento.ev_fecha_evento})</p>
+            <article>
+	           <p>#{proximoEventoBean.evento.ev_nombre} - (#{proximoEventoBean.evento.ev_fecha_evento})</p>
+	           <p>#{proximoEventoBean.evento.ev_lugar}</p>
+	           <p>Desde #{proximoEventoBean.evento.ev_fecha_inicio_pronosticos} hasta #{proximoEventoBean.evento.ev_fecha_limite_pronosticos}</p>
+	           <p><a href="#{proximoEventoBean.evento.ev_url_referencia}" target="_blank">Más información</a></p>
+	        </article>
 	        
 	        <a4j:outputPanel rendered="#{proximoEventoBean.hayCambios}">
             <p>
@@ -36,9 +41,11 @@
 	        
 	        <div class="menu_horizontal">
                 <a4j:commandLink value="Guardar Pronóstico" 
+                    rendered="#{proximoEventoBean.editable}"
                     action="#{proximoEventoBean.guardarPronostico}"
                     render="panelEvento"/>
 		        <a4j:commandLink value="Agregar #{proximoEventoBean.partida.pa_alias_competidores}" 
+                    rendered="#{proximoEventoBean.editable}"
 		            render="panelCompetidores"
 		            oncomplete="#{rich:component('panelCompetidores')}.show();"/>
             </div>
@@ -55,17 +62,23 @@
                 <rich:column width="20%">
                     <f:facet name="header">Opciones</f:facet>
                     <div class="menu_horizontal">
-                        <a4j:commandLink value="Subir" action="#{proximoEventoBean.subirPronostico}"
+                        <a4j:commandLink value="Subir"
+                                rendered="#{proximoEventoBean.editable}" 
+                                action="#{proximoEventoBean.subirPronostico}"
                                 render="panelEvento">
                             <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
                         </a4j:commandLink>
                         
-                        <a4j:commandLink value="Bajar" action="#{proximoEventoBean.bajarPronostico}"
+                        <a4j:commandLink value="Bajar"
+                                rendered="#{proximoEventoBean.editable}" 
+                                action="#{proximoEventoBean.bajarPronostico}"
                                 render="panelEvento">
                             <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
                         </a4j:commandLink>
                         
-                        <a4j:commandLink value="Eliminar" action="#{proximoEventoBean.eliminarPronostico}"
+                        <a4j:commandLink value="Eliminar"
+                                rendered="#{proximoEventoBean.editable}" 
+                                action="#{proximoEventoBean.eliminarPronostico}"
 	                            render="panelEvento">
 	                        <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
 	                    </a4j:commandLink>

@@ -145,13 +145,25 @@
                 render="listaEventos"/>
             <fieldset class="formulario">
                 <h:outputLabel for="nombreEvento" value="Nombre:"/>
-                <h:inputText id="nombreEvento" value="#{administrarPartidaBean.evento.ev_nombre}"/>
+                <h:inputText id="nombreEvento" required="true" value="#{administrarPartidaBean.evento.ev_nombre}" label="Nombre Evento"/>
+                
+                <h:outputLabel for="lugarEvento" value="Lugar:"/>
+                <h:inputText id="lugarEvento" value="#{administrarPartidaBean.evento.ev_lugar}" label="Lugar Evento"/>
+                
+                <h:outputLabel for="urlEvento" value="URL:"/>
+                <h:inputText id="urlEvento" value="#{administrarPartidaBean.evento.ev_url_referencia}" label="Url Evento"/>
                 
                 <h:outputLabel for="fechaEvento" value="Fecha Evento:"/>
-                <rich:calendar id="fechaEvento" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_evento}"/>
+                <rich:calendar id="fechaEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_evento}"/>
                 
-                <h:outputLabel for="fechaLimiteEvento" value="Fecha Limite:"/>
-                <rich:calendar id="fechaLimiteEvento" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_limite_pronosticos}"/>
+                <h:outputLabel for="fechaInicioEvento" value="Fecha Inicio Pronósticos:"/>
+                <rich:calendar id="fechaInicioEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_inicio_pronosticos}"/>
+                
+                <h:outputLabel for="fechaLimiteEvento" value="Fecha Limite Pronósticos:"/>
+                <rich:calendar id="fechaLimiteEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_limite_pronosticos}"/>
+                
+                <h:outputLabel for="numeroPronosticos" value="Número Pronósticos:"/>
+                <h:inputText id="numeroPronosticos" label="Número Pronosticos" required="true" value="#{administrarPartidaBean.evento.ev_numero_pronosticos}"/>
             </fieldset>
         </h:form>
     </rich:popupPanel>

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "MENSAJES")
@@ -24,8 +25,10 @@ public class Mensajes implements Serializable {
 	
 	private Date me_fecha;
 
+	@Size(max=100)
 	private String me_asunto;
-
+	
+	@Size(max=1000)
 	private String me_texto;
 
 	@ManyToOne(fetch=FetchType.LAZY)

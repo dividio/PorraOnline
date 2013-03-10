@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "COMPETIDORES")
@@ -20,6 +21,7 @@ public class Competidores implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long co_id;
 
+	@Size(max=150)
 	private String co_nombre;
 
 	@ManyToOne

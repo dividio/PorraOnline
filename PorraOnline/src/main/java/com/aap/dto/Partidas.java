@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "PARTIDAS")
@@ -27,14 +28,17 @@ public class Partidas implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long pa_id;
 
+	@Size(max=500)
 	private String pa_descripcion;
 
 	private Date pa_fecha_inicio;
 
 	private Date pa_fecha_fin;
 
+	@Size(max=100)
 	private String pa_nombre;
 	
+	@Size(max=50)
 	private String pa_alias_competidores;
 
 	@ManyToMany(fetch = FetchType.LAZY)

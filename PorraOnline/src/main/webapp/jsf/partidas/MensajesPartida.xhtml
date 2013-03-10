@@ -44,12 +44,12 @@
                 render="listaMensajes"/>
             <br/>
             <br/>                    
-            <h:inputText value="#{mensajesPartidaBean.mensaje.me_asunto}">
+            <h:inputText value="#{mensajesPartidaBean.mensaje.me_asunto}" label="Asunto" maxlength="100">
                 <rich:placeholder value="Asunto del mensaje" />
             </h:inputText>
             <br/>
             <br/>
-            <h:inputTextarea id="textoMensaje" value="#{mensajesPartidaBean.mensaje.me_texto}" rows="5" cols="40">
+            <h:inputTextarea id="textoMensaje" value="#{mensajesPartidaBean.mensaje.me_texto}" label="Mensaje" rows="5" cols="40">
                 <rich:placeholder value="Texto del mensaje" />
             </h:inputTextarea>
         </h:form>

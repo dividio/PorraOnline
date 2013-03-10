@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -22,9 +23,16 @@ public class Usuarios implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long	   	usu_id;
+	
+	@Size(max=100)
 	private String	   	usu_email;
+	
+	@Size(max=50)
 	private String     	usu_username;
+	
+	@Size(max=100)
 	private String     	usu_password;
+	
 	private Boolean    	usu_activo;
 	
 	@ManyToMany(fetch = FetchType.LAZY)

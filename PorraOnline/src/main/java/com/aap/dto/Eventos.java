@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "EVENTOS")
@@ -25,6 +26,7 @@ public class Eventos implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ev_id;
 
+	@Size(max=100)
 	private String ev_nombre;
 
 	private Date ev_fecha_evento;

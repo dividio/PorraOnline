@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "NOTICIAS")
@@ -21,8 +22,10 @@ public class Noticias implements Serializable {
 	
 	private Date no_fecha;
 
+	@Size(max=100)
 	private String no_asunto;
 
+	@Size(max=1500)
 	private String no_texto;
 	
 	public Long getNo_id() {

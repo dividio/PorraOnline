@@ -148,10 +148,10 @@
                 <h:inputText id="nombreEvento" value="#{administrarPartidaBean.evento.ev_nombre}"/>
                 
                 <h:outputLabel for="fechaEvento" value="Fecha Evento:"/>
-                <rich:calendar id="fechaEvento" value="#{administrarPartidaBean.evento.ev_fecha_evento}"/>
+                <rich:calendar id="fechaEvento" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_evento}"/>
                 
                 <h:outputLabel for="fechaLimiteEvento" value="Fecha Limite:"/>
-                <rich:calendar id="fechaLimiteEvento" value="#{administrarPartidaBean.evento.ev_fecha_limite_pronosticos}"/>
+                <rich:calendar id="fechaLimiteEvento" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_limite_pronosticos}"/>
             </fieldset>
         </h:form>
     </rich:popupPanel>

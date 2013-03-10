@@ -43,6 +43,11 @@
         <to-view-id>/jsf/partidas/ClasificacionPartida.xhtml</to-view-id>
         <redirect/>
     </navigation-case>
+    <navigation-case>
+        <from-outcome>proximoEvento</from-outcome>
+        <to-view-id>/jsf/partidas/ProximoEvento.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
 </navigation-rule>
 
 </faces-config>

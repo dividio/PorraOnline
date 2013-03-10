@@ -21,7 +21,12 @@
            </h:link>
         </li>
         <li>
-           <h:link value="Administrar" outcome="administrarPartida">
+           <h:link value="Próximo Evento" outcome="proximoEvento">
+              <f:param name="idPartida" value="#{param.idPartida}"/>
+           </h:link>
+       </li>
+       <li>
+           <h:link value="Administrar Partida" outcome="administrarPartida">
               <f:param name="idPartida" value="#{param.idPartida}"/>
            </h:link>
        </li>

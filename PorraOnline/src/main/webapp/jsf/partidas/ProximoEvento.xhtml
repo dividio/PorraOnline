@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich" 
+				template="/WEB-INF/templates/template.xhtml">
+
+<f:metadata>
+    <f:viewParam name="idPartida" value="#{proximoEventoBean.idPartida}" required="true" />
+</f:metadata>
+
+<ui:define name="side_menu">
+    <ui:include src="/jsf/partidas/MenuPartida.xhtml"/>
+</ui:define>
+
+<ui:define name="body">
+    <h1>Próximo Evento</h1>
+    <h2>#{proximoEventoBean.partida}</h2>
+	<h:form>
+        <a4j:outputPanel rendered="#{proximoEventoBean.evento == null}">
+            <p>No hay ningún próximo evento previsto.</p>
+        </a4j:outputPanel>
+        <a4j:outputPanel rendered="#{proximoEventoBean.evento != null}">
+        
+	        <p>#{proximoEventoBean.evento.ev_nombre} - (#{proximoEventoBean.evento.ev_fecha_evento})</p>
+	        
+	        <div class="menu_horizontal">
+                <a4j:commandLink value="Guardar Pronóstico" 
+                    action="#{proximoEventoBean.guardarPronostico}"
+                    render="listaPronosticos"/>
+		        <a4j:commandLink value="Agregar #{proximoEventoBean.partida.pa_alias_competidores}" 
+		            render="panelCompetidores"
+		            oncomplete="#{rich:component('panelCompetidores')}.show();"/>
+            </div>
+	        <rich:dataTable id="listaPronosticos" value="#{proximoEventoBean.listaPronosticos}" var="pronostico" >
+                <f:facet name="header">#{proximoEventoBean.evento.ev_nombre}: Tu pronóstico para el evento</f:facet>
+                <rich:column width="10%">
+                    <f:facet name="header">Posición</f:facet>
+                    #{pronostico.pr_posicion}
+                </rich:column>
+                <rich:column width="70%">
+                    <f:facet name="header">#{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
+                    #{pronostico.pr_co_id}
+                </rich:column>
+                <rich:column width="20%">
+                    <f:facet name="header">Opciones</f:facet>
+                    <div class="menu_horizontal">
+                        <a4j:commandLink value="Subir" action="#{proximoEventoBean.subirPronostico}"
+                                render="listaPronosticos">
+                            <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
+                        </a4j:commandLink>
+                        
+                        <a4j:commandLink value="Bajar" action="#{proximoEventoBean.bajarPronostico}"
+                                render="listaPronosticos">
+                            <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
+                        </a4j:commandLink>
+                        
+                        <a4j:commandLink value="Eliminar" action="#{proximoEventoBean.eliminarPronostico}"
+	                            render="listaPronosticos">
+	                        <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
+	                    </a4j:commandLink>
+                    </div>
+                </rich:column>
+	        </rich:dataTable>
+	    </a4j:outputPanel>
+    </h:form>
+    
+    <rich:popupPanel id="panelCompetidores" onmaskclick="#{rich:component('panelCompetidores')}.hide();" autosized="true">
+        <h:form>
+            <rich:dataTable value="#{proximoEventoBean.listaPronosticosSinAsignar}" var="pronostico">
+                <f:facet name="header">Lista de #{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
+                <rich:column>
+                    <a4j:commandLink action="#{proximoEventoBean.agregarPronostico}"
+                            render="listaPronosticos"
+                            oncomplete="#{rich:component('panelCompetidores')}.hide();">
+                        <h:outputText value="#{pronostico.pr_co_id.co_nombre}"/>
+                        <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
+                    </a4j:commandLink> 
+                </rich:column>
+            </rich:dataTable>
+        </h:form>
+    </rich:popupPanel>
+</ui:define>
+
+</ui:composition>

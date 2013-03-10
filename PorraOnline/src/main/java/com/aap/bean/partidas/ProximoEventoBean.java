@@ -31,6 +31,8 @@ public class ProximoEventoBean implements Serializable {
     private Partidas partida = new Partidas();
     
     private Eventos evento = new Eventos();
+    
+    private Boolean hayCambios = Boolean.FALSE;
         
     private Pronosticos pronostico = new Pronosticos();
         
@@ -58,6 +60,7 @@ public class ProximoEventoBean implements Serializable {
     	}
     	
     	session.flush();
+    	hayCambios = Boolean.FALSE;
     	Contexts.addInfoMessage("Tu pronóstico ha sido guardado correctamente.");
     	return null;
     }
@@ -68,6 +71,8 @@ public class ProximoEventoBean implements Serializable {
     	
     	listaPronosticos.add(pronostico);
     	listaPronosticosSinAsignar.remove(pronostico);
+    	hayCambios = Boolean.TRUE;
+    	
     	return null;
     }
     
@@ -79,6 +84,7 @@ public class ProximoEventoBean implements Serializable {
     		pronostico.setPr_posicion(Long.valueOf(posicion-1));
     		listaPronosticos.set(posicion-2, pronostico);
     		listaPronosticos.set(posicion-1, pronosticoAnterior);
+    		hayCambios = Boolean.TRUE;
     	}
     	
     	return null;
@@ -93,6 +99,7 @@ public class ProximoEventoBean implements Serializable {
     		pronostico.setPr_posicion(Long.valueOf(posicion+1));
     		listaPronosticos.set(posicion, pronostico);
     		listaPronosticos.set(posicion-1, pronosticoPosterior);
+    		hayCambios = Boolean.TRUE;
     	}
     	
     	return null;
@@ -106,6 +113,8 @@ public class ProximoEventoBean implements Serializable {
     	for(Pronosticos pronostico:listaPronosticos) {
     		pronostico.setPr_posicion(Long.valueOf(posicion++));
     	}
+    	hayCambios = Boolean.TRUE;
+    	
     	return null;
     }
     
@@ -222,6 +231,14 @@ public class ProximoEventoBean implements Serializable {
 
 	public void setListaPronosticosSinAsignar(List<Pronosticos> listaPronosticosSinAsignar) {
 		this.listaPronosticosSinAsignar = listaPronosticosSinAsignar;
+	}
+
+	public Boolean getHayCambios() {
+		return hayCambios;
+	}
+
+	public void setHayCambios(Boolean hayCambios) {
+		this.hayCambios = hayCambios;
 	}
 	
 	

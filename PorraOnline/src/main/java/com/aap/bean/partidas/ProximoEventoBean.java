@@ -205,6 +205,7 @@ public class ProximoEventoBean implements Serializable {
 	}
 	
 	private void cargarListaCompetidores() {
+		listaPronosticosSinAsignar = new ArrayList<Pronosticos>();
     	Session session = Contexts.getHibernateSession();
     	Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
     	if(usuario != null) {

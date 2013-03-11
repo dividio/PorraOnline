@@ -27,7 +27,13 @@
 		<rich:dataTable id="listaMensajes" value="#{mensajesPartidaBean.listaMensajes}" var="mensaje" rows="15">
             <rich:column>
                 <f:facet name="header">Mensajes</f:facet>
-                <p>(#{mensaje.me_fecha}) #{mensaje.me_usu_id} dijo: #{mensaje.me_asunto}</p>
+                <p>
+                    (
+                    <h:outputText value="#{mensaje.me_fecha}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </h:outputText>
+                    ) #{mensaje.me_usu_id} dijo: #{mensaje.me_asunto}
+                </p>
                 <p>#{mensaje.me_texto}</p> 
             </rich:column>
             <f:facet name="footer">

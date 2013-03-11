@@ -32,10 +32,10 @@
             <h:inputText id="alias" value="#{administrarPartidaBean.partida.pa_alias_competidores}"/>
             
             <h:outputLabel for="fecha_inicio">Fecha Inicio:</h:outputLabel>
-            <rich:calendar id="fecha_inicio" value="#{administrarPartidaBean.partida.pa_fecha_inicio}"/>
+            <rich:calendar id="fecha_inicio" value="#{administrarPartidaBean.partida.pa_fecha_inicio}" datePattern="dd/MM/yyyy"/>
             
             <h:outputLabel for="fecha_fin">Fecha Fin:</h:outputLabel>
-            <rich:calendar id="fecha_fin" value="#{administrarPartidaBean.partida.pa_fecha_fin}"/>
+            <rich:calendar id="fecha_fin" value="#{administrarPartidaBean.partida.pa_fecha_fin}" datePattern="dd/MM/yyyy"/>
             
             <h:outputLabel for="descripcion">Descripción:</h:outputLabel>
             <h:inputTextarea id="descripcion" value="#{administrarPartidaBean.partida.pa_descripcion}" rows="5" cols="40"/>
@@ -74,11 +74,15 @@
             </rich:column>
             <rich:column>
                 <f:facet name="header">Fecha Evento</f:facet>
-                #{evento.ev_fecha_evento}
+                <h:outputText value="#{evento.ev_fecha_evento}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                </h:outputText>
             </rich:column>
             <rich:column>
                 <f:facet name="header">Fecha Limite</f:facet>
-                #{evento.ev_fecha_limite_pronosticos}
+                <h:outputText value="#{evento.ev_fecha_limite_pronosticos}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                </h:outputText>
             </rich:column>
             <rich:column>
                 <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelEvento')}.show();" render="panelEvento">

@@ -27,9 +27,21 @@
         <a4j:outputPanel id="panelEvento" rendered="#{proximoEventoBean.evento != null}">
         
             <article>
-	           <p>#{proximoEventoBean.evento.ev_nombre} - (#{proximoEventoBean.evento.ev_fecha_evento})</p>
+                <p>#{proximoEventoBean.evento.ev_nombre} - (
+                    <h:outputText value="#{proximoEventoBean.evento.ev_fecha_evento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </h:outputText>)
+                </p>
 	           <p>#{proximoEventoBean.evento.ev_lugar}</p>
-	           <p>Desde #{proximoEventoBean.evento.ev_fecha_inicio_pronosticos} hasta #{proximoEventoBean.evento.ev_fecha_limite_pronosticos}</p>
+	           <p>Se pueden hacer pronósticos desde el
+	               <h:outputText value="#{proximoEventoBean.evento.ev_fecha_inicio_pronosticos}">
+	                   <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+	               </h:outputText> 
+	               hasta el 
+	               <h:outputText value="#{proximoEventoBean.evento.ev_fecha_limite_pronosticos}">
+                       <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                   </h:outputText>
+                </p>
 	           <p><a href="#{proximoEventoBean.evento.ev_url_referencia}" target="_blank">Más información</a></p>
 	        </article>
 	        

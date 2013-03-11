@@ -14,7 +14,13 @@
 		<rich:dataTable value="#{menuPrincipalBean.listaNoticias}" var="noticia" rows="15">
             <f:facet name="header">Noticias</f:facet>				      
             <rich:column>
-                <p>(#{noticia.no_fecha}) - #{noticia.no_asunto}</p>
+                <p>
+                    (
+                    <h:outputText value="#{noticia.no_fecha}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </h:outputText>
+                    ) - #{noticia.no_asunto}
+                </p>
                 <p>#{noticia.no_texto}</p> 
             </rich:column>
             <f:facet name="footer">

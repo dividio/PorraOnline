@@ -26,28 +26,34 @@
         </a4j:outputPanel>
         <a4j:outputPanel id="panelEvento" rendered="#{proximoEventoBean.evento != null}">
         
+            <a4j:commandLink value="Buscar Eventos" 
+                    action="#{proximoEventoBean.cargarListaEventos}"
+                    render="panelBuscadorEventos"
+                    oncomplete="#{rich:component('panelBuscadorEventos')}.show();"/>
             <article>
-                <p>#{proximoEventoBean.evento.ev_nombre} - (
+                <p>
+                    #{proximoEventoBean.evento.ev_nombre} <br/>
+                    #{proximoEventoBean.evento.ev_lugar} - (
                     <h:outputText value="#{proximoEventoBean.evento.ev_fecha_evento}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                     </h:outputText>)
                 </p>
-	           <p>#{proximoEventoBean.evento.ev_lugar}</p>
-	           <p>Se pueden hacer pronósticos desde el
-	               <h:outputText value="#{proximoEventoBean.evento.ev_fecha_inicio_pronosticos}">
-	                   <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-	               </h:outputText> 
-	               hasta el 
-	               <h:outputText value="#{proximoEventoBean.evento.ev_fecha_limite_pronosticos}">
-                       <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-                   </h:outputText>
+                <p>
+                    Se pueden hacer pronósticos desde el
+					<h:outputText value="#{proximoEventoBean.evento.ev_fecha_inicio_pronosticos}">
+					   <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+					</h:outputText> 
+					hasta el 
+					<h:outputText value="#{proximoEventoBean.evento.ev_fecha_limite_pronosticos}">
+					   <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </h:outputText>
                 </p>
-	           <p><a href="#{proximoEventoBean.evento.ev_url_referencia}" target="_blank">Más información</a></p>
+                <p><a href="#{proximoEventoBean.evento.ev_url_referencia}" target="_blank">Más información</a></p>
 	        </article>
 	        
 	        <a4j:outputPanel rendered="#{proximoEventoBean.hayCambios}">
             <p>
-                ATENCIÓN: Has hecho cambios en tu pronóstico y aún no los has guardado.
+                ATENCIÓN: Has hecho cambios en tu pronóstico y aún no lo has guardado.
 	        </p>
 	        </a4j:outputPanel>
 	        
@@ -115,6 +121,59 @@
                 <f:facet name="footer">
 	                <rich:dataScroller renderIfSinglePage="false" />
 	            </f:facet>
+            </rich:dataTable>
+        </h:form>
+    </rich:popupPanel>
+    
+    <rich:popupPanel id="panelBuscadorEventos" onmaskclick="#{rich:component('panelBuscadorEventos')}.hide();" autosized="true">
+        <h:form>
+            <rich:dataTable value="#{proximoEventoBean.listaEventos}" var="evento" rows="10">
+                <f:facet name="header">Lista de Eventos</f:facet>
+                <rich:column>
+                    <f:facet name="header">Evento</f:facet>
+                    <a4j:commandLink action="#{proximoEventoBean.cargarNuevoEvento}"
+                            render="panelEvento"
+                            oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
+                        <h:outputText value="#{evento.ev_nombre}"/>
+                        <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
+                    </a4j:commandLink> 
+                </rich:column>
+                <rich:column>
+	                <f:facet name="header">Fecha Evento</f:facet>
+	                <a4j:commandLink action="#{proximoEventoBean.cargarNuevoEvento}"
+                            render="panelEvento"
+                            oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
+                        <h:outputText value="#{evento.ev_fecha_evento}">
+	                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+	                    </h:outputText>
+                        <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
+                    </a4j:commandLink>
+	            </rich:column>
+	            <rich:column>
+                    <f:facet name="header">Fecha Inicio Pronósticos</f:facet>
+                    <a4j:commandLink action="#{proximoEventoBean.cargarNuevoEvento}"
+                            render="panelEvento"
+                            oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
+                        <h:outputText value="#{evento.ev_fecha_inicio_pronosticos}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        </h:outputText>
+                        <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
+                    </a4j:commandLink>
+                </rich:column>
+	            <rich:column>
+	                <f:facet name="header">Fecha Límite Pronósticos</f:facet>
+	                <a4j:commandLink action="#{proximoEventoBean.cargarNuevoEvento}"
+                            render="panelEvento"
+                            oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
+                        <h:outputText value="#{evento.ev_fecha_limite_pronosticos}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        </h:outputText>
+                        <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
+                    </a4j:commandLink>
+	            </rich:column>
+                <f:facet name="footer">
+                    <rich:dataScroller renderIfSinglePage="false" />
+                </f:facet>
             </rich:dataTable>
         </h:form>
     </rich:popupPanel>

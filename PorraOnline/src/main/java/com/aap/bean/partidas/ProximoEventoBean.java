@@ -42,6 +42,25 @@ public class ProximoEventoBean implements Serializable {
     
     List<Pronosticos> listaPronosticos = new ArrayList<Pronosticos>();
     
+    List<Eventos> listaEventos = new ArrayList<Eventos>();
+    
+    public String cargarListaEventos() {
+    	if(listaEventos.isEmpty()) {
+	    	Session session = Contexts.getHibernateSession();
+	    	listaEventos = session.createCriteria(Eventos.class)
+	    			.add(Restrictions.eq("ev_pa_id", partida))
+	    			.addOrder(Order.asc("ev_fecha_evento"))
+	    			.list();
+    	}
+    	return null;
+    }
+    
+    public String cargarNuevoEvento() {
+    	cargarEvento();
+    	cargarPronosticosEvento();
+    	cargarListaCompetidores();
+    	return null;
+    }
     
     public String guardarPronostico() {
     	Session session = Contexts.getHibernateSession();
@@ -69,14 +88,17 @@ public class ProximoEventoBean implements Serializable {
     }
     
     public String agregarPronostico() {    	
-    	
-    	listaPronosticos.add(pronostico);
-    	listaPronosticosSinAsignar.remove(pronostico);
-    	
-    	Long posicion = Long.valueOf(listaPronosticos.size());
-    	pronostico.setPr_posicion(posicion);
-    	
-    	hayCambios = Boolean.TRUE;
+    	if(listaPronosticos.size() < evento.getEv_numero_pronosticos()) {
+	    	listaPronosticos.add(pronostico);
+	    	listaPronosticosSinAsignar.remove(pronostico);
+	    	
+	    	Long posicion = Long.valueOf(listaPronosticos.size());
+	    	pronostico.setPr_posicion(posicion);
+	    	
+	    	hayCambios = Boolean.TRUE;
+    	} else {
+    		Contexts.addErrorMessage("No se pueden agregar más pronósticos a este evento, el máximo es de " + evento.getEv_numero_pronosticos());
+    	}
     	
     	return null;
     }
@@ -155,7 +177,11 @@ public class ProximoEventoBean implements Serializable {
 		hqlQ.setDate("FECHA", new Date());
 		
 		evento = (Eventos) hqlQ.uniqueResult();
+		cargarEvento();
 		
+	}
+	
+	private void cargarEvento() {
 		if(evento != null) {
 			Date fechaInicio = evento.getEv_fecha_inicio_pronosticos();
 			Date fechaFin = evento.getEv_fecha_limite_pronosticos();
@@ -265,6 +291,14 @@ public class ProximoEventoBean implements Serializable {
 
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
+	}
+
+	public List<Eventos> getListaEventos() {
+		return listaEventos;
+	}
+
+	public void setListaEventos(List<Eventos> listaEventos) {
+		this.listaEventos = listaEventos;
 	}
 	
 	

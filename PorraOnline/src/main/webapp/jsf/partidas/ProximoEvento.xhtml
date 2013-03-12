@@ -35,17 +35,17 @@
                     #{proximoEventoBean.evento.ev_nombre} <br/>
                     #{proximoEventoBean.evento.ev_lugar} - (
                     <h:outputText value="#{proximoEventoBean.evento.ev_fecha_evento}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                     </h:outputText>)
                 </p>
                 <p>
                     Se pueden hacer pronósticos desde el
 					<h:outputText value="#{proximoEventoBean.evento.ev_fecha_inicio_pronosticos}">
-					   <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+					   <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
 					</h:outputText> 
 					hasta el 
 					<h:outputText value="#{proximoEventoBean.evento.ev_fecha_limite_pronosticos}">
-					   <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+					   <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                     </h:outputText>
                 </p>
                 <p><a href="#{proximoEventoBean.evento.ev_url_referencia}" target="_blank">Más información</a></p>
@@ -144,7 +144,7 @@
                             render="panelEvento"
                             oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
                         <h:outputText value="#{evento.ev_fecha_evento}">
-	                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+	                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
 	                    </h:outputText>
                         <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
                     </a4j:commandLink>
@@ -155,7 +155,7 @@
                             render="panelEvento"
                             oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
                         <h:outputText value="#{evento.ev_fecha_inicio_pronosticos}">
-                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                         </h:outputText>
                         <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
                     </a4j:commandLink>
@@ -166,7 +166,7 @@
                             render="panelEvento"
                             oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
                         <h:outputText value="#{evento.ev_fecha_limite_pronosticos}">
-                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                         </h:outputText>
                         <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
                     </a4j:commandLink>

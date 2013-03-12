@@ -30,7 +30,7 @@
                 <p>
                     (
                     <h:outputText value="#{mensaje.me_fecha}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                     </h:outputText>
                     ) #{mensaje.me_usu_id} dijo: #{mensaje.me_asunto}
                 </p>

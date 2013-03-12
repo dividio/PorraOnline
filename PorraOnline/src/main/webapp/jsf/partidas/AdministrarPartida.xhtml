@@ -32,10 +32,10 @@
             <h:inputText id="alias" value="#{administrarPartidaBean.partida.pa_alias_competidores}"/>
             
             <h:outputLabel for="fecha_inicio">Fecha Inicio:</h:outputLabel>
-            <rich:calendar id="fecha_inicio" value="#{administrarPartidaBean.partida.pa_fecha_inicio}" datePattern="dd/MM/yyyy"/>
+            <rich:calendar id="fecha_inicio" value="#{administrarPartidaBean.partida.pa_fecha_inicio}" datePattern="dd/MM/yyyy" timeZone="#{loginBean.timeZone}"/>
             
             <h:outputLabel for="fecha_fin">Fecha Fin:</h:outputLabel>
-            <rich:calendar id="fecha_fin" value="#{administrarPartidaBean.partida.pa_fecha_fin}" datePattern="dd/MM/yyyy"/>
+            <rich:calendar id="fecha_fin" value="#{administrarPartidaBean.partida.pa_fecha_fin}" datePattern="dd/MM/yyyy" timeZone="#{loginBean.timeZone}"/>
             
             <h:outputLabel for="descripcion">Descripción:</h:outputLabel>
             <h:inputTextarea id="descripcion" value="#{administrarPartidaBean.partida.pa_descripcion}" rows="5" cols="40"/>
@@ -75,13 +75,13 @@
             <rich:column>
                 <f:facet name="header">Fecha Evento</f:facet>
                 <h:outputText value="#{evento.ev_fecha_evento}">
-                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                 </h:outputText>
             </rich:column>
             <rich:column>
                 <f:facet name="header">Fecha Limite</f:facet>
                 <h:outputText value="#{evento.ev_fecha_limite_pronosticos}">
-                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                 </h:outputText>
             </rich:column>
             <rich:column>
@@ -158,13 +158,13 @@
                 <h:inputText id="urlEvento" value="#{administrarPartidaBean.evento.ev_url_referencia}" label="Url Evento"/>
                 
                 <h:outputLabel for="fechaEvento" value="Fecha Evento:"/>
-                <rich:calendar id="fechaEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_evento}"/>
+                <rich:calendar id="fechaEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_evento}" timeZone="#{loginBean.timeZone}"/>
                 
                 <h:outputLabel for="fechaInicioEvento" value="Fecha Inicio Pronósticos:"/>
-                <rich:calendar id="fechaInicioEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_inicio_pronosticos}"/>
+                <rich:calendar id="fechaInicioEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_inicio_pronosticos}" timeZone="#{loginBean.timeZone}"/>
                 
                 <h:outputLabel for="fechaLimiteEvento" value="Fecha Limite Pronósticos:"/>
-                <rich:calendar id="fechaLimiteEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_limite_pronosticos}"/>
+                <rich:calendar id="fechaLimiteEvento" required="true" datePattern="dd/MM/yyyy HH:mm" value="#{administrarPartidaBean.evento.ev_fecha_limite_pronosticos}" timeZone="#{loginBean.timeZone}"/>
                 
                 <h:outputLabel for="numeroPronosticos" value="Número Pronósticos:"/>
                 <h:inputText id="numeroPronosticos" label="Número Pronosticos" required="true" value="#{administrarPartidaBean.evento.ev_numero_pronosticos}"/>

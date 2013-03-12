@@ -21,10 +21,10 @@
 			<h:inputText id="alias" value="#{crearPartidaBean.partida.pa_alias_competidores}"/>
 			
 			<h:outputLabel for="fecha_inicio">Fecha Inicio:</h:outputLabel>
-			<rich:calendar id="fecha_inicio" value="#{crearPartidaBean.partida.pa_fecha_inicio}" datePattern="dd/MM/yyyy"/>
+			<rich:calendar id="fecha_inicio" value="#{crearPartidaBean.partida.pa_fecha_inicio}" datePattern="dd/MM/yyyy" timeZone="#{loginBean.timeZone}"/>
 			
 			<h:outputLabel for="fecha_fin">Fecha Fin:</h:outputLabel>
-			<rich:calendar id="fecha_fin" value="#{crearPartidaBean.partida.pa_fecha_fin}" datePattern="dd/MM/yyyy"/>
+			<rich:calendar id="fecha_fin" value="#{crearPartidaBean.partida.pa_fecha_fin}" datePattern="dd/MM/yyyy" timeZone="#{loginBean.timeZone}"/>
 			
 			<h:outputLabel for="descripcion">Descripción:</h:outputLabel>
             <h:inputTextarea id="descripcion" value="#{crearPartidaBean.partida.pa_descripcion}" rows="5" cols="40"/>

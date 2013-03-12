@@ -2,6 +2,7 @@ package com.aap.bean;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.util.TimeZone;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,11 +21,17 @@ public class LoginBean implements Serializable {
 
     private static final long serialVersionUID = -5263499638067297067L;
 
+    public static final TimeZone TIME_ZONE = TimeZone.getTimeZone("Europe/Madrid");
+    
 	private String username;
     
     private String password;
     
     private Boolean logueado = Boolean.FALSE;
+    
+    public TimeZone getTimeZone() {
+        return TIME_ZONE;
+    }
     
     public String login() {
     	if(!logueado) {

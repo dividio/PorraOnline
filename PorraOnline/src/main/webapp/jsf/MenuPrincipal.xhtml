@@ -17,7 +17,7 @@
                 <p>
                     (
                     <h:outputText value="#{noticia.no_fecha}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                     </h:outputText>
                     ) - #{noticia.no_asunto}
                 </p>

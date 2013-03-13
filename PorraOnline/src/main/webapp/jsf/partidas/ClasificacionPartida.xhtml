@@ -21,11 +21,19 @@
     <h1>Clasificación General</h1>
     <h2>#{clasificacionPartidaBean.partida}</h2>
 	<h:form>
-        <rich:dataTable id="clasificacion" value="#{clasificacionPartidaBean.clasificacion}" var="usuario">
+        <rich:dataTable id="clasificacion" value="#{clasificacionPartidaBean.clasificacion}" var="puesto">
             <f:facet name="header">Clasificación</f:facet>
             <rich:column>
+                <f:facet name="header">Posición</f:facet>
+                #{puesto[1]} 
+            </rich:column>
+            <rich:column>
                 <f:facet name="header">Usuario</f:facet>
-                #{usuario} 
+                #{puesto[2]} 
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Puntos</f:facet>
+                #{puesto[3]} 
             </rich:column>
         </rich:dataTable>
     </h:form>

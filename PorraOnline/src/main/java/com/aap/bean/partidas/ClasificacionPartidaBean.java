@@ -40,16 +40,31 @@ public class ClasificacionPartidaBean implements Serializable {
 	
 	private void cargarClasificacion() {
 		Session session = Contexts.getHibernateSession();
-		String hql = "select USU.usu_username " +
-						"from Partidas PA " +
-						"join PA.usuarios USU " +
-						"where PA.pa_id = :ID_PARTIDA " +
-						"order by USU.usu_username";
+		String hql = "select USU.usu_id, USU.usu_username, sum(coalesce(PR.pr_puntos_conseguidos,0)) " +
+					"from Pronosticos PR " +
+					"join PR.pr_usu_id USU " +
+					"join PR.pr_ev_id EV " +
+					"join EV.ev_pa_id PA " +
+					"where PA.pa_id = :ID_PARTIDA " +
+					"group by USU.usu_id, USU.usu_username " +
+					"order by sum(coalesce(PR.pr_puntos_conseguidos,0)) desc, USU.usu_username ";
 		Query hqlQ = session.createQuery(hql);
 		hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
-		clasificacion = hqlQ.list();
+		List<Object[]> datos = hqlQ.list();
+		
+		int posicion = 1;
+		clasificacion = new ArrayList<Object[]>();
+		for(Object[] puesto:datos) {
+			Object[] aux = new Object[4];
+			aux[0] = puesto[0]; //USU.usu_id
+			aux[1] = Long.valueOf(posicion++);
+			aux[2] = puesto[1]; //USU.usu_username
+			aux[3] = puesto[2]; //sum(coalesce(PR.pr_puntos_conseguidos,0))
+			
+			clasificacion.add(aux);
+		}
 	}
-
+	
 	public Partidas getPartida() {
 		return partida;
 	}

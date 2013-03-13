@@ -115,6 +115,14 @@
                 #{posicion.pp_puntos}
             </rich:column>
             <rich:column>
+                <f:facet name="header">Nivel aproximación</f:facet>
+                #{posicion.pp_nivel_aproximacion}
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Puntos para el que se aproxime</f:facet>
+                #{posicion.pp_puntos_aproximacion}
+            </rich:column>
+            <rich:column>
                 <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelPuntosPosicion')}.show();" render="panelPuntosPosicion">
                     <f:setPropertyActionListener target="#{administrarPartidaBean.puntosPosicion}" value="#{posicion}"/>
                 </a4j:commandLink>
@@ -185,6 +193,13 @@
                                 
                 <h:outputLabel for="puntos" value="Puntos para el que acierte:"/>
                 <h:inputText id="puntos" value="#{administrarPartidaBean.puntosPosicion.pp_puntos}"/>
+                
+                <h:outputLabel id="labelNivelAproximacion" for="nivelAproximacion">Nivel Aproximación:</h:outputLabel>
+                <rich:tooltip target="labelNivelAproximacion">Nivel Aproximación: diferencia de posiciones por las que los usuarios se llevan puntos de aproximación</rich:tooltip>
+                <h:inputText id="nivelAproximacion" value="#{administrarPartidaBean.puntosPosicion.pp_nivel_aproximacion}"/>
+                
+                <h:outputLabel for="puntosAproximacion" value="Puntos para el que se aproxime:"/>
+                <h:inputText id="puntosAproximacion" value="#{administrarPartidaBean.puntosPosicion.pp_puntos_aproximacion}"/>
             </fieldset>
         </h:form>
     </rich:popupPanel>

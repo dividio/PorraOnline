@@ -24,6 +24,10 @@ public class PuntosPosicion implements Serializable {
 	private Long pp_posicion;
 
 	private Long pp_puntos;
+	
+	private Long pp_puntos_aproximacion;
+	
+	private Long pp_nivel_aproximacion;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "pp_pa_id", referencedColumnName = "pa_id")
@@ -61,6 +65,22 @@ public class PuntosPosicion implements Serializable {
 		this.pp_pa_id = pp_pa_id;
 	}
 
+	public Long getPp_puntos_aproximacion() {
+		return pp_puntos_aproximacion;
+	}
+
+	public void setPp_puntos_aproximacion(Long pp_puntos_aproximacion) {
+		this.pp_puntos_aproximacion = pp_puntos_aproximacion;
+	}
+
+	public Long getPp_nivel_aproximacion() {
+		return pp_nivel_aproximacion;
+	}
+
+	public void setPp_nivel_aproximacion(Long pp_nivel_aproximacion) {
+		this.pp_nivel_aproximacion = pp_nivel_aproximacion;
+	}
+	
 	@Override
     public int hashCode() {
 	    final int prime = 31;

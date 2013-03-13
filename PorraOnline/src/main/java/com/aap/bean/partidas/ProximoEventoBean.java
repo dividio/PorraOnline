@@ -17,6 +17,7 @@ import com.aap.dto.Competidores;
 import com.aap.dto.Eventos;
 import com.aap.dto.Partidas;
 import com.aap.dto.Pronosticos;
+import com.aap.dto.Resultados;
 import com.aap.dto.Usuarios;
 import com.aap.util.jsf.Contexts;
 
@@ -35,12 +36,16 @@ public class ProximoEventoBean implements Serializable {
     private Boolean hayCambios = Boolean.FALSE;
     
     private Boolean editable = Boolean.FALSE;
+    
+    private Boolean hayResultados = Boolean.FALSE;
         
     private Pronosticos pronostico = new Pronosticos();
         
     List<Pronosticos> listaPronosticosSinAsignar = new ArrayList<Pronosticos>();
     
     List<Pronosticos> listaPronosticos = new ArrayList<Pronosticos>();
+    
+    List<Resultados> listaResultados = new ArrayList<Resultados>();
     
     List<Eventos> listaEventos = new ArrayList<Eventos>();
     
@@ -59,6 +64,7 @@ public class ProximoEventoBean implements Serializable {
     	cargarEvento();
     	cargarPronosticosEvento();
     	cargarListaCompetidores();
+    	cargarListaResultados();
     	return null;
     }
     
@@ -157,6 +163,7 @@ public class ProximoEventoBean implements Serializable {
 			cargarProximoEvento();
 			cargarPronosticosEvento();
 			cargarListaCompetidores();
+			cargarListaResultados();
 		}
 	}
 
@@ -238,6 +245,20 @@ public class ProximoEventoBean implements Serializable {
     	}
     }
 	
+	private void cargarListaResultados() {
+		Session session = Contexts.getHibernateSession();
+		listaResultados = new ArrayList<Resultados>();
+		listaResultados = session.createCriteria(Resultados.class)
+				.add(Restrictions.eq("re_ev_id", evento))
+				.addOrder(Order.asc("re_posicion"))
+				.list();
+		if(!listaResultados.isEmpty()) {
+			hayResultados = Boolean.TRUE;
+		} else {
+			hayResultados = Boolean.FALSE;
+		}
+    }
+	
 	public Partidas getPartida() {
 		return partida;
 	}
@@ -300,6 +321,22 @@ public class ProximoEventoBean implements Serializable {
 
 	public void setListaEventos(List<Eventos> listaEventos) {
 		this.listaEventos = listaEventos;
+	}
+
+	public List<Resultados> getListaResultados() {
+		return listaResultados;
+	}
+
+	public void setListaResultados(List<Resultados> listaResultados) {
+		this.listaResultados = listaResultados;
+	}
+
+	public Boolean getHayResultados() {
+		return hayResultados;
+	}
+
+	public void setHayResultados(Boolean hayResultados) {
+		this.hayResultados = hayResultados;
 	}
 	
 	

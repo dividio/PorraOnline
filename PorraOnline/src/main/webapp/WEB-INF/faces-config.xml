@@ -34,6 +34,11 @@
         <redirect/>
     </navigation-case>
     <navigation-case>
+        <from-outcome>administrarResultados</from-outcome>
+        <to-view-id>/jsf/partidas/AdministrarResultados.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+    <navigation-case>
         <from-outcome>mensajesPartida</from-outcome>
         <to-view-id>/jsf/partidas/MensajesPartida.xhtml</to-view-id>
         <redirect/>

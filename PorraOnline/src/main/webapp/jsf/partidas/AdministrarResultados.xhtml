@@ -10,7 +10,7 @@
 				template="/WEB-INF/templates/template.xhtml">
 
 <f:metadata>
-    <f:viewParam name="idPartida" value="#{proximoEventoBean.idPartida}" required="true" />
+    <f:viewParam name="idPartida" value="#{administrarResultadosBean.idPartida}" required="true" />
 </f:metadata>
 
 <ui:define name="side_menu">
@@ -18,116 +18,100 @@
 </ui:define>
 
 <ui:define name="body">
-    <h1>Próximo Evento</h1>
-    <h2>#{proximoEventoBean.partida}</h2>
+    <h1>Administrar Resultados</h1>
+    <h2>#{administrarResultadosBean.partida}</h2>
 	<h:form>
-        <a4j:outputPanel rendered="#{proximoEventoBean.evento == null}">
+        <a4j:outputPanel rendered="#{administrarResultadosBean.evento == null}">
             <p>No hay ningún próximo evento previsto.</p>
         </a4j:outputPanel>
-        <a4j:outputPanel id="panelEvento" rendered="#{proximoEventoBean.evento != null}">
+        <a4j:outputPanel id="panelEvento" rendered="#{administrarResultadosBean.evento != null}">
         
             <a4j:commandLink value="Buscar Eventos" 
-                    action="#{proximoEventoBean.cargarListaEventos}"
+                    action="#{administrarResultadosBean.cargarListaEventos}"
                     render="panelBuscadorEventos"
                     oncomplete="#{rich:component('panelBuscadorEventos')}.show();"/>
             <article>
                 <p>
-                    #{proximoEventoBean.evento.ev_nombre} <br/>
-                    #{proximoEventoBean.evento.ev_lugar} - (
-                    <h:outputText value="#{proximoEventoBean.evento.ev_fecha_evento}">
+                    #{administrarResultadosBean.evento.ev_nombre} <br/>
+                    #{administrarResultadosBean.evento.ev_lugar} - (
+                    <h:outputText value="#{administrarResultadosBean.evento.ev_fecha_evento}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                     </h:outputText>)
                 </p>
                 <p>
-                    Se pueden hacer pronósticos desde el
-					<h:outputText value="#{proximoEventoBean.evento.ev_fecha_inicio_pronosticos}">
-					   <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
-					</h:outputText> 
-					hasta el 
-					<h:outputText value="#{proximoEventoBean.evento.ev_fecha_limite_pronosticos}">
+                    Se pueden introducir los resultados a partir del 
+					<h:outputText value="#{administrarResultadosBean.evento.ev_fecha_limite_pronosticos}">
 					   <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                     </h:outputText>
                 </p>
-                <p><a href="#{proximoEventoBean.evento.ev_url_referencia}" target="_blank">Más información</a></p>
+                <p><a href="#{administrarResultadosBean.evento.ev_url_referencia}" target="_blank">Más información</a></p>
 	        </article>
 	        
-	        <a4j:outputPanel rendered="#{proximoEventoBean.hayCambios}">
+	        <a4j:outputPanel rendered="#{administrarResultadosBean.hayCambios}">
             <p>
-                ATENCIÓN: Has hecho cambios en tu pronóstico y aún no lo has guardado.
+                ATENCIÓN: Has hecho cambios en los resultados y aún no lo has guardado.
 	        </p>
 	        </a4j:outputPanel>
 	        
 	        <div class="menu_horizontal">
-                <a4j:commandLink value="Guardar Pronóstico" 
-                    rendered="#{proximoEventoBean.editable}"
-                    action="#{proximoEventoBean.guardarPronostico}"
+                <a4j:commandLink value="Guardar Resultado" 
+                    rendered="#{administrarResultadosBean.editable}"
+                    action="#{administrarResultadosBean.guardarResultados}"
                     render="panelEvento"/>
-		        <a4j:commandLink value="Agregar #{proximoEventoBean.partida.pa_alias_competidores}" 
-                    rendered="#{proximoEventoBean.editable}"
+		        <a4j:commandLink value="Agregar #{administrarResultadosBean.partida.pa_alias_competidores}" 
+                    rendered="#{administrarResultadosBean.editable}"
 		            render="panelCompetidores"
 		            oncomplete="#{rich:component('panelCompetidores')}.show();"/>
             </div>
-	        <rich:dataTable id="listaPronosticos" value="#{proximoEventoBean.listaPronosticos}" var="pronostico" >
-                <f:facet name="header">#{proximoEventoBean.evento.ev_nombre}: Tu pronóstico para el evento</f:facet>
-                <rich:column>
-                    <f:facet name="header">Posición</f:facet>
-                    #{pronostico.pr_posicion}
-                </rich:column>
-                <rich:column>
-                    <f:facet name="header">#{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
-                    #{pronostico.pr_co_id}
-                </rich:column>
-                <rich:column rendered="#{proximoEventoBean.editable}">
-                    <f:facet name="header">Opciones</f:facet>
-                    <div class="menu_horizontal">
-                        <a4j:commandLink value="Subir"
-                                rendered="#{proximoEventoBean.editable}" 
-                                action="#{proximoEventoBean.subirPronostico}"
-                                render="panelEvento">
-                            <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
-                        </a4j:commandLink>
-                        
-                        <a4j:commandLink value="Bajar"
-                                rendered="#{proximoEventoBean.editable}" 
-                                action="#{proximoEventoBean.bajarPronostico}"
-                                render="panelEvento">
-                            <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
-                        </a4j:commandLink>
-                        
-                        <a4j:commandLink value="Eliminar"
-                                rendered="#{proximoEventoBean.editable}" 
-                                action="#{proximoEventoBean.eliminarPronostico}"
-	                            render="panelEvento">
-	                        <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
-	                    </a4j:commandLink>
-                    </div>
-                </rich:column>
-	        </rich:dataTable>
-	        
-	        <rich:dataTable rendered="#{proximoEventoBean.hayResultados}" id="listaResultados" value="#{proximoEventoBean.listaResultados}" var="resultado" >
-                <f:facet name="header">Resultados</f:facet>
+	        <rich:dataTable id="listaPronosticos" value="#{administrarResultadosBean.listaResultados}" var="resultado" >
+                <f:facet name="header">#{administrarResultadosBean.evento.ev_nombre}: resultados</f:facet>
                 <rich:column>
                     <f:facet name="header">Posición</f:facet>
                     #{resultado.re_posicion}
                 </rich:column>
                 <rich:column>
-                    <f:facet name="header">#{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
+                    <f:facet name="header">#{administrarResultadosBean.partida.pa_alias_competidores}</f:facet>
                     #{resultado.re_co_id}
                 </rich:column>
-            </rich:dataTable>
+                <rich:column rendered="#{administrarResultadosBean.editable}">
+                    <f:facet name="header">Opciones</f:facet>
+                    <div class="menu_horizontal">
+                        <a4j:commandLink value="Subir"
+                                rendered="#{administrarResultadosBean.editable}" 
+                                action="#{administrarResultadosBean.subirResultado}"
+                                render="panelEvento">
+                            <f:setPropertyActionListener target="#{administrarResultadosBean.resultado}" value="#{resultado}"/>
+                        </a4j:commandLink>
+                        
+                        <a4j:commandLink value="Bajar"
+                                rendered="#{administrarResultadosBean.editable}" 
+                                action="#{administrarResultadosBean.bajarResultado}"
+                                render="panelEvento">
+                            <f:setPropertyActionListener target="#{administrarResultadosBean.resultado}" value="#{resultado}"/>
+                        </a4j:commandLink>
+                        
+                        <a4j:commandLink value="Eliminar"
+                                rendered="#{administrarResultadosBean.editable}" 
+                                action="#{administrarResultadosBean.eliminarResultado}"
+	                            render="panelEvento">
+	                        <f:setPropertyActionListener target="#{administrarResultadosBean.resultado}" value="#{resultado}"/>
+	                    </a4j:commandLink>
+                    </div>
+                </rich:column>
+	        </rich:dataTable>
 	    </a4j:outputPanel>
     </h:form>
     
     <rich:popupPanel id="panelCompetidores" onmaskclick="#{rich:component('panelCompetidores')}.hide();" autosized="true">
         <h:form>
-            <rich:dataTable value="#{proximoEventoBean.listaPronosticosSinAsignar}" var="pronostico" rows="15">
-                <f:facet name="header">Lista de #{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
+            <rich:dataTable value="#{administrarResultadosBean.listaResultadosSinAsignar}" var="resultado" rows="15">
+                <f:facet name="header">Lista de #{administrarResultadosBean.partida.pa_alias_competidores}</f:facet>
                 <rich:column>
-                    <a4j:commandLink action="#{proximoEventoBean.agregarPronostico}"
+                    <a4j:commandLink action="#{administrarResultadosBean.agregarResultado}"
                             render="panelEvento"
                             oncomplete="#{rich:component('panelCompetidores')}.hide();">
-                        <h:outputText value="#{pronostico.pr_co_id.co_nombre}"/>
-                        <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
+                        <h:outputText value="#{resultado.re_co_id.co_nombre}"/>
+                        <f:setPropertyActionListener target="#{administrarResultadosBean.resultado}" value="#{resultado}"/>
                     </a4j:commandLink> 
                 </rich:column>
                 <f:facet name="footer">
@@ -139,48 +123,48 @@
     
     <rich:popupPanel id="panelBuscadorEventos" onmaskclick="#{rich:component('panelBuscadorEventos')}.hide();" autosized="true">
         <h:form>
-            <rich:dataTable value="#{proximoEventoBean.listaEventos}" var="evento" rows="10">
+            <rich:dataTable value="#{administrarResultadosBean.listaEventos}" var="evento" rows="10">
                 <f:facet name="header">Lista de Eventos</f:facet>
                 <rich:column>
                     <f:facet name="header">Evento</f:facet>
-                    <a4j:commandLink action="#{proximoEventoBean.cargarNuevoEvento}"
+                    <a4j:commandLink action="#{administrarResultadosBean.cargarNuevoEvento}"
                             render="panelEvento"
                             oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
                         <h:outputText value="#{evento.ev_nombre}"/>
-                        <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
+                        <f:setPropertyActionListener target="#{administrarResultadosBean.evento}" value="#{evento}"/>
                     </a4j:commandLink> 
                 </rich:column>
                 <rich:column>
 	                <f:facet name="header">Fecha Evento</f:facet>
-	                <a4j:commandLink action="#{proximoEventoBean.cargarNuevoEvento}"
+	                <a4j:commandLink action="#{administrarResultadosBean.cargarNuevoEvento}"
                             render="panelEvento"
                             oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
                         <h:outputText value="#{evento.ev_fecha_evento}">
 	                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
 	                    </h:outputText>
-                        <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
+                        <f:setPropertyActionListener target="#{administrarResultadosBean.evento}" value="#{evento}"/>
                     </a4j:commandLink>
 	            </rich:column>
 	            <rich:column>
                     <f:facet name="header">Fecha Inicio Pronósticos</f:facet>
-                    <a4j:commandLink action="#{proximoEventoBean.cargarNuevoEvento}"
+                    <a4j:commandLink action="#{administrarResultadosBean.cargarNuevoEvento}"
                             render="panelEvento"
                             oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
                         <h:outputText value="#{evento.ev_fecha_inicio_pronosticos}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                         </h:outputText>
-                        <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
+                        <f:setPropertyActionListener target="#{administrarResultadosBean.evento}" value="#{evento}"/>
                     </a4j:commandLink>
                 </rich:column>
 	            <rich:column>
 	                <f:facet name="header">Fecha Límite Pronósticos</f:facet>
-	                <a4j:commandLink action="#{proximoEventoBean.cargarNuevoEvento}"
+	                <a4j:commandLink action="#{administrarResultadosBean.cargarNuevoEvento}"
                             render="panelEvento"
                             oncomplete="#{rich:component('panelBuscadorEventos')}.hide();">
                         <h:outputText value="#{evento.ev_fecha_limite_pronosticos}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                         </h:outputText>
-                        <f:setPropertyActionListener target="#{proximoEventoBean.evento}" value="#{evento}"/>
+                        <f:setPropertyActionListener target="#{administrarResultadosBean.evento}" value="#{evento}"/>
                     </a4j:commandLink>
 	            </rich:column>
                 <f:facet name="footer">

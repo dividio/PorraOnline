@@ -198,6 +198,7 @@ public class ProximoEventoBean implements Serializable {
 			} else {
 				editable = Boolean.FALSE;
 			}
+			hayCambios = Boolean.FALSE;
 		}
 	}
 	

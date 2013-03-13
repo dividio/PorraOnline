@@ -77,6 +77,10 @@
                     <f:facet name="header">#{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
                     #{pronostico.pr_co_id}
                 </rich:column>
+                <rich:column>
+                    <f:facet name="header">Puntos</f:facet>
+                    #{pronostico.pr_puntos_conseguidos}
+                </rich:column>
                 <rich:column rendered="#{proximoEventoBean.editable}">
                     <f:facet name="header">Opciones</f:facet>
                     <div class="menu_horizontal">

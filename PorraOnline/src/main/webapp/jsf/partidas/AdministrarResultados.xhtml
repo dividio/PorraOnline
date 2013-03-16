@@ -20,7 +20,10 @@
 <ui:define name="body">
     <h1>Administrar Resultados</h1>
     <h2>#{administrarResultadosBean.partida}</h2>
-	<h:form>
+    <a4j:outputPanel rendered="#{administrarResultadosBean.partida.pa_id == null}">
+        <p>No tienes permisos para administrar esta partida.</p>
+    </a4j:outputPanel>
+    <h:form rendered="#{administrarResultadosBean.partida.pa_id != null}">
         <a4j:outputPanel rendered="#{administrarResultadosBean.evento == null}">
             <p>No hay ningún próximo evento previsto.</p>
         </a4j:outputPanel>

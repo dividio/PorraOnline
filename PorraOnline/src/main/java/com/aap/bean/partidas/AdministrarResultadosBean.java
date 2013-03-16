@@ -21,6 +21,7 @@ import com.aap.dto.Partidas;
 import com.aap.dto.Pronosticos;
 import com.aap.dto.PuntosPosicion;
 import com.aap.dto.Resultados;
+import com.aap.dto.Usuarios;
 import com.aap.util.jsf.Contexts;
 
 @ManagedBean
@@ -196,31 +197,44 @@ public class AdministrarResultadosBean implements Serializable {
 		this.idPartida = idPartida;
 		if(idPartida != null) {
 			Session session = Contexts.getHibernateSession();
-			partida = (Partidas) session.get(Partidas.class, idPartida);
-			cargarProximoEvento();
-			cargarListaResultados();
-			cargarListaCompetidores();
+			Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+			if(usuario != null) {
+				String hql = "select PA " +
+						"from Partidas PA " +
+						"join PA.administradores USU " +
+						"where USU.usu_id = :ID_USUARIO " +
+						"and PA.pa_id = :ID_PARTIDA";
+				Query hqlQ = session.createQuery(hql);
+				hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
+				hqlQ.setLong("ID_PARTIDA", idPartida);
+				partida = (Partidas) hqlQ.uniqueResult();
+				cargarProximoEvento();
+				cargarListaResultados();
+				cargarListaCompetidores();
+			}
 		}
 	}
 
 	private void cargarProximoEvento() {
-		Session session = Contexts.getHibernateSession();
-		String hql = "select EV " +
-				"from Eventos EV " +
-				"join EV.ev_pa_id PA " +
-				"where PA.pa_id = :ID_PARTIDA " +
-				"and EV.ev_fecha_evento = " +
-				"(select min(EV1.ev_fecha_evento) " +
-				"from Eventos EV1 " +
-				"join EV1.ev_pa_id PA1 " +
-				"where PA1.pa_id = :ID_PARTIDA " +
-				"and EV1.ev_fecha_evento >= :FECHA)";
-		Query hqlQ = session.createQuery(hql);
-		hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
-		hqlQ.setDate("FECHA", new Date());
-		
-		evento = (Eventos) hqlQ.uniqueResult();
-		cargarEvento();
+		if(partida != null && partida.getPa_id() != null) {
+			Session session = Contexts.getHibernateSession();
+			String hql = "select EV " +
+					"from Eventos EV " +
+					"join EV.ev_pa_id PA " +
+					"where PA.pa_id = :ID_PARTIDA " +
+					"and EV.ev_fecha_evento = " +
+					"(select min(EV1.ev_fecha_evento) " +
+					"from Eventos EV1 " +
+					"join EV1.ev_pa_id PA1 " +
+					"where PA1.pa_id = :ID_PARTIDA " +
+					"and EV1.ev_fecha_evento >= :FECHA)";
+			Query hqlQ = session.createQuery(hql);
+			hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
+			hqlQ.setDate("FECHA", new Date());
+			
+			evento = (Eventos) hqlQ.uniqueResult();
+			cargarEvento();
+		}
 		
 	}
 	
@@ -238,40 +252,43 @@ public class AdministrarResultadosBean implements Serializable {
 	
 	private void cargarListaCompetidores() {
 		listaResultadosSinAsignar = new ArrayList<Resultados>();
-    	Session session = Contexts.getHibernateSession();
-    	String hql = "select CO " +
-    			"from Competidores CO " +
-    			"join CO.co_pa_id PA " +
-    			"where PA.pa_id = :ID_PARTIDA " +
-    			"and not exists (select CO1.co_id " +
-    			"from Resultados RE " +
-    			"join RE.re_co_id CO1 " +
-    			"where RE.re_ev_id = :EVENTO " +
-    			"and CO1.co_id = CO.co_id)";
-    	Query hqlQ = session.createQuery(hql);
-    	hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
-    	hqlQ.setParameter("EVENTO", evento);
-    	List<Competidores> competidoresLibres = hqlQ.list();
-    	int indice = -1;
-    	for(Competidores competidor:competidoresLibres) {
-    		
-    		Resultados resultado = new Resultados();
-        	resultado.setRe_id(Long.valueOf(indice--));
-        	resultado.setRe_ev_id(evento);
-        	resultado.setRe_co_id(competidor);
-        	
-        	listaResultadosSinAsignar.add(resultado);
-    	}
+		if(partida != null && partida.getPa_id() != null && evento != null && evento.getEv_id() != null) {
+	    	Session session = Contexts.getHibernateSession();
+	    	String hql = "select CO " +
+	    			"from Competidores CO " +
+	    			"join CO.co_pa_id PA " +
+	    			"where PA.pa_id = :ID_PARTIDA " +
+	    			"and not exists (select CO1.co_id " +
+	    			"from Resultados RE " +
+	    			"join RE.re_co_id CO1 " +
+	    			"where RE.re_ev_id = :EVENTO " +
+	    			"and CO1.co_id = CO.co_id)";
+	    	Query hqlQ = session.createQuery(hql);
+	    	hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
+	    	hqlQ.setParameter("EVENTO", evento);
+	    	List<Competidores> competidoresLibres = hqlQ.list();
+	    	int indice = -1;
+	    	for(Competidores competidor:competidoresLibres) {
+	    		
+	    		Resultados resultado = new Resultados();
+	        	resultado.setRe_id(Long.valueOf(indice--));
+	        	resultado.setRe_ev_id(evento);
+	        	resultado.setRe_co_id(competidor);
+	        	
+	        	listaResultadosSinAsignar.add(resultado);
+	    	}
+		}
     }
 	
 	private void cargarListaResultados() {
-		Session session = Contexts.getHibernateSession();
 		listaResultados = new ArrayList<Resultados>();
-		
-		listaResultados = session.createCriteria(Resultados.class)
-				.add(Restrictions.eq("re_ev_id", evento))
-				.addOrder(Order.asc("re_posicion"))
-				.list();
+		if(evento != null && evento.getEv_id() != null) {
+			Session session = Contexts.getHibernateSession();
+			listaResultados = session.createCriteria(Resultados.class)
+					.add(Restrictions.eq("re_ev_id", evento))
+					.addOrder(Order.asc("re_posicion"))
+					.list();
+		}
 		if(!listaResultados.isEmpty()) {
 			hayResultados = Boolean.TRUE;
 		} else {

@@ -11,6 +11,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.aap.dto.Partidas;
+import com.aap.dto.Usuarios;
 import com.aap.util.jsf.Contexts;
 
 @ManagedBean
@@ -33,35 +34,48 @@ public class ClasificacionPartidaBean implements Serializable {
 		this.idPartida = idPartida;
 		if(idPartida != null) {
 			Session session = Contexts.getHibernateSession();
-			partida = (Partidas) session.get(Partidas.class, idPartida);
-			cargarClasificacion();
+			Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+			if(usuario != null) {
+				String hql = "select PA " +
+						"from Partidas PA " +
+						"join PA.usuarios USU " +
+						"where USU.usu_id = :ID_USUARIO " +
+						"and PA.pa_id = :ID_PARTIDA";
+				Query hqlQ = session.createQuery(hql);
+				hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
+				hqlQ.setLong("ID_PARTIDA", idPartida);
+				partida = (Partidas) hqlQ.uniqueResult();
+				cargarClasificacion();
+			}
 		}
 	}
 	
 	private void cargarClasificacion() {
-		Session session = Contexts.getHibernateSession();
-		String hql = "select USU.usu_id, USU.usu_username, sum(coalesce(PR.pr_puntos_conseguidos,0)) " +
-					"from Pronosticos PR " +
-					"join PR.pr_usu_id USU " +
-					"join PR.pr_ev_id EV " +
-					"join EV.ev_pa_id PA " +
-					"where PA.pa_id = :ID_PARTIDA " +
-					"group by USU.usu_id, USU.usu_username " +
-					"order by sum(coalesce(PR.pr_puntos_conseguidos,0)) desc, USU.usu_username ";
-		Query hqlQ = session.createQuery(hql);
-		hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
-		List<Object[]> datos = hqlQ.list();
-		
-		int posicion = 1;
 		clasificacion = new ArrayList<Object[]>();
-		for(Object[] puesto:datos) {
-			Object[] aux = new Object[4];
-			aux[0] = puesto[0]; //USU.usu_id
-			aux[1] = Long.valueOf(posicion++);
-			aux[2] = puesto[1]; //USU.usu_username
-			aux[3] = puesto[2]; //sum(coalesce(PR.pr_puntos_conseguidos,0))
+		if(partida != null && partida.getPa_id() != null) {
+			Session session = Contexts.getHibernateSession();
+			String hql = "select USU.usu_id, USU.usu_username, sum(coalesce(PR.pr_puntos_conseguidos,0)) " +
+						"from Pronosticos PR " +
+						"join PR.pr_usu_id USU " +
+						"join PR.pr_ev_id EV " +
+						"join EV.ev_pa_id PA " +
+						"where PA.pa_id = :ID_PARTIDA " +
+						"group by USU.usu_id, USU.usu_username " +
+						"order by sum(coalesce(PR.pr_puntos_conseguidos,0)) desc, USU.usu_username ";
+			Query hqlQ = session.createQuery(hql);
+			hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
+			List<Object[]> datos = hqlQ.list();
 			
-			clasificacion.add(aux);
+			int posicion = 1;
+			for(Object[] puesto:datos) {
+				Object[] aux = new Object[4];
+				aux[0] = puesto[0]; //USU.usu_id
+				aux[1] = Long.valueOf(posicion++);
+				aux[2] = puesto[1]; //USU.usu_username
+				aux[3] = puesto[2]; //sum(coalesce(PR.pr_puntos_conseguidos,0))
+				
+				clasificacion.add(aux);
+			}
 		}
 	}
 	

@@ -20,7 +20,10 @@
 <ui:define name="body">
     <h1>Clasificación General</h1>
     <h2>#{clasificacionPartidaBean.partida}</h2>
-	<h:form>
+    <a4j:outputPanel rendered="#{clasificacionPartidaBean.partida.pa_id == null}">
+        <p>No estas suscrito a esta partida.</p>
+    </a4j:outputPanel>
+    <h:form rendered="#{clasificacionPartidaBean.partida.pa_id != null}">
         <rich:dataTable id="clasificacion" value="#{clasificacionPartidaBean.clasificacion}" var="puesto">
             <f:facet name="header">Clasificación</f:facet>
             <rich:column>

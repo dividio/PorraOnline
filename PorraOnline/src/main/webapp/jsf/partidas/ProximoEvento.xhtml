@@ -20,7 +20,10 @@
 <ui:define name="body">
     <h1>Próximo Evento</h1>
     <h2>#{proximoEventoBean.partida}</h2>
-	<h:form>
+    <a4j:outputPanel rendered="#{proximoEventoBean.partida.pa_id == null}">
+        <p>No estas suscrito a esta partida.</p>
+    </a4j:outputPanel>
+    <h:form rendered="#{proximoEventoBean.partida.pa_id != null}">
         <a4j:outputPanel rendered="#{proximoEventoBean.evento == null}">
             <p>No hay ningún próximo evento previsto.</p>
         </a4j:outputPanel>

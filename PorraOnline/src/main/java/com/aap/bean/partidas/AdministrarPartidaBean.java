@@ -16,6 +16,7 @@ import com.aap.dto.Competidores;
 import com.aap.dto.Eventos;
 import com.aap.dto.Partidas;
 import com.aap.dto.PuntosPosicion;
+import com.aap.dto.Usuarios;
 import com.aap.util.jsf.Contexts;
 import com.aap.util.jsf.FuncionesJSF;
 
@@ -202,10 +203,21 @@ public class AdministrarPartidaBean implements Serializable {
 		this.idPartida = idPartida;
 		if(idPartida != null) {
 			Session session = Contexts.getHibernateSession();
-			partida = (Partidas) session.get(Partidas.class, idPartida);
-			cargarListaCompetidores();
-			cargarListaEventos();
-			cargarListaPuntosPosicion();
+			Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+			if(usuario != null) {
+				String hql = "select PA " +
+						"from Partidas PA " +
+						"join PA.administradores USU " +
+						"where USU.usu_id = :ID_USUARIO " +
+						"and PA.pa_id = :ID_PARTIDA";
+				Query hqlQ = session.createQuery(hql);
+				hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
+				hqlQ.setLong("ID_PARTIDA", idPartida);
+				partida = (Partidas) hqlQ.uniqueResult();
+				cargarListaCompetidores();
+				cargarListaEventos();
+				cargarListaPuntosPosicion();
+			}
 		}
 	}
 	

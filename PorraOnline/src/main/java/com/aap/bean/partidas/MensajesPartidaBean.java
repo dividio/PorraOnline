@@ -8,6 +8,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -91,8 +92,19 @@ public class MensajesPartidaBean implements Serializable {
 		this.idPartida = idPartida;
 		if(idPartida != null) {
 			Session session = Contexts.getHibernateSession();
-			partida = (Partidas) session.get(Partidas.class, idPartida);
-			cargarListaMensajes();
+			Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+			if(usuario != null) {
+				String hql = "select PA " +
+						"from Partidas PA " +
+						"join PA.usuarios USU " +
+						"where USU.usu_id = :ID_USUARIO " +
+						"and PA.pa_id = :ID_PARTIDA";
+				Query hqlQ = session.createQuery(hql);
+				hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
+				hqlQ.setLong("ID_PARTIDA", idPartida);
+				partida = (Partidas) hqlQ.uniqueResult();
+				cargarListaMensajes();
+			}
 		}
 	}
 

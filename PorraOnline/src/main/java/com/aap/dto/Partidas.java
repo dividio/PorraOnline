@@ -46,6 +46,12 @@ public class Partidas implements Serializable {
 		joinColumns = @JoinColumn(name = "up_pa_id", referencedColumnName = "pa_id"), 
 		inverseJoinColumns = @JoinColumn(name = "up_usu_id", referencedColumnName = "usu_id"))
 	private Set<Usuarios> usuarios;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "ADMINISTRADORES_PARTIDAS", 
+		joinColumns = @JoinColumn(name = "ad_pa_id", referencedColumnName = "pa_id"), 
+		inverseJoinColumns = @JoinColumn(name = "ad_usu_id", referencedColumnName = "usu_id"))
+	private Set<Usuarios> administradores;
 
 	@OneToMany(mappedBy="me_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Mensajes> listaMensajes;
@@ -145,6 +151,14 @@ public class Partidas implements Serializable {
 
 	public void setListaPuntosPosicion(List<PuntosPosicion> listaPuntosPosicion) {
 		this.listaPuntosPosicion = listaPuntosPosicion;
+	}
+
+	public Set<Usuarios> getAdministradores() {
+		return administradores;
+	}
+
+	public void setAdministradores(Set<Usuarios> administradores) {
+		this.administradores = administradores;
 	}
 
 	@Override

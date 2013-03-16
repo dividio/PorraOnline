@@ -21,7 +21,10 @@
     <a4j:outputPanel id="panel">
     <h1>Administrar Partida</h1>
     <h2>#{administrarPartidaBean.partida}</h2>
-	<h:form>
+    <a4j:outputPanel rendered="#{administrarPartidaBean.partida.pa_id == null}">
+        <p>No tienes permisos para administrar esta partida.</p>
+    </a4j:outputPanel>
+	<h:form rendered="#{administrarPartidaBean.partida.pa_id != null}">
 
         <a4j:commandLink value="Guardar" action="#{administrarPartidaBean.guardarPartida}" render="panel"/>
         <fieldset class="formulario">

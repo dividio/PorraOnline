@@ -159,32 +159,45 @@ public class ProximoEventoBean implements Serializable {
 		this.idPartida = idPartida;
 		if(idPartida != null) {
 			Session session = Contexts.getHibernateSession();
-			partida = (Partidas) session.get(Partidas.class, idPartida);
-			cargarProximoEvento();
-			cargarPronosticosEvento();
-			cargarListaCompetidores();
-			cargarListaResultados();
+			Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+			if(usuario != null) {
+				String hql = "select PA " +
+						"from Partidas PA " +
+						"join PA.usuarios USU " +
+						"where USU.usu_id = :ID_USUARIO " +
+						"and PA.pa_id = :ID_PARTIDA";
+				Query hqlQ = session.createQuery(hql);
+				hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
+				hqlQ.setLong("ID_PARTIDA", idPartida);
+				partida = (Partidas) hqlQ.uniqueResult();
+				cargarProximoEvento();
+				cargarPronosticosEvento();
+				cargarListaCompetidores();
+				cargarListaResultados();
+			}
 		}
 	}
 
 	private void cargarProximoEvento() {
-		Session session = Contexts.getHibernateSession();
-		String hql = "select EV " +
-				"from Eventos EV " +
-				"join EV.ev_pa_id PA " +
-				"where PA.pa_id = :ID_PARTIDA " +
-				"and EV.ev_fecha_evento = " +
-				"(select min(EV1.ev_fecha_evento) " +
-				"from Eventos EV1 " +
-				"join EV1.ev_pa_id PA1 " +
-				"where PA1.pa_id = :ID_PARTIDA " +
-				"and EV1.ev_fecha_evento >= :FECHA)";
-		Query hqlQ = session.createQuery(hql);
-		hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
-		hqlQ.setDate("FECHA", new Date());
-		
-		evento = (Eventos) hqlQ.uniqueResult();
-		cargarEvento();
+		if(partida != null && partida.getPa_id() != null) {
+			Session session = Contexts.getHibernateSession();
+			String hql = "select EV " +
+					"from Eventos EV " +
+					"join EV.ev_pa_id PA " +
+					"where PA.pa_id = :ID_PARTIDA " +
+					"and EV.ev_fecha_evento = " +
+					"(select min(EV1.ev_fecha_evento) " +
+					"from Eventos EV1 " +
+					"join EV1.ev_pa_id PA1 " +
+					"where PA1.pa_id = :ID_PARTIDA " +
+					"and EV1.ev_fecha_evento >= :FECHA)";
+			Query hqlQ = session.createQuery(hql);
+			hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
+			hqlQ.setDate("FECHA", new Date());
+			
+			evento = (Eventos) hqlQ.uniqueResult();
+			cargarEvento();
+		}
 		
 	}
 	
@@ -203,56 +216,66 @@ public class ProximoEventoBean implements Serializable {
 	}
 	
 	private void cargarPronosticosEvento() {
-		Session session = Contexts.getHibernateSession();
-		Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
-		listaPronosticos = session.createCriteria(Pronosticos.class)
-				.add(Restrictions.eq("pr_ev_id", evento))
-				.add(Restrictions.eq("pr_usu_id", usuario))
-				.addOrder(Order.asc("pr_posicion"))
-				.list();
+		if(evento != null && evento.getEv_id() != null) {
+			Session session = Contexts.getHibernateSession();
+			Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+			listaPronosticos = session.createCriteria(Pronosticos.class)
+					.add(Restrictions.eq("pr_ev_id", evento))
+					.add(Restrictions.eq("pr_usu_id", usuario))
+					.addOrder(Order.asc("pr_posicion"))
+					.list();
+		} else {
+			listaPronosticos = new ArrayList<Pronosticos>();
+		}
 	}
 	
 	private void cargarListaCompetidores() {
 		listaPronosticosSinAsignar = new ArrayList<Pronosticos>();
-    	Session session = Contexts.getHibernateSession();
-    	Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
-    	if(usuario != null) {
-	    	String hql = "select CO " +
-	    			"from Competidores CO " +
-	    			"join CO.co_pa_id PA " +
-	    			"where PA.pa_id = :ID_PARTIDA " +
-	    			"and not exists (select CO1.co_id " +
-	    			"from Pronosticos PR " +
-	    			"join PR.pr_co_id CO1 " +
-	    			"where PR.pr_usu_id = :USUARIO " +
-	    			"and PR.pr_ev_id = :EVENTO " +
-	    			"and CO1.co_id = CO.co_id)";
-	    	Query hqlQ = session.createQuery(hql);
-	    	hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
-	    	hqlQ.setParameter("USUARIO", usuario);
-	    	hqlQ.setParameter("EVENTO", evento);
-	    	List<Competidores> competidoresLibres = hqlQ.list();
-	    	int indice = -1;
-	    	for(Competidores competidor:competidoresLibres) {
-	    		
-	        	Pronosticos pronostico = new Pronosticos();
-	        	pronostico.setPr_id(Long.valueOf(indice--));
-	        	pronostico.setPr_ev_id(evento);
-	        	pronostico.setPr_usu_id(usuario);
-	        	pronostico.setPr_co_id(competidor);
-	        	
-	        	listaPronosticosSinAsignar.add(pronostico);
+		if(partida != null && partida.getPa_id() != null && evento != null && evento.getEv_id() != null) {
+	    	Session session = Contexts.getHibernateSession();
+	    	Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+	    	if(usuario != null) {
+		    	String hql = "select CO " +
+		    			"from Competidores CO " +
+		    			"join CO.co_pa_id PA " +
+		    			"where PA.pa_id = :ID_PARTIDA " +
+		    			"and not exists (select CO1.co_id " +
+		    			"from Pronosticos PR " +
+		    			"join PR.pr_co_id CO1 " +
+		    			"where PR.pr_usu_id = :USUARIO " +
+		    			"and PR.pr_ev_id = :EVENTO " +
+		    			"and CO1.co_id = CO.co_id)";
+		    	Query hqlQ = session.createQuery(hql);
+		    	hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
+		    	hqlQ.setParameter("USUARIO", usuario);
+		    	hqlQ.setParameter("EVENTO", evento);
+		    	List<Competidores> competidoresLibres = hqlQ.list();
+		    	int indice = -1;
+		    	for(Competidores competidor:competidoresLibres) {
+		    		
+		        	Pronosticos pronostico = new Pronosticos();
+		        	pronostico.setPr_id(Long.valueOf(indice--));
+		        	pronostico.setPr_ev_id(evento);
+		        	pronostico.setPr_usu_id(usuario);
+		        	pronostico.setPr_co_id(competidor);
+		        	
+		        	listaPronosticosSinAsignar.add(pronostico);
+		    	}
 	    	}
-    	}
+		}
     }
 	
 	private void cargarListaResultados() {
-		Session session = Contexts.getHibernateSession();
-		listaResultados = new ArrayList<Resultados>();
-		listaResultados = session.createCriteria(Resultados.class)
-				.add(Restrictions.eq("re_ev_id", evento))
-				.addOrder(Order.asc("re_posicion"))
-				.list();
+		if(evento != null && evento.getEv_id() != null) {
+			Session session = Contexts.getHibernateSession();
+			listaResultados = new ArrayList<Resultados>();
+			listaResultados = session.createCriteria(Resultados.class)
+					.add(Restrictions.eq("re_ev_id", evento))
+					.addOrder(Order.asc("re_posicion"))
+					.list();
+		} else {
+			listaResultados = new ArrayList<Resultados>();
+		}
 		if(!listaResultados.isEmpty()) {
 			hayResultados = Boolean.TRUE;
 		} else {

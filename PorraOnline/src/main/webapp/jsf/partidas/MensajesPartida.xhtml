@@ -19,7 +19,10 @@
 <ui:define name="body">
     <h1>Mensajes</h1>
     <h2>#{mensajesPartidaBean.partida.pa_nombre}</h2>
-	<h:form>
+    <a4j:outputPanel rendered="#{mensajesPartidaBean.partida.pa_id == null}">
+        <p>No estas suscrito a esta partida.</p>
+    </a4j:outputPanel>
+    <h:form rendered="#{mensajesPartidaBean.partida.pa_id != null}">
         <a4j:commandLink value="Nuevo Mensaje" 
             action="#{mensajesPartidaBean.nuevoMensaje}" 
             render="panelNuevoMensaje"

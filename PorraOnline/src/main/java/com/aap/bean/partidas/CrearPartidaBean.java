@@ -1,6 +1,7 @@
 package com.aap.bean.partidas;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +10,11 @@ import javax.faces.bean.ViewScoped;
 
 import org.hibernate.Session;
 
+import com.aap.dto.Competidores;
+import com.aap.dto.Eventos;
+import com.aap.dto.Mensajes;
 import com.aap.dto.Partidas;
+import com.aap.dto.PuntosPosicion;
 import com.aap.dto.Usuarios;
 import com.aap.util.jsf.Contexts;
 import com.aap.util.jsf.FuncionesJSF;
@@ -25,6 +30,10 @@ public class CrearPartidaBean implements Serializable {
     public String guardarPartida() {
     	if(validaGuardarPartida()) {
     		Session session = Contexts.getHibernateSession();
+    		partida.setListaEventos(new ArrayList<Eventos>());
+			partida.setListaCompetidores(new ArrayList<Competidores>());
+			partida.setListaMensajes(new ArrayList<Mensajes>());
+			partida.setListaPuntosPosicion(new ArrayList<PuntosPosicion>());
     		if(partida.getPa_id() == null) {
     			Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
     			Set<Usuarios> administradores = new HashSet<Usuarios>();

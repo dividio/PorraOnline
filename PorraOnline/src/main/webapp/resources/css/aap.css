@@ -3,9 +3,19 @@
 body {
 	background-image: url("#{resource['images:fondo.jpg']}");
 	background-position: center top;
-    background-repeat: repeat-x;
-    min-width: 980px;
+    background-repeat: no-repeat;
     background-color: black;
+}
+
+.container-fluid {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 960px;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  background-image: url("#{resource['images:glyphicons-halflings.png']}");
 }
 
 #contenido {
@@ -34,6 +44,7 @@ a {
 
 #main_section {
     margin-left: 5px;
+    margin-right: 5px;
 }
 
 #side_menu li {

@@ -86,28 +86,31 @@
                 </rich:column>
                 <rich:column rendered="#{proximoEventoBean.editable}">
                     <f:facet name="header">Opciones</f:facet>
-                    <div class="menu_horizontal">
-                        <a4j:commandLink value="Subir"
+                    
+                        <a4j:commandLink styleClass="btn" title="Subir"
                                 rendered="#{proximoEventoBean.editable}" 
                                 action="#{proximoEventoBean.subirPronostico}"
                                 render="panelEvento">
                             <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
+                            <i class="icon-arrow-up"></i>
                         </a4j:commandLink>
                         
-                        <a4j:commandLink value="Bajar"
+                        <a4j:commandLink styleClass="btn" title="Bajar"
                                 rendered="#{proximoEventoBean.editable}" 
                                 action="#{proximoEventoBean.bajarPronostico}"
                                 render="panelEvento">
                             <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
+                            <i class="icon-arrow-down"></i>
                         </a4j:commandLink>
                         
-                        <a4j:commandLink value="Eliminar"
+                        <a4j:commandLink styleClass="btn" title="Eliminar"
                                 rendered="#{proximoEventoBean.editable}" 
                                 action="#{proximoEventoBean.eliminarPronostico}"
 	                            render="panelEvento">
 	                        <f:setPropertyActionListener target="#{proximoEventoBean.pronostico}" value="#{pronostico}"/>
+	                        <i class="icon-trash"></i>
 	                    </a4j:commandLink>
-                    </div>
+                    
                 </rich:column>
 	        </rich:dataTable>
 	        
@@ -138,7 +141,7 @@
                     </a4j:commandLink> 
                 </rich:column>
                 <f:facet name="footer">
-	                <rich:dataScroller renderIfSinglePage="false" />
+	                <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
 	            </f:facet>
             </rich:dataTable>
         </h:form>
@@ -191,7 +194,7 @@
                     </a4j:commandLink>
 	            </rich:column>
                 <f:facet name="footer">
-                    <rich:dataScroller renderIfSinglePage="false" />
+                    <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
                 </f:facet>
             </rich:dataTable>
         </h:form>

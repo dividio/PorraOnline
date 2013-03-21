@@ -7,16 +7,17 @@
       xmlns:rich="http://richfaces.org/rich">
  
     <h:head>
-    	<h:outputStylesheet name="reset.css" library="css"/>
-    	<h:outputStylesheet name="text.css" library="css"/>
-    	<h:outputStylesheet name="960.css" library="css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="bootstrap.min.css" library="css"/>
+    	<h:outputStylesheet name="bootstrap-responsive.min.css" library="css"/>
     	<h:outputStylesheet name="aap.css" library="css"/>
     	<title>Porra Online</title>
     </h:head>
     <h:body>
-		<div id="div_principal" class="container_12">
-	    	<div id="contenido" class="grid_12">
-		        
+		<div id="div_principal" class="container-fluid">
+	    	<div id="contenido" class="row-fluid">
+	    	
+		    <div class="span12">
             <header id="top_header">
                 <ui:insert name="top_header">
                     <h1>Porra Online</h1>
@@ -43,13 +44,13 @@
                            >
                 </rich:messages>
             </a4j:commandLink>
-	    	
-	    	<div class="grid_9 alpha">
+            <div class="row-fluid">
+	    	<div class="span9">
                 <section id="main_section">
                     <ui:insert name="body">Body</ui:insert>
 		    	</section>
 		    </div>
-		    <div class="grid_3 omega">
+		    <div class="span3">
                 <aside id="login_menu">
                     <ui:insert name="login_menu">
                         <ui:include src="/jsf/Login.xhtml"/>
@@ -62,10 +63,11 @@
                     </ui:insert>
                 </aside>
             </div>
-
+            </div>
             <footer id="web_footer">
                 <ui:insert name="footer">Porra Online</ui:insert>
 	    	</footer>
+	    	</div>
 	    	
 	    	</div>
 	    	

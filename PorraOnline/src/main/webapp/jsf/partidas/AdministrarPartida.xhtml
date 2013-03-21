@@ -61,7 +61,7 @@
                 | Eliminar
             </rich:column>
             <f:facet name="footer">
-                <rich:dataScroller renderIfSinglePage="false" />
+                <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
             </f:facet>
         </rich:dataTable>
         
@@ -94,7 +94,7 @@
                 | Eliminar
             </rich:column>
             <f:facet name="footer">
-                <rich:dataScroller renderIfSinglePage="false" />
+                <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
             </f:facet>
         </rich:dataTable>
         
@@ -126,12 +126,13 @@
                 #{posicion.pp_puntos_aproximacion}
             </rich:column>
             <rich:column>
-                <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelPuntosPosicion')}.show();" render="panelPuntosPosicion">
+                <a4j:commandLink styleClass="btn" title="Editar" oncomplete="#{rich:component('panelPuntosPosicion')}.show();" render="panelPuntosPosicion">
                     <f:setPropertyActionListener target="#{administrarPartidaBean.puntosPosicion}" value="#{posicion}"/>
+                    <i class="icon-edit"></i>
                 </a4j:commandLink>
             </rich:column>
             <f:facet name="footer">
-                <rich:dataScroller renderIfSinglePage="false" />
+                <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
             </f:facet>
         </rich:dataTable>
     </h:form>

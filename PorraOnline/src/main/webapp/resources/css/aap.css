@@ -1,5 +1,19 @@
 /* CSS para las aplicaciones AAP */
 
+body {
+	background-image: url("#{resource['images:fondo.jpg']}");
+	background-position: center top;
+    background-repeat: repeat-x;
+    min-width: 980px;
+    background-color: black;
+}
+
+#contenido {
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 a {
 	text-decoration: none;
@@ -10,12 +24,16 @@ a {
 }
 
 #top_header {
-	margin: 20px auto;
+	margin: 20px 5px auto;
 }
 
 #top_menu {
 	margin-left: 5px;
-	margin-bottom: 20px
+	margin-bottom: 20px;
+}
+
+#main_section {
+    margin-left: 5px;
 }
 
 #side_menu li {

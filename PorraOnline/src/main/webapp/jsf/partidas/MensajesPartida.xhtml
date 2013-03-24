@@ -27,7 +27,7 @@
             action="#{mensajesPartidaBean.nuevoMensaje}" 
             render="panelNuevoMensaje"
             oncomplete="#{rich:component('panelNuevoMensaje')}.show();"/>
-		<rich:dataTable id="listaMensajes" value="#{mensajesPartidaBean.listaMensajes}" var="mensaje" rows="15">
+		<rich:dataTable styleClass="table table-striped table-bordered" id="listaMensajes" value="#{mensajesPartidaBean.listaMensajes}" var="mensaje" rows="15">
             <rich:column>
                 <f:facet name="header">Mensajes</f:facet>
                 <p>

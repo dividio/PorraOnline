@@ -29,8 +29,64 @@ a {
 	text-decoration: none;
 }
 
-.rf-dt {
-    width: 100%
+.table-striped tbody > tr:nth-child(2n+1) > td, .table-striped tbody > tr:nth-child(2n+1) > th {
+    background-color: #F5F5F5;
+}
+
+.table {
+    width: 100%;
+}
+
+/* Fondo de los popupPanel */
+.rf-pp-cnt-scrlr {
+	background: white;
+}
+
+/* Estilo para el fondo de los calendarios */
+.rf-cal-popup {
+    background: white;
+}
+
+.rf-cal-holiday {
+	background-color: #FFEBDA;
+}
+
+.rf-cal-edtr-layout-shdw {
+    background-color: #000000;
+}
+
+.rf-cal-monthpicker-cnt {
+    background-color: #FFFFFF;
+}
+
+.rf-cal-edtr-btn-sel {
+    background-color: #FF7800;
+}
+
+.rf-cal-monthpicker-ok, .rf-cal-monthpicker-cancel, .rf-cal-timepicker-cnt, .rf-cal-week {
+    background-color: #F1EEE9;
+}
+
+.rf-cal-sp-btn, .rf-cal-sel, .rf-cal-tl, .rf-cal-hdr-month {
+    background-color: #D4CFC7;
+}
+
+.rf-cal-today {
+    background-color: #FF7800;
+}
+
+/* Fondo para la cabecera de los richDataTable */
+.rf-dt-hdr-c, .rf-dt-shdr-c, .rf-pp-hdr {
+    background: #D4CFC7;
+    background: linear-gradient( 0deg, #D4CFC7, white);
+}
+
+.table th, td {
+	text-align: center;
+}
+
+.table tfoot td {
+    text-align: center;
 }
 
 #top_header {
@@ -47,13 +103,18 @@ a {
     margin-right: 5px;
 }
 
+#main_section h2 {
+    margin-bottom: 20px;
+}
+
 #side_menu li {
     list-style: none;
     margin-left: 0px;
 }
 
 #login_menu {
-	margin-bottom: 20px;
+	margin: 0px 5px 20px 0px;
+	
 }
 
 #web_footer {
@@ -68,20 +129,9 @@ a {
   margin: .5em 0 0 0;
 }
 
-.formulario input a {
-  display: inline-block;
+.formulario input {
   margin: 5px auto;
-}
-
-.formulario input[type="submit"]{
-    background-color: transparent;
-    background-image: none;
-    border-width: 0px;
-    color: #0078D0;
-    font-size: 100%;
-    cursor: pointer;
-    margin: 0px;
-    padding: 0px;
+  width: 80%;
 }
 
 .menu_horizontal a {
@@ -94,6 +144,7 @@ a {
 	border-left: 1px solid black;*/
 }
 
+/* Estilo para que se conserven los saltos de linea en los textos */
 .preformatted {
     white-space: pre-wrap;
 }

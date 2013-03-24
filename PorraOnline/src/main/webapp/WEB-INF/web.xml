@@ -13,6 +13,11 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>${WebXml.javax.faces.PROJECT_STAGE}</param-value>
 	</context-param>
+	
+	<context-param>
+	    <param-name>org.richfaces.skin</param-name>
+	    <param-value>plain</param-value>
+	</context-param>
  
 	<!-- Welcome page -->
 	<welcome-file-list>

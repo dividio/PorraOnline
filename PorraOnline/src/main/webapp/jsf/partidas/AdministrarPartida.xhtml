@@ -48,7 +48,7 @@
             action="#{administrarPartidaBean.nuevoCompetidor}" 
             render="panelCompetidor"
             oncomplete="#{rich:component('panelCompetidor')}.show();"/>
-        <rich:dataTable id="listaCompetidores" value="#{administrarPartidaBean.listaCompetidores}" var="competidor" rows="10">
+        <rich:dataTable styleClass="table table-striped table-bordered" id="listaCompetidores" value="#{administrarPartidaBean.listaCompetidores}" var="competidor" rows="10">
             <f:facet name="header">Competidores</f:facet>
             <rich:column>
                 <f:facet name="header">Nombre</f:facet>
@@ -69,7 +69,7 @@
             action="#{administrarPartidaBean.nuevoEvento}" 
             render="panelEvento"
             oncomplete="#{rich:component('panelEvento')}.show();"/>
-        <rich:dataTable id="listaEventos" value="#{administrarPartidaBean.listaEventos}" var="evento" rows="10">
+        <rich:dataTable styleClass="table table-striped table-bordered" id="listaEventos" value="#{administrarPartidaBean.listaEventos}" var="evento" rows="10">
             <f:facet name="header">Eventos</f:facet>
             <rich:column>
                 <f:facet name="header">Nombre</f:facet>
@@ -107,7 +107,7 @@
             action="#{administrarPartidaBean.eliminarUltimaPosicion}"
             render="listaPuntosPosicion"/>
         </div>
-        <rich:dataTable id="listaPuntosPosicion" value="#{administrarPartidaBean.listaPuntosPosicion}" var="posicion" rows="10">
+        <rich:dataTable styleClass="table table-striped table-bordered" id="listaPuntosPosicion" value="#{administrarPartidaBean.listaPuntosPosicion}" var="posicion" rows="10">
             <f:facet name="header">Puntos por Posición</f:facet>
             <rich:column>
                 <f:facet name="header">Posición</f:facet>

@@ -70,7 +70,7 @@
 		            render="panelCompetidores"
 		            oncomplete="#{rich:component('panelCompetidores')}.show();"/>
             </div>
-	        <rich:dataTable id="listaPronosticos" value="#{proximoEventoBean.listaPronosticos}" var="pronostico" >
+	        <rich:dataTable styleClass="table table-striped table-bordered" id="listaPronosticos" value="#{proximoEventoBean.listaPronosticos}" var="pronostico" >
                 <f:facet name="header">#{proximoEventoBean.evento.ev_nombre}: Tu pronóstico para el evento</f:facet>
                 <rich:column>
                     <f:facet name="header">Posición</f:facet>
@@ -114,7 +114,7 @@
                 </rich:column>
 	        </rich:dataTable>
 	        
-	        <rich:dataTable rendered="#{proximoEventoBean.hayResultados}" id="listaResultados" value="#{proximoEventoBean.listaResultados}" var="resultado" >
+	        <rich:dataTable styleClass="table table-striped table-bordered" rendered="#{proximoEventoBean.hayResultados}" id="listaResultados" value="#{proximoEventoBean.listaResultados}" var="resultado" >
                 <f:facet name="header">Resultados</f:facet>
                 <rich:column>
                     <f:facet name="header">Posición</f:facet>
@@ -130,7 +130,7 @@
     
     <rich:popupPanel id="panelCompetidores" onmaskclick="#{rich:component('panelCompetidores')}.hide();" autosized="true">
         <h:form>
-            <rich:dataTable value="#{proximoEventoBean.listaPronosticosSinAsignar}" var="pronostico" rows="15">
+            <rich:dataTable styleClass="table table-striped table-bordered" value="#{proximoEventoBean.listaPronosticosSinAsignar}" var="pronostico" rows="15">
                 <f:facet name="header">Lista de #{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
                 <rich:column>
                     <a4j:commandLink action="#{proximoEventoBean.agregarPronostico}"
@@ -149,7 +149,7 @@
     
     <rich:popupPanel id="panelBuscadorEventos" onmaskclick="#{rich:component('panelBuscadorEventos')}.hide();" autosized="true">
         <h:form>
-            <rich:dataTable value="#{proximoEventoBean.listaEventos}" var="evento" rows="10">
+            <rich:dataTable styleClass="table table-striped table-bordered" value="#{proximoEventoBean.listaEventos}" var="evento" rows="10">
                 <f:facet name="header">Lista de Eventos</f:facet>
                 <rich:column>
                     <f:facet name="header">Evento</f:facet>

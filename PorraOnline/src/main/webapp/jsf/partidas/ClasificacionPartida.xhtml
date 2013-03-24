@@ -32,7 +32,10 @@
             </rich:column>
             <rich:column>
                 <f:facet name="header">Usuario</f:facet>
-                #{puesto[2]} 
+                <h:link value="#{puesto[2]}" outcome="pronosticosUsuario">
+                    <f:param name="idPartida" value="#{param.idPartida}"/>
+                    <f:param name="idUsuario" value="#{puesto[0]}"/>
+                </h:link>
             </rich:column>
             <rich:column>
                 <f:facet name="header">Puntos</f:facet>

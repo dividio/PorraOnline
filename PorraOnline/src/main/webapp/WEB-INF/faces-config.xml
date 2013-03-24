@@ -53,6 +53,11 @@
         <to-view-id>/jsf/partidas/ProximoEvento.xhtml</to-view-id>
         <redirect/>
     </navigation-case>
+    <navigation-case>
+        <from-outcome>pronosticosUsuario</from-outcome>
+        <to-view-id>/jsf/partidas/PronosticosUsuario.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
 </navigation-rule>
 
 </faces-config>

@@ -18,9 +18,9 @@
 			<h:outputLabel for="password">Contraseña:</h:outputLabel>
 			<h:inputSecret id="password" value="#{loginBean.password}" tabindex="2" required="true" label="Contraseña" size="15"/>
 			<br/>
-			<a4j:commandButton styleClass="btn btn-primary" action="#{loginBean.login}" value="Aceptar" render="loginPanel, controles_top_menu" />
+			<h:commandButton styleClass="btn btn-primary" action="#{loginBean.login}" value="Aceptar" />
 			<br/>
-			<a4j:commandButton styleClass="btn btn-success" action="#{loginBean.guardarNuevoUsuario}" value="Nuevo Usuario" render="loginPanel, controles_top_menu"/>
+			<h:commandButton styleClass="btn btn-success" action="#{loginBean.guardarNuevoUsuario}" value="Nuevo Usuario"/>
 		</fieldset>
 	</a4j:outputPanel>
 	<a4j:outputPanel rendered="#{loginBean.logueado}">

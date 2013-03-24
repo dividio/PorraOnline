@@ -35,7 +35,12 @@
                     <h:outputText value="#{mensaje.me_fecha}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{loginBean.timeZone}"/>
                     </h:outputText>
-                    ) #{mensaje.me_usu_id} dijo: #{mensaje.me_asunto}
+                    ) 
+                    <h:link value="#{mensaje.me_usu_id}" outcome="pronosticosUsuario">
+	                    <f:param name="idPartida" value="#{param.idPartida}"/>
+	                    <f:param name="idUsuario" value="#{mensaje.me_usu_id.usu_id}"/>
+	                </h:link>
+	                dijo: #{mensaje.me_asunto}
                 </p>
                 <p class="preformatted">#{mensaje.me_texto}</p> 
             </rich:column>

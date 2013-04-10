@@ -135,6 +135,31 @@
                 <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
             </f:facet>
         </rich:dataTable>
+        
+        <div class="menu_horizontal">
+        <a4j:commandLink value="Nuevo Administrador" 
+            action="#{administrarPartidaBean.cargarListaUsuarios}" 
+            render="panelUsuarios"
+            oncomplete="#{rich:component('panelUsuarios')}.show();"/>
+        </div>
+        <rich:dataTable styleClass="table table-striped table-bordered" id="listaAdministradores" value="#{administrarPartidaBean.listaAdministradores}" var="usuario" rows="10">
+            <f:facet name="header">Administradores</f:facet>
+            <rich:column>
+                <f:facet name="header">Usuario</f:facet>
+                #{usuario.usu_username}
+            </rich:column>
+            <rich:column>
+				<a4j:commandLink styleClass="btn" title="Eliminar"
+					    action="#{administrarPartidaBean.eliminarAdministrador}"
+					    render="listaAdministradores">
+					<f:setPropertyActionListener target="#{administrarPartidaBean.usuarioSeleccionado}" value="#{usuario}"/>
+					<i class="icon-trash"></i>
+				</a4j:commandLink>
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
+            </f:facet>
+        </rich:dataTable>
     </h:form>
     </a4j:outputPanel>
     
@@ -205,6 +230,25 @@
                 <h:outputLabel for="puntosAproximacion" value="Puntos para el que se aproxime:"/>
                 <h:inputText id="puntosAproximacion" value="#{administrarPartidaBean.puntosPosicion.pp_puntos_aproximacion}"/>
             </fieldset>
+        </h:form>
+    </rich:popupPanel>
+    
+    <rich:popupPanel id="panelUsuarios" onmaskclick="#{rich:component('panelUsuarios')}.hide();" autosized="true">
+        <h:form>
+            <rich:dataTable styleClass="table table-striped table-bordered" value="#{administrarPartidaBean.listaUsuarios}" var="usuario" rows="10">
+                <f:facet name="header">Lista de usuarios registrados</f:facet>
+                <rich:column>
+                    <a4j:commandLink action="#{administrarPartidaBean.guardarAdministrador}"
+                            render="listaAdministradores"
+                            oncomplete="#{rich:component('panelUsuarios')}.hide();">
+                        <h:outputText value="#{usuario.usu_username}"/>
+                        <f:setPropertyActionListener target="#{administrarPartidaBean.usuarioSeleccionado}" value="#{usuario}"/>
+                    </a4j:commandLink> 
+                </rich:column>
+                <f:facet name="footer">
+                    <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
+                </f:facet>
+            </rich:dataTable>
         </h:form>
     </rich:popupPanel>
 </ui:define>

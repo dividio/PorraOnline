@@ -35,12 +35,18 @@ public class AdministrarPartidaBean implements Serializable {
     private List<Eventos> listaEventos = new ArrayList<Eventos>();
     
     private List<PuntosPosicion> listaPuntosPosicion = new ArrayList<PuntosPosicion>();
+    
+    private List<Usuarios> listaUsuarios = new ArrayList<Usuarios>();
+    
+    private List<Usuarios> listaAdministradores = new ArrayList<Usuarios>();
 
 	private Competidores competidor = null;
 
 	private Eventos evento = null;
 	
 	private PuntosPosicion puntosPosicion = null;
+	
+	private Usuarios usuarioSeleccionado = null;
     
     public String guardarPartida() {
     	if(validaGuardarPartida()) {
@@ -199,6 +205,59 @@ public class AdministrarPartidaBean implements Serializable {
     	return null;
     }
     
+    public String cargarListaUsuarios() {
+    	Session session = Contexts.getHibernateSession();
+    	String hql = "select USU " +
+    			"from Partidas PA " +
+    			"join PA.usuarios USU " +
+    			"where PA.pa_id = :ID_PARTIDA " +
+    			"and not exists (select ADM.usu_id " +
+    			"from Partidas PA1 " +
+    			"join PA1.administradores ADM " +
+    			"where PA1.pa_id = PA.pa_id " +
+    			"and ADM.usu_id = USU.usu_id)";
+    	Query hqlQ = session.createQuery(hql);
+		hqlQ.setLong("ID_PARTIDA", idPartida);
+		listaUsuarios = hqlQ.list();
+    	return null;
+    }
+    
+    public String guardarAdministrador() {
+    	if(usuarioSeleccionado != null && usuarioSeleccionado.getUsu_id() != null) {
+    		Session session = Contexts.getHibernateSession();
+    		partida = (Partidas) session.get(Partidas.class, idPartida);
+    		partida.getAdministradores().add(usuarioSeleccionado);
+    		session.merge(partida);
+    		session.flush();
+    		cargarListaAdministradores();
+    		Contexts.addInfoMessage("Administrador añadido correctamente.");
+    	}
+    	return null;
+    }
+    
+    public String eliminarAdministrador() {
+    	if(validaEliminarAdministrador()) {
+    		Session session = Contexts.getHibernateSession();
+    		partida = (Partidas) session.get(Partidas.class, idPartida);
+    		partida.getAdministradores().remove(usuarioSeleccionado);
+    		session.merge(partida);
+    		session.flush();
+    		cargarListaAdministradores();
+    		Contexts.addInfoMessage("Administrador eliminado correctamente.");
+    	}
+    	return null;
+    }
+    
+    private boolean validaEliminarAdministrador() {
+    	if(listaAdministradores.size() <= 1) {
+    		Contexts.addErrorMessage("Al menos debe existir un administrador para la partida.");
+    	}
+    	if(usuarioSeleccionado == null || usuarioSeleccionado.getUsu_id() == null) {
+    		Contexts.addErrorMessage("No hay ningún usuario que eliminar.");
+    	}
+    	return !FuncionesJSF.hayErrores();
+    }
+    
 	public void setIdPartida(Long idPartida) {
 		this.idPartida = idPartida;
 		if(idPartida != null) {
@@ -217,6 +276,7 @@ public class AdministrarPartidaBean implements Serializable {
 				cargarListaCompetidores();
 				cargarListaEventos();
 				cargarListaPuntosPosicion();
+				cargarListaAdministradores();
 			}
 		}
 	}
@@ -243,6 +303,17 @@ public class AdministrarPartidaBean implements Serializable {
     			.add(Restrictions.eq("pp_pa_id", partida))
     			.addOrder(Order.asc("pp_posicion"))
     			.list();
+    }
+    
+    private void cargarListaAdministradores() {
+    	Session session = Contexts.getHibernateSession();
+    	String hql = "select USU " +
+    			"from Partidas PA " +
+    			"join PA.administradores USU " +
+    			"where PA.pa_id = :ID_PARTIDA";
+    	Query hqlQ = session.createQuery(hql);
+		hqlQ.setLong("ID_PARTIDA", idPartida);
+		listaAdministradores = hqlQ.list();
     }
 
 	public Long getIdPartida() {
@@ -303,6 +374,30 @@ public class AdministrarPartidaBean implements Serializable {
 
 	public void setPuntosPosicion(PuntosPosicion puntosPosicion) {
 		this.puntosPosicion = puntosPosicion;
+	}
+
+	public List<Usuarios> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+	public void setListaUsuarios(List<Usuarios> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
+	}
+
+	public List<Usuarios> getListaAdministradores() {
+		return listaAdministradores;
+	}
+
+	public void setListaAdministradores(List<Usuarios> listaAdministradores) {
+		this.listaAdministradores = listaAdministradores;
+	}
+
+	public Usuarios getUsuarioSeleccionado() {
+		return usuarioSeleccionado;
+	}
+
+	public void setUsuarioSeleccionado(Usuarios usuarioSeleccionado) {
+		this.usuarioSeleccionado = usuarioSeleccionado;
 	}
 
 	

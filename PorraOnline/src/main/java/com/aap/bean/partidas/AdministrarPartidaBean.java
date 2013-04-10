@@ -128,6 +128,24 @@ public class AdministrarPartidaBean implements Serializable {
     	return !FuncionesJSF.hayErrores();
     }
     
+    public String eliminarCompetidor() {
+    	if(validaEliminarCompetidor()) {
+    		Session session = Contexts.getHibernateSession();
+    		session.delete(competidor);
+    		session.flush();
+    		cargarListaCompetidores();
+    		Contexts.addInfoMessage("Competidor eliminado correctamente.");
+    	}
+    	return null;
+    }
+    
+    private boolean validaEliminarCompetidor() {
+    	if(competidor == null || competidor.getCo_id() == null) {
+    		Contexts.addErrorMessage("No hay ningún competidor que eliminar.");
+    	}
+    	return !FuncionesJSF.hayErrores();
+    }
+    
     public String guardarEvento() {
     	if(validaGuardarEvento()) {
     		Session session = Contexts.getHibernateSession();
@@ -151,6 +169,24 @@ public class AdministrarPartidaBean implements Serializable {
     		if(evento.getEv_nombre() == null || evento.getEv_nombre().isEmpty()) {
     			Contexts.addErrorMessage("Debe indicar un nombre para el evento.");
     		}
+    	}
+    	return !FuncionesJSF.hayErrores();
+    }
+    
+    public String eliminarEvento() {
+    	if(validaEliminarEvento()) {
+    		Session session = Contexts.getHibernateSession();
+    		session.delete(evento);
+    		session.flush();
+    		cargarListaEventos();
+    		Contexts.addInfoMessage("Evento eliminado correctamente.");
+    	}
+    	return null;
+    }
+    
+    private boolean validaEliminarEvento() {
+    	if(evento == null || evento.getEv_id() == null) {
+    		Contexts.addErrorMessage("No hay ningún evento que eliminar.");
     	}
     	return !FuncionesJSF.hayErrores();
     }

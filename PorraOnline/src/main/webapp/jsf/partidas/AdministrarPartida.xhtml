@@ -55,10 +55,17 @@
                 #{competidor.co_nombre}
             </rich:column>
             <rich:column>
-                <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelCompetidor')}.show();" render="panelCompetidor">
+                <a4j:commandLink styleClass="btn" title="Editar" oncomplete="#{rich:component('panelCompetidor')}.show();" render="panelCompetidor">
                     <f:setPropertyActionListener target="#{administrarPartidaBean.competidor}" value="#{competidor}"/>
+                    <i class="icon-edit"></i>
+                </a4j:commandLink> 
+                
+                <a4j:commandLink styleClass="btn" title="Eliminar"
+                        action="#{administrarPartidaBean.eliminarCompetidor}"
+                        render="listaCompetidores">
+                    <f:setPropertyActionListener target="#{administrarPartidaBean.competidor}" value="#{competidor}"/>
+                    <i class="icon-trash"></i>
                 </a4j:commandLink>
-                | Eliminar
             </rich:column>
             <f:facet name="footer">
                 <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>
@@ -88,10 +95,17 @@
                 </h:outputText>
             </rich:column>
             <rich:column>
-                <a4j:commandLink value="Editar" oncomplete="#{rich:component('panelEvento')}.show();" render="panelEvento">
+                <a4j:commandLink styleClass="btn" title="Editar" oncomplete="#{rich:component('panelEvento')}.show();" render="panelEvento">
                     <f:setPropertyActionListener target="#{administrarPartidaBean.evento}" value="#{evento}"/>
+                    <i class="icon-edit"></i>
                 </a4j:commandLink>
-                | Eliminar
+                
+				<a4j:commandLink styleClass="btn" title="Eliminar"
+				        action="#{administrarPartidaBean.eliminarEvento}"
+				        render="listaEventos">
+				    <f:setPropertyActionListener target="#{administrarPartidaBean.evento}" value="#{evento}"/>
+				    <i class="icon-trash"></i>
+				</a4j:commandLink>
             </rich:column>
             <f:facet name="footer">
                 <rich:dataScroller renderIfSinglePage="false" fastControls="hide"/>

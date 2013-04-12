@@ -33,6 +33,10 @@ a {
     background-color: #F5F5F5;
 }
 
+.table-striped tbody > tr:nth-child(2n) > td, .table-striped tbody > tr:nth-child(2n) > th {
+    background-color: #FFFFFF;
+}
+
 .table {
     width: 100%;
 }
@@ -73,6 +77,10 @@ a {
 
 .rf-cal-today {
     background-color: #FF7800;
+}
+
+.rf-ds {
+	white-space: normal;
 }
 
 /* Fondo para la cabecera de los richDataTable */

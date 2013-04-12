@@ -68,7 +68,7 @@
 	    </a4j:outputPanel>
     </h:form>
     
-    <rich:popupPanel id="panelBuscadorEventos" onmaskclick="#{rich:component('panelBuscadorEventos')}.hide();" autosized="true">
+    <rich:popupPanel id="panelBuscadorEventos" onmaskclick="#{rich:component('panelBuscadorEventos')}.hide();" autosized="true" followByScroll="false">
         <h:form>
             <rich:dataTable styleClass="table table-striped table-bordered" value="#{pronosticosUsuarioBean.listaEventos}" var="evento" rows="10">
                 <f:facet name="header">Lista de Eventos</f:facet>

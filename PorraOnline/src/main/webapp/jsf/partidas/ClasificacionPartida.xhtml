@@ -10,7 +10,7 @@
 				template="/WEB-INF/templates/template.xhtml">
 
 <f:metadata>
-    <f:viewParam name="idPartida" value="#{clasificacionPartidaBean.idPartida}" required="true" />
+    <f:viewParam name="idPartida" value="#{clasificacionPartidaBean.idPartida}"/>
 </f:metadata>
 
 <ui:define name="side_menu">
@@ -33,7 +33,7 @@
             <rich:column>
                 <f:facet name="header">Usuario</f:facet>
                 <h:link value="#{puesto[2]}" outcome="pronosticosUsuario">
-                    <f:param name="idPartida" value="#{param.idPartida}"/>
+                    <f:param name="idPartida" value="#{clasificacionPartidaBean.idPartida}"/>
                     <f:param name="idUsuario" value="#{puesto[0]}"/>
                 </h:link>
             </rich:column>

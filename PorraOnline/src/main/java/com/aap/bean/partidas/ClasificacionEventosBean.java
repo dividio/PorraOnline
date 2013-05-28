@@ -15,16 +15,14 @@ import org.hibernate.criterion.Restrictions;
 
 import com.aap.dto.Eventos;
 import com.aap.dto.Partidas;
-import com.aap.dto.Pronosticos;
-import com.aap.dto.Resultados;
 import com.aap.dto.Usuarios;
 import com.aap.util.jsf.Contexts;
 
 @ManagedBean
 @ViewScoped
-public class PronosticosUsuarioBean implements Serializable {
+public class ClasificacionEventosBean implements Serializable {
 
-    private static final long serialVersionUID = 1081888871484697707L;
+    private static final long serialVersionUID = 2941170729642672710L;
 
 	private Long idPartida;
 	
@@ -39,14 +37,10 @@ public class PronosticosUsuarioBean implements Serializable {
     private Boolean eventoPasado = Boolean.FALSE;
     
     private Boolean hayResultados = Boolean.FALSE;
-        
-    private Pronosticos pronostico = new Pronosticos();
-            
-    private List<Pronosticos> listaPronosticos = new ArrayList<Pronosticos>();
-    
-    private List<Resultados> listaResultados = new ArrayList<Resultados>();
-    
+
     private List<Eventos> listaEventos = new ArrayList<Eventos>();
+    
+    private List<Object[]> clasificacion = new ArrayList<Object[]>();
     
     public String cargarListaEventos() {
     	if(listaEventos.isEmpty()) {
@@ -61,8 +55,7 @@ public class PronosticosUsuarioBean implements Serializable {
     
     public String cargarNuevoEvento() {
     	cargarEvento();
-    	cargarPronosticosEvento();
-    	cargarListaResultados();
+    	cargarClasificacion();
     	return null;
     }    
     
@@ -86,8 +79,7 @@ public class PronosticosUsuarioBean implements Serializable {
 				hqlQ.setLong("ID_PARTIDA", idPartida);
 				partida = (Partidas) hqlQ.uniqueResult();
 				cargarProximoEvento();
-				cargarPronosticosEvento();
-				cargarListaResultados();
+				cargarClasificacion();
 			}
 		}
 	}
@@ -135,36 +127,38 @@ public class PronosticosUsuarioBean implements Serializable {
 		}
 	}
 	
-	private void cargarPronosticosEvento() {
-		if(eventoPasado && evento != null && evento.getEv_id() != null && usuario != null && usuario.getUsu_id() != null) {
+	private void cargarClasificacion() {
+		clasificacion = new ArrayList<Object[]>();
+		if(partida != null && partida.getPa_id() != null && evento != null && evento.getEv_id() != null) {
 			Session session = Contexts.getHibernateSession();
-			listaPronosticos = session.createCriteria(Pronosticos.class)
-					.add(Restrictions.eq("pr_ev_id", evento))
-					.add(Restrictions.eq("pr_usu_id", usuario))
-					.addOrder(Order.asc("pr_posicion"))
-					.list();
+			String hql = "select USU.usu_id, USU.usu_username, sum(coalesce(PR.pr_puntos_conseguidos,0)) " +
+						"from Pronosticos PR " +
+						"join PR.pr_usu_id USU " +
+						"join PR.pr_ev_id EV " +
+						"join EV.ev_pa_id PA " +
+						"where PA.pa_id = :ID_PARTIDA " +
+						"and EV.ev_id = :ID_EVENTO " +
+						"group by USU.usu_id, USU.usu_username " +
+						"order by sum(coalesce(PR.pr_puntos_conseguidos,0)) desc, USU.usu_username ";
+			Query hqlQ = session.createQuery(hql);
+			hqlQ.setLong("ID_PARTIDA", partida.getPa_id());
+			hqlQ.setLong("ID_EVENTO", evento.getEv_id());
+			List<Object[]> datos = hqlQ.list();
+			
+			int posicion = 1;
+			for(Object[] puesto:datos) {
+				Object[] aux = new Object[4];
+				aux[0] = puesto[0]; //USU.usu_id
+				aux[1] = Long.valueOf(posicion++);
+				aux[2] = puesto[1]; //USU.usu_username
+				aux[3] = puesto[2]; //sum(coalesce(PR.pr_puntos_conseguidos,0))
+				
+				clasificacion.add(aux);
+			}
 		} else {
-			listaPronosticos = new ArrayList<Pronosticos>();
+			clasificacion = new ArrayList<Object[]>();
 		}
 	}
-	
-	private void cargarListaResultados() {
-		if(evento != null && evento.getEv_id() != null) {
-			Session session = Contexts.getHibernateSession();
-			listaResultados = new ArrayList<Resultados>();
-			listaResultados = session.createCriteria(Resultados.class)
-					.add(Restrictions.eq("re_ev_id", evento))
-					.addOrder(Order.asc("re_posicion"))
-					.list();
-		} else {
-			listaResultados = new ArrayList<Resultados>();
-		}
-		if(!listaResultados.isEmpty()) {
-			hayResultados = Boolean.TRUE;
-		} else {
-			hayResultados = Boolean.FALSE;
-		}
-    }
 	
 	public Partidas getPartida() {
 		return partida;
@@ -182,36 +176,12 @@ public class PronosticosUsuarioBean implements Serializable {
 		this.evento = evento;
 	}
 
-	public List<Pronosticos> getListaPronosticos() {
-		return listaPronosticos;
-	}
-
-	public void setListaPronosticos(List<Pronosticos> listaPronosticos) {
-		this.listaPronosticos = listaPronosticos;
-	}
-
-	public Pronosticos getPronostico() {
-		return pronostico;
-	}
-
-	public void setPronostico(Pronosticos pronostico) {
-		this.pronostico = pronostico;
-	}
-
 	public List<Eventos> getListaEventos() {
 		return listaEventos;
 	}
 
 	public void setListaEventos(List<Eventos> listaEventos) {
 		this.listaEventos = listaEventos;
-	}
-
-	public List<Resultados> getListaResultados() {
-		return listaResultados;
-	}
-
-	public void setListaResultados(List<Resultados> listaResultados) {
-		this.listaResultados = listaResultados;
 	}
 
 	public Boolean getHayResultados() {
@@ -240,6 +210,14 @@ public class PronosticosUsuarioBean implements Serializable {
 
 	public void setEventoPasado(Boolean eventoPasado) {
 		this.eventoPasado = eventoPasado;
+	}
+
+	public List<Object[]> getClasificacion() {
+		return clasificacion;
+	}
+
+	public void setClasificacion(List<Object[]> clasificacion) {
+		this.clasificacion = clasificacion;
 	}
 	
 	

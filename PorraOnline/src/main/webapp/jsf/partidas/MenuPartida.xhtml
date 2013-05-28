@@ -16,7 +16,12 @@
 		   </h:link>
 	   </li>
 	   <li>
-	       <h:link value="Clasificación" outcome="clasificacionPartida">
+	       <h:link value="Clasificación General" outcome="clasificacionPartida">
+              <f:param name="idPartida" value="#{param.idPartida}"/>
+           </h:link>
+        </li>
+        <li>
+           <h:link value="Clasificación por Eventos" outcome="clasificacionEventos">
               <f:param name="idPartida" value="#{param.idPartida}"/>
            </h:link>
         </li>

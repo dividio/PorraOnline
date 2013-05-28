@@ -73,4 +73,24 @@
     <h:outputStylesheet name="bootstrap.min.css" library="css"/>
     <h:outputStylesheet name="bootstrap-responsive.min.css" library="css"/>
     <h:outputStylesheet name="aap.css" library="css"/>
+    
+    <script>
+	//<![CDATA[
+		    
+		function adaptarDivVentana(id) {
+			var elem = document.getElementById(id.id + '_content_scroller')
+		    var diferencia = window.innerHeight - elem.clientHeight;
+		    if (diferencia < 50) {
+		    	//Reset
+		        elem.style.height = 'auto';
+		
+		        elem.style.overflowY = 'auto';
+		        elem.style.overflowX = 'hidden';
+		        var tam = window.innerHeight - 50;
+		        elem.style.height = tam + 'px';
+		    }
+		}
+		
+	//]]>
+	</script>
 </html>

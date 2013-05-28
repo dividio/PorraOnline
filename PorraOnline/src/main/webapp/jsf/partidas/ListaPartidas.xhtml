@@ -36,7 +36,7 @@
 		</rich:dataTable>
     </h:form>
     
-    <rich:popupPanel id="panelNuevaSuscripcion" onmaskclick="#{rich:component('panelNuevaSuscripcion')}.hide();" autosized="true" followByScroll="false">
+    <rich:popupPanel id="panelNuevaSuscripcion" onmaskclick="#{rich:component('panelNuevaSuscripcion')}.hide();" autosized="true" onshow="adaptarDivVentana(panelNuevaSuscripcion);">
         <f:facet name="header">Partidas a las que te puedes suscribir</f:facet>
         <h:form>
             <rich:dataTable styleClass="table table-striped table-bordered" value="#{listaPartidasBean.listaPartidasDisponibles}" var="partida">

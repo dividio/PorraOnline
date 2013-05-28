@@ -76,8 +76,10 @@
     
     <script>
 	//<![CDATA[
-		    
-		function adaptarDivVentana(id) {
+		
+	    // Funcion que adapta un popupPanel para mostrar una barra de desplazamiento vertical
+	    // si es necesaria.
+		function adaptarPopupPanel(id) {
 			var elem = document.getElementById(id.id + '_content_scroller')
 		    var diferencia = window.innerHeight - elem.clientHeight;
 		    if (diferencia < 50) {

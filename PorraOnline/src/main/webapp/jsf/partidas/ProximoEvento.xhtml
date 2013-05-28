@@ -128,7 +128,7 @@
 	    </a4j:outputPanel>
     </h:form>
     
-    <rich:popupPanel id="panelCompetidores" onmaskclick="#{rich:component('panelCompetidores')}.hide();" autosized="true" onshow="adaptarDivVentana(panelCompetidores);">
+    <rich:popupPanel id="panelCompetidores" onmaskclick="#{rich:component('panelCompetidores')}.hide();" autosized="true" onshow="adaptarPopupPanel(panelCompetidores);">
         <h:form>
             <rich:dataTable styleClass="table table-striped table-bordered" value="#{proximoEventoBean.listaPronosticosSinAsignar}" var="pronostico" rows="15">
                 <f:facet name="header">Lista de #{proximoEventoBean.partida.pa_alias_competidores}</f:facet>
@@ -149,7 +149,7 @@
         </h:form>
     </rich:popupPanel>
     
-    <rich:popupPanel id="panelBuscadorEventos" onmaskclick="#{rich:component('panelBuscadorEventos')}.hide();" autosized="true" onshow="adaptarDivVentana(panelBuscadorEventos);">
+    <rich:popupPanel id="panelBuscadorEventos" onmaskclick="#{rich:component('panelBuscadorEventos')}.hide();" autosized="true" onshow="adaptarPopupPanel(panelBuscadorEventos);">
         <h:form>
             <rich:dataTable styleClass="table table-striped table-bordered" value="#{proximoEventoBean.listaEventos}" var="evento" rows="10">
                 <f:facet name="header">Lista de Eventos</f:facet>

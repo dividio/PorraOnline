@@ -52,7 +52,7 @@
 		</rich:dataTable>
     </h:form>
     
-    <rich:popupPanel id="panelNuevoMensaje" onmaskclick="#{rich:component('panelNuevoMensaje')}.hide();" autosized="true" onshow="adaptarDivVentana(panelNuevoMensaje);">
+    <rich:popupPanel id="panelNuevoMensaje" onmaskclick="#{rich:component('panelNuevoMensaje')}.hide();" autosized="true" onshow="adaptarPopupPanel(panelNuevoMensaje);">
         <h:form>
             <a4j:commandLink value="Guardar" 
                 action="#{mensajesPartidaBean.guardarNuevoMensaje}"

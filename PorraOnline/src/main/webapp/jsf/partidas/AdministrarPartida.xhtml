@@ -185,7 +185,7 @@
     </h:form>
     </a4j:outputPanel>
     
-    <rich:popupPanel id="panelCompetidor" onmaskclick="#{rich:component('panelCompetidor')}.hide();" autosized="true" onshow="adaptarDivVentana(panelCompetidor);">
+    <rich:popupPanel id="panelCompetidor" onmaskclick="#{rich:component('panelCompetidor')}.hide();" autosized="true" onshow="adaptarPopupPanel(panelCompetidor);">
         <f:facet name="header">Competidor</f:facet>
         <h:form>
             <a4j:commandLink value="Guardar" 
@@ -199,7 +199,7 @@
         </h:form>
     </rich:popupPanel>
     
-    <rich:popupPanel id="panelEvento" onmaskclick="#{rich:component('panelEvento')}.hide();" autosized="true" onshow="adaptarDivVentana(panelEvento);">
+    <rich:popupPanel id="panelEvento" onmaskclick="#{rich:component('panelEvento')}.hide();" autosized="true" onshow="adaptarPopupPanel(panelEvento);">
         <f:facet name="header">Evento</f:facet>
         <h:form>
             <a4j:commandLink value="Guardar" 
@@ -231,7 +231,7 @@
         </h:form>
     </rich:popupPanel>
     
-    <rich:popupPanel id="panelPuntosPosicion" onmaskclick="#{rich:component('panelPuntosPosicion')}.hide();" autosized="true" onshow="adaptarDivVentana(panelPuntosPosicion);">
+    <rich:popupPanel id="panelPuntosPosicion" onmaskclick="#{rich:component('panelPuntosPosicion')}.hide();" autosized="true" onshow="adaptarPopupPanel(panelPuntosPosicion);">
         <f:facet name="header">Puntos por posición</f:facet>
         <h:form>
             <a4j:commandLink value="Guardar" 
@@ -255,7 +255,7 @@
         </h:form>
     </rich:popupPanel>
     
-    <rich:popupPanel id="panelUsuarios" onmaskclick="#{rich:component('panelUsuarios')}.hide();" autosized="true" onshow="adaptarDivVentana(panelUsuarios);">
+    <rich:popupPanel id="panelUsuarios" onmaskclick="#{rich:component('panelUsuarios')}.hide();" autosized="true" onshow="adaptarPopupPanel(panelUsuarios);">
         <h:form>
             <rich:dataTable styleClass="table table-striped table-bordered" value="#{administrarPartidaBean.listaUsuarios}" var="usuario" rows="10">
                 <f:facet name="header">Lista de usuarios registrados</f:facet>

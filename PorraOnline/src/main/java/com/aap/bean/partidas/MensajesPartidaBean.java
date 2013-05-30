@@ -16,6 +16,7 @@ import org.hibernate.criterion.Restrictions;
 import com.aap.dto.Mensajes;
 import com.aap.dto.Partidas;
 import com.aap.dto.Usuarios;
+import com.aap.util.ApplicationUtil;
 import com.aap.util.jsf.Contexts;
 import com.aap.util.jsf.FuncionesJSF;
 
@@ -90,7 +91,7 @@ public class MensajesPartidaBean implements Serializable {
 
 	public void setIdPartida(Long idPartida) {
 		this.idPartida = idPartida;
-		if(idPartida != null) {
+		if(ApplicationUtil.cambioPartida(partida, idPartida)) {
 			Session session = Contexts.getHibernateSession();
 			Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
 			if(usuario != null) {

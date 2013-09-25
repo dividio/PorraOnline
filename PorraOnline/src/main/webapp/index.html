@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" data-ng-app="porraOnline">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Porra Online</title>
+	<link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
+	<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+    <div id="div_principal" class="container">
+        <div id="contenido" class="row">
+        
+        <div class="col-md-12">
+        <header id="top_header">
+            <h1>Porra Online</h1>
+        </header>
+        
+        <nav id="top_menu">
+	        <div class="menu_horizontal">
+		        <a href="#/inicio">Inicio</a>
+		        
+		        <a href="#/inicio">Partidas</a>
+		        
+		        <a href="#/inicio">Crear Partida</a>
+	        </div>
+        </nav>
+
+        <div class="row">
+        <div class="col-md-9">
+            <section id="main_section">
+                <div data-ng-view></div>
+            </section>
+        </div>
+        <div class="col-md-3">
+            <aside id="login_menu">
+                login_menu
+                <input type="text" data-ng-model="email" placeholder="e-mail">
+            </aside>
+            
+            <aside id="side_menu">
+                side_menu
+            </aside>
+        </div>
+        </div>
+        <footer id="web_footer">
+            Porra Online
+        </footer>
+        </div>
+        
+        </div>
+        
+    </div>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-resource.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services/noticiasService.js"></script>
+    <script src="js/controllers/inicioController.js"></script>
+    <script src="js/filters/filters.js"></script>
+    <script src="js/directives/directives.js"></script>
+    <script src="rest-js"></script>
+</body>
+</html>

@@ -8,7 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -35,7 +34,6 @@ public class EntityManagerFilter implements Filter {
 	        FilterChain chain) throws ServletException, IOException {
 
 		// create the entity manager
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		try {
 			Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
 

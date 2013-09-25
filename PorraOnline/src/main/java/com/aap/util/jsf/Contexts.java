@@ -1,11 +1,5 @@
 package com.aap.util.jsf;
 
-import java.util.Iterator;
-
-import javax.el.ELContext;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
@@ -25,9 +19,10 @@ public class Contexts {
 	 * @return EntityManager
 	 */
 	public static Session getHibernateSession() {
-		return (Session) ((HttpServletRequest) FacesContext
-		        .getCurrentInstance().getExternalContext().getRequest())
-		        .getAttribute("session");
+//		return (Session) ((HttpServletRequest) FacesContext
+//		        .getCurrentInstance().getExternalContext().getRequest())
+//		        .getAttribute("session");ç
+		return null;
 	}
 
 	/**
@@ -38,8 +33,9 @@ public class Contexts {
 	 * @return HttpSession
 	 */
 	public static HttpSession getSession(boolean create) {
-		return (HttpSession) FacesContext.getCurrentInstance()
-		        .getExternalContext().getSession(create);
+//		return (HttpSession) FacesContext.getCurrentInstance()
+//		        .getExternalContext().getSession(create);
+		return null;
 
 	}
 
@@ -49,33 +45,9 @@ public class Contexts {
 	 * @return HttpSession
 	 */
 	public static HttpSession getSession() {
-		return (HttpSession) FacesContext.getCurrentInstance()
-		        .getExternalContext().getSession(true);
-	}
-
-	/**
-	 * Obtiene el FacesContext.
-	 * 
-	 * @return FacesContext
-	 */
-	public static FacesContext getFacesContext() {
-		return FacesContext.getCurrentInstance();
-	}
-
-	/**
-	 * Get mapped bean determined by its name
-	 * 
-	 * @param name
-	 *            the name of the mapped bean
-	 * @return Object
-	 */
-	public static Object getBean(String name) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		ELContext elContext = fc.getELContext();
-
-		Object bean = elContext.getELResolver().getValue(elContext, null, name);
-
-		return bean;
+//		return (HttpSession) FacesContext.getCurrentInstance()
+//		        .getExternalContext().getSession(true);
+		return null;
 	}
 
 	/**
@@ -86,8 +58,9 @@ public class Contexts {
 	 * @return String parameter value
 	 */
 	public static String getRequestParameter(String name) {
-		return (String) FacesContext.getCurrentInstance().getExternalContext()
-		        .getRequestParameterMap().get(name);
+//		return (String) FacesContext.getCurrentInstance().getExternalContext()
+//		        .getRequestParameterMap().get(name);
+		return null;
 	}
 
 	/**
@@ -109,8 +82,8 @@ public class Contexts {
 	 *            Mensaje a mostrar
 	 */
 	public static void addInfoMessage(String message) {
-		FacesContext.getCurrentInstance().addMessage(null,
-		        new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+//		FacesContext.getCurrentInstance().addMessage(null,
+//		        new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
 	}
 
 	/**
@@ -121,8 +94,8 @@ public class Contexts {
 	 *            Mensaje a mostrar
 	 */
 	public static void addErrorMessage(String message) {
-		FacesContext.getCurrentInstance().addMessage(null,
-		        new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+//		FacesContext.getCurrentInstance().addMessage(null,
+//		        new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
 	}
 
 	/**
@@ -133,18 +106,18 @@ public class Contexts {
 	 *            Mensaje a mostrar
 	 */
 	public static void addWarningMessage(String message) {
-		FacesContext.getCurrentInstance().addMessage(null,
-		        new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
+//		FacesContext.getCurrentInstance().addMessage(null,
+//		        new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
 	}
 
 	/**
 	 * Elimina del FacesContext todos los mensajes que hayan sido introducidos.
 	 */
 	public static void clearAllMessages() {
-		Iterator<FacesMessage> it = Contexts.getFacesContext().getMessages();
-		while (it.hasNext()) {
-			it.remove();
-		}
+//		Iterator<FacesMessage> it = Contexts.getFacesContext().getMessages();
+//		while (it.hasNext()) {
+//			it.remove();
+//		}
 	}
 
 	/**
@@ -152,13 +125,13 @@ public class Contexts {
 	 * introducidos.
 	 */
 	public static void clearInfoMessages() {
-		Iterator<FacesMessage> it = Contexts.getFacesContext().getMessages();
-		while (it.hasNext()) {
-			FacesMessage msg = it.next();
-			if (msg.getSeverity().equals(FacesMessage.SEVERITY_INFO)) {
-				it.remove();
-			}
-		}
+//		Iterator<FacesMessage> it = Contexts.getFacesContext().getMessages();
+//		while (it.hasNext()) {
+//			FacesMessage msg = it.next();
+//			if (msg.getSeverity().equals(FacesMessage.SEVERITY_INFO)) {
+//				it.remove();
+//			}
+//		}
 	}
 
 	/**
@@ -166,13 +139,13 @@ public class Contexts {
 	 * introducidos.
 	 */
 	public static void clearWarningMessages() {
-		Iterator<FacesMessage> it = Contexts.getFacesContext().getMessages();
-		while (it.hasNext()) {
-			FacesMessage msg = it.next();
-			if (msg.getSeverity().equals(FacesMessage.SEVERITY_WARN)) {
-				it.remove();
-			}
-		}
+//		Iterator<FacesMessage> it = Contexts.getFacesContext().getMessages();
+//		while (it.hasNext()) {
+//			FacesMessage msg = it.next();
+//			if (msg.getSeverity().equals(FacesMessage.SEVERITY_WARN)) {
+//				it.remove();
+//			}
+//		}
 	}
 
 	/**
@@ -180,13 +153,13 @@ public class Contexts {
 	 * introducidos.
 	 */
 	public static void clearErrorMessages() {
-		Iterator<FacesMessage> it = Contexts.getFacesContext().getMessages();
-		while (it.hasNext()) {
-			FacesMessage msg = it.next();
-			if (msg.getSeverity().equals(FacesMessage.SEVERITY_ERROR)) {
-				it.remove();
-			}
-		}
+//		Iterator<FacesMessage> it = Contexts.getFacesContext().getMessages();
+//		while (it.hasNext()) {
+//			FacesMessage msg = it.next();
+//			if (msg.getSeverity().equals(FacesMessage.SEVERITY_ERROR)) {
+//				it.remove();
+//			}
+//		}
 	}
 
 	/**
@@ -195,9 +168,9 @@ public class Contexts {
 	 * modificado en la base de datos durante el request será guardado.
 	 */
 	public static void abortarTransaccion() {
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-		        .getCurrentInstance().getExternalContext().getRequest();
-		request.setAttribute("abortarTransaccion", Boolean.valueOf(true));
+//		HttpServletRequest request = (HttpServletRequest) FacesContext
+//		        .getCurrentInstance().getExternalContext().getRequest();
+//		request.setAttribute("abortarTransaccion", Boolean.valueOf(true));
 	}
 
 	/**
@@ -208,13 +181,13 @@ public class Contexts {
 	 */
 	public static boolean transaccionAbortada() {
 		boolean abortar = false;
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-		        .getCurrentInstance().getExternalContext().getRequest();
-		Boolean abortarTransaccion = (Boolean) request
-		        .getAttribute("abortarTransaccion");
-		if (abortarTransaccion != null && abortarTransaccion) {
-			abortar = true;
-		}
+//		HttpServletRequest request = (HttpServletRequest) FacesContext
+//		        .getCurrentInstance().getExternalContext().getRequest();
+//		Boolean abortarTransaccion = (Boolean) request
+//		        .getAttribute("abortarTransaccion");
+//		if (abortarTransaccion != null && abortarTransaccion) {
+//			abortar = true;
+//		}
 		return abortar;
 	}
 }

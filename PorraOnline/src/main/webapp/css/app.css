@@ -1,13 +1,13 @@
 /* CSS para las aplicaciones AAP */
 
 body {
-	background-image: url("#{resource['images:fondo.jpg']}");
+	background-image: url('../img/fondo.jpg');
 	background-position: center top;
     background-repeat: no-repeat;
     background-color: black;
 }
 
-.container-fluid {
+.container {
   margin-left: auto;
   margin-right: auto;
   max-width: 960px;
@@ -15,7 +15,7 @@ body {
 
 [class^="icon-"],
 [class*=" icon-"] {
-  background-image: url("#{resource['images:glyphicons-halflings.png']}");
+  background-image: url('../img/glyphicons-halflings.png');
 }
 
 #contenido {
@@ -37,56 +37,18 @@ a {
     background-color: #FFFFFF;
 }
 
+/* Fondo para la cabecera de los richDataTable */
+.table-head {
+    background: #D4CFC7;
+    background: linear-gradient( 0deg, #D4CFC7, white);
+}
+
 .table {
     width: 100%;
 }
 
-/* Fondo de los popupPanel */
-.rf-pp-cnt-scrlr {
-	background: white;
-}
-
-/* Estilo para el fondo de los calendarios */
-.rf-cal-popup {
-    background: white;
-}
-
-.rf-cal-holiday {
-	background-color: #FFEBDA;
-}
-
-.rf-cal-edtr-layout-shdw {
-    background-color: #000000;
-}
-
-.rf-cal-monthpicker-cnt {
-    background-color: #FFFFFF;
-}
-
-.rf-cal-edtr-btn-sel {
-    background-color: #FF7800;
-}
-
-.rf-cal-monthpicker-ok, .rf-cal-monthpicker-cancel, .rf-cal-timepicker-cnt, .rf-cal-week {
-    background-color: #F1EEE9;
-}
-
-.rf-cal-sp-btn, .rf-cal-sel, .rf-cal-tl, .rf-cal-hdr-month {
-    background-color: #D4CFC7;
-}
-
-.rf-cal-today {
-    background-color: #FF7800;
-}
-
-.rf-ds {
-	white-space: normal;
-}
-
-/* Fondo para la cabecera de los richDataTable */
-.rf-dt-hdr-c, .rf-dt-shdr-c, .rf-pp-hdr {
-    background: #D4CFC7;
-    background: linear-gradient( 0deg, #D4CFC7, white);
+.table td {
+	text-align: left;
 }
 
 .table th, td {

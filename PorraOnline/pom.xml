@@ -8,9 +8,9 @@
 	
 	
 	<properties>
-        <myfaces.version>2.1.12</myfaces.version>
-        <org.richfaces.bom.version>4.3.3.Final</org.richfaces.bom.version>
+        <hibernateVersion>4.2.5.Final</hibernateVersion>
         <slf4jVersion>1.7.2</slf4jVersion>
+        <resteasyVersion>3.0.4.Final</resteasyVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 	<build>
@@ -61,8 +61,6 @@
             <id>desarrollo</id>
             <activation><activeByDefault>true</activeByDefault></activation>
             <properties>
-                <WebXml.javax.faces.PROJECT_STAGE>Development</WebXml.javax.faces.PROJECT_STAGE>
-                
                 <Hibernate.connection.url>jdbc:mysql://localhost:3306/PorraOnline</Hibernate.connection.url>
                 <Hibernate.connection.username>porraonline</Hibernate.connection.username>
                 <Hibernate.connection.password>porraonline</Hibernate.connection.password>
@@ -75,8 +73,6 @@
         <profile>
             <id>produccion</id>
             <properties>
-                <WebXml.javax.faces.PROJECT_STAGE>Production</WebXml.javax.faces.PROJECT_STAGE>
-            
                 <Hibernate.connection.url>xx</Hibernate.connection.url>
                 <Hibernate.connection.username>xx</Hibernate.connection.username>
                 <Hibernate.connection.password>xx</Hibernate.connection.password>
@@ -90,75 +86,14 @@
 	
 	
     <!-- Project dependencies -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-bom</artifactId>
-                <version>${org.richfaces.bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    
     <dependencies>
-    
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-        </dependency>
-        
+		
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-    
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-        </dependency>
-    
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-    
-        <!-- MyFaces -->
-        <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces.version}</version>
-        </dependency>
-
-        <!-- RichFaces -->
-		<dependency>
-			<groupId>org.richfaces.ui</groupId>
-			<artifactId>richfaces-components-ui</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces.core</groupId>
-			<artifactId>richfaces-core-impl</artifactId>
-		</dependency>
 		
         <!-- SLF4J -->
 		<dependency>
@@ -189,13 +124,13 @@
 	    <dependency>
 	        <groupId>org.hibernate</groupId>
 	        <artifactId>hibernate-core</artifactId>
-	        <version>4.2.5.Final</version>
+	        <version>${hibernateVersion}</version>
 	        <scope>compile</scope>
 	    </dependency>
 	    <dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-c3p0</artifactId>
-		    <version>4.2.5.Final</version>
+		    <version>${hibernateVersion}</version>
 		    <scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -212,7 +147,37 @@
 		   <version>5.1.23</version>
 		   <scope>compile</scope>
 		</dependency>
+		
+		
+		<!-- RESTeasy -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>${resteasyVersion}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-simple</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <version>${resteasyVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>${resteasyVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jsapi</artifactId>
+            <version>${resteasyVersion}</version>
+        </dependency>
     </dependencies>
+    
     
 
 

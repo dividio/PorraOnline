@@ -8,6 +8,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -63,7 +64,12 @@ public class EntityManagerFilter implements Filter {
 			} catch (RuntimeException e) {
 				// if something fails rollback the transaction and log the error
 				log.error("Algo ha ido mal realizando la transacción de Hibernate.", e);
-				tx.rollback();
+				if(tx != null) {
+					tx.rollback();
+				}
+				if(response instanceof HttpServletResponse) {
+					((HttpServletResponse) response).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				}
 
 			} finally {
 				hibernateSession.close();

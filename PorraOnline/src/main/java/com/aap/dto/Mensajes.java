@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 @Entity
 @Table(name = "MENSAJES")
@@ -31,11 +32,12 @@ public class Mensajes implements Serializable {
 	@Size(max=2500)
 	private String me_texto;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
+	@ManyToOne
 	@JoinColumn(name = "me_pa_id", referencedColumnName = "pa_id")
 	private Partidas me_pa_id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "me_usu_id", referencedColumnName = "usu_id")
 	private Usuarios me_usu_id;
 

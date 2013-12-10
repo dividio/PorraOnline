@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "PARTIDAS")
 public class Partidas implements Serializable {
@@ -41,27 +43,33 @@ public class Partidas implements Serializable {
 	@Size(max=50)
 	private String pa_alias_competidores;
 
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USUARIOS_PARTIDAS", 
 		joinColumns = @JoinColumn(name = "up_pa_id", referencedColumnName = "pa_id"), 
 		inverseJoinColumns = @JoinColumn(name = "up_usu_id", referencedColumnName = "usu_id"))
 	private Set<Usuarios> usuarios;
 	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "ADMINISTRADORES_PARTIDAS", 
 		joinColumns = @JoinColumn(name = "ad_pa_id", referencedColumnName = "pa_id"), 
 		inverseJoinColumns = @JoinColumn(name = "ad_usu_id", referencedColumnName = "usu_id"))
 	private Set<Usuarios> administradores;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="me_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Mensajes> listaMensajes;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="ev_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Eventos> listaEventos;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="co_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Competidores> listaCompetidores;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="pp_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<PuntosPosicion> listaPuntosPosicion;
 	

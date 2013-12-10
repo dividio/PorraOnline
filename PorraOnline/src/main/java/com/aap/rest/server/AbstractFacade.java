@@ -37,7 +37,7 @@ public abstract class AbstractFacade<T> {
 		}
     }
 
-    public T find(Object id) {
+    public T find(Long id) {
 		T elemento = (T) getSession().get(entityClass, (Serializable) id);
 		if(elemento == null) {
 			throw new RestCustomException("Elemento no encontrado", "Elemento no encontrado", Status.NOT_FOUND, RestCustomException.ERROR);

@@ -11,12 +11,16 @@ app.controller("inicioCtrl", ['$scope','Noticias', function ($scope, Noticias) {
 	};
 	
 	this.buscar = function() {
-		Noticias.findAll().then(
-			function(value) {
-				$scope.listaNoticias = value;
-			},
-			this.mostrarMensajes);
+		if(!$scope.listaNoticias) {
+			Noticias.findAll().then(
+				function(value) {
+					$scope.listaNoticias = value;
+				},
+				this.mostrarMensajes);
+		}
 	};
 	
 	this.buscar();
+	
+	return $scope.inicioCtrl = this;
 }]);

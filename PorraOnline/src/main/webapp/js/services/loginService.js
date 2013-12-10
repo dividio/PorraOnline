@@ -5,7 +5,8 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 
-services.factory('Noticias', ['$q', '$rootScope', function($q, $rootScope) {
+
+services.factory('Login', ['$q', '$rootScope', function($q, $rootScope) {
 	
 	var callback = function(httpCode, xmlHttpRequest, value, deferred, $rootScope) {
 		if(httpCode == '200' || httpCode == '201' || httpCode == '204') {
@@ -20,28 +21,19 @@ services.factory('Noticias', ['$q', '$rootScope', function($q, $rootScope) {
 	};
 	
 	return {
-		find: function(id) {
+		login: function(assertion) {
 			var deferred = $q.defer();
 
-			NoticiasRS.find({id:id, $callback:function(httpCode, xmlHttpRequest, value){
+			LoginRS.login({assertion:assertion, $callback:function(httpCode, xmlHttpRequest, value){
 				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
 			}});
 			
 			return deferred.promise;
 		},
-		findAll: function() {
+		logout: function() {
 			var deferred = $q.defer();
-			
-			NoticiasRS.findAll({$callback:function(httpCode, xmlHttpRequest, value){
-				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
-			}});
-			
-			return deferred.promise; 
-		},
-		remove: function(id) {
-			var deferred = $q.defer();
-			
-			NoticiasRS.remove({id:id, $callback:function(httpCode, xmlHttpRequest, value){
+
+			LogoutRS.logout({$callback:function(httpCode, xmlHttpRequest, value){
 				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
 			}});
 			

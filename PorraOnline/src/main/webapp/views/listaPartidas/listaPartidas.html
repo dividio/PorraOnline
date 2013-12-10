@@ -1,0 +1,9 @@
+<h1>Lista de Partidas</h1>
+
+<mesajes></mesajes>
+
+<article data-ng-repeat="partida in listaPartidas">
+    <a href="#/mensajesPartida/{{partida.pa_id}}">{{partida.pa_nombre}}</a>
+    <br/>
+    {{partida.pa_descripcion}}
+</article>

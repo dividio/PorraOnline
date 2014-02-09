@@ -1,9 +1,34 @@
-<h1>Lista de Partidas</h1>
+<div class="col-md-9">
+    <section id="main_section">
+        <header>Lista de Partidas</header>
 
-<mesajes></mesajes>
-
-<article data-ng-repeat="partida in listaPartidas">
-    <a href="#/mensajesPartida/{{partida.pa_id}}">{{partida.pa_nombre}}</a>
-    <br/>
-    {{partida.pa_descripcion}}
-</article>
+		<alertas data-alertas="alertas"></alertas>
+		
+		<br/>
+            <input data-ng-model="alertas"/>
+		
+		<article data-ng-repeat="partida in listaPartidas">
+		    <a href="#/mensajesPartida/{{partida.pa_id}}">{{partida.pa_nombre}}</a>
+		    <br/>
+		    {{partida.pa_descripcion}}
+		</article>
+	</section>
+</div>
+<div class="col-md-3">
+    <section>
+        <header>
+            {{partida.pa_nombre}}
+            <br/>
+            {{currentUser.usu_username}}
+        </header>
+        <nav>
+            <ul>
+                <li>
+                    <login data-user="user"></login>
+                </li>
+                <li><a href="#/inicio">Noticias</a></li>
+                <li><a href="#/listaPartidas">Partidas</a></li>
+            </ul>
+        </nav>
+    </section>
+</div>

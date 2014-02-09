@@ -1,14 +1,11 @@
 'use strict';
 
 /* Controllers */
-app.controller("listaPartidasCtrl", ['$scope','Partidas', function ($scope, Partidas) {
-	this.mostrarMensajes = function(mensajes) {
-		$scope.mensajes = mensajes;
-	};
+app.controller("listaPartidasCtrl", ['$scope','Partidas', 'User', 'Alertas', function ($scope, Partidas, User, Alertas) {
 	
-	$scope.limpiarMensajes = function(mensajes) {
-		$scope.mensajes = null;
-	};
+	$scope.user = User.getUser();
+	
+	$scope.alertas = Alertas.getAlertas();
 	
 	this.partidasSuscritas = function() {
 		if(!$scope.listaPartidas) {
@@ -16,7 +13,7 @@ app.controller("listaPartidasCtrl", ['$scope','Partidas', function ($scope, Part
 				function(value) {
 					$scope.listaPartidas = value;
 				},
-				this.mostrarMensajes);
+				Alertas.mostrarMensajes);
 		}
 	};
 	

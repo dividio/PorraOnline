@@ -1,16 +1,14 @@
 'use strict';
 
 /* Controllers */
-app.controller("mensajesPartidaCtrl", ['$scope','$routeParams', 'Partidas', 'Mensajes', function ($scope, $routeParams, Partidas, Mensajes) {
+app.controller("mensajesPartidaCtrl", ['$scope','$routeParams', 'Partidas', 'Mensajes', 'User', 'Alertas', function ($scope, $routeParams, Partidas, Mensajes, User, Alertas) {
 	
+	$scope.user = User.getUser();
+		
 	$scope.idPartida = $routeParams.idPartida;
 	
-	this.mostrarMensajes = function(mensajes) {
-		$scope.mensajes = mensajes;
-	};
-	
-	$scope.limpiarMensajes = function(mensajes) {
-		$scope.mensajes = null;
+	this.mostrarAlertas = function(value) {
+		$scope.alertas = Alertas.mostrarAlertas(value);
 	};
 	
 	this.cargarPartida = function() {
@@ -20,12 +18,12 @@ app.controller("mensajesPartidaCtrl", ['$scope','$routeParams', 'Partidas', 'Men
 				function(value) {
 					$scope.partida = value;
 				},
-				this.mostrarMensajes);
+				this.mostrarAlertas);
 			Mensajes.mensajesPartida(id).then(
 				function(value) {
 					$scope.listaMensajes = value;
 				},
-				this.mostrarMensajes);
+				this.mostrarAlertas);
 		}
 	};
 	

@@ -1,17 +1,37 @@
-<table class="table table-bordered table-hover table-condensed">
-    <thead>
-        <tr>
-            <th class="table-head">Noticias</th>
-        </tr>
-    </thead>
-    <tr data-ng-repeat="noticia in listaNoticias">
-        <td>
-            <p>
-	            (
+<div class="col-md-9">
+    <section id="main_section">
+        <header>Noticias</header>
+        
+        <alertas data-alertas="alertas"></alertas>
+		
+		<article data-ng-repeat="noticia in listaNoticias">
+		    <p>
+		        (
 	            {{noticia.no_fecha | date:'dd/MM/yyyy HH:mm'}}
-	            ) - {{noticia.no_asunto}}
-	        </p>
-	        <div class="preformatted">{{noticia.no_texto}}</div>
-        </td>
-    </tr>
-</table>
+	            ) - {{noticia.no_asunto}} 
+		        <a href="#/pronosticosUsuario/{{partida.pa_id}}/{{mensaje.me_usu_id.usu_id}}">{{mensaje.me_usu_id.usu_username}}</a>
+		        dijo: {{mensaje.me_asunto}}
+		    </p>
+		    <div class="preformatted">{{noticia.no_texto}}</div>
+		</article>
+    </section>
+</div>
+<div class="col-md-3">
+    <section>
+        <header>
+            {{partida.pa_nombre}}
+            <br/>
+            {{currentUser.usu_username}}
+            <br/>
+        </header>
+        <nav>
+            <ul>
+                <li>
+                    <login data-user="user"></login>
+                </li>
+                <li><a href="#/inicio">Noticias</a></li>
+                <li><a href="#/listaPartidas">Partidas</a></li>
+            </ul>
+        </nav>
+    </section>
+</div>

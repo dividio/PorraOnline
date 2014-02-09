@@ -1,15 +1,40 @@
-<h1>Mensajes</h1>
-<h2>{{partida.pa_nombre}}</h2>
+<div class="col-md-9">
+    <section id="main_section">
+        <header>
+            Mensajes
+            <a href="#/nuevoMensaje/{{partida.pa_id}}"><span class="glyphicon glyphicon-plus">Nuevo Mensaje</span></a>
+        </header>
 
-<mesajes></mesajes>
+        <alertas data-alertas="alertas"></alertas>
 
-<article data-ng-repeat="mensaje in listaMensajes">
-    <p>
-        (
-        {{mensaje.me_fecha | date:'dd/MM/yyyy HH:mm'}}
-        ) 
-        <a href="#/pronosticosUsuario/{{partida.pa_id}}/{{mensaje.me_usu_id.usu_id}}">{{mensaje.me_usu_id.usu_username}}</a>
-        dijo: {{mensaje.me_asunto}}
-    </p>
-    <p class="preformatted">{{mensaje.me_texto}}</p>
-</article>
+		<article data-ng-repeat="mensaje in listaMensajes">
+		    <p>
+		        (
+		        {{mensaje.me_fecha | date:'dd/MM/yyyy HH:mm'}}
+		        ) 
+		        <a href="#/pronosticosUsuario/{{partida.pa_id}}/{{mensaje.me_usu_id.usu_id}}">{{mensaje.me_usu_id.usu_username}}</a>
+		        dijo: {{mensaje.me_asunto}}
+		    </p>
+		    <p class="preformatted">{{mensaje.me_texto}}</p>
+		</article>
+	</section>
+</div>
+<div class="col-md-3">
+    <section>
+        <header>
+            {{partida.pa_nombre}}
+            <br/>
+            {{currentUser.usu_username}}
+        </header>
+        <nav>
+            <ul>
+                <li>
+                    <login data-user="user"></login>
+                </li>
+                <li><a href="#/inicio">Noticias</a></li>
+                <li><a href="#/listaPartidas">Partidas</a></li>
+                <li><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+            </ul>
+        </nav>
+    </section>
+</div>

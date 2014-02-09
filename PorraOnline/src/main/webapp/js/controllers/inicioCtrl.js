@@ -1,14 +1,12 @@
 'use strict';
 
 /* Controllers */
-app.controller("inicioCtrl", ['$scope','Noticias', function ($scope, Noticias) {
-	this.mostrarMensajes = function(mensajes) {
-		$scope.mensajes = mensajes;
-	};
+app.controller("inicioCtrl", ['$scope','Noticias', 'User', 'Alertas', function ($scope, Noticias, User, Alertas) {
 	
-	this.limpiarMensajes = function(mensajes) {
-		$scope.mensajes = null;
-	};
+	$scope.user = User.getUser();
+	
+	$scope.alertas = Alertas.getAlertas();
+
 	
 	this.buscar = function() {
 		if(!$scope.listaNoticias) {
@@ -16,7 +14,7 @@ app.controller("inicioCtrl", ['$scope','Noticias', function ($scope, Noticias) {
 				function(value) {
 					$scope.listaNoticias = value;
 				},
-				this.mostrarMensajes);
+				Alertas.mostrarMensajes);
 		}
 	};
 	

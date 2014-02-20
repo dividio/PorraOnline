@@ -1,0 +1,53 @@
+<div class="col-md-9">
+    <section id="main_section">
+        <form role="form">
+	        <header>
+	            <button class="btn" type="button" 
+	                    data-ng-click="nuevoMensajeCtrl.cancelar()" >
+	                <span class="glyphicon glyphicon-chevron-left"></span>
+	                Volver
+	            </button>
+	            Nuevo Mensaje
+	            <button class="btn btn-success" type="button" 
+		                data-ng-click="nuevoMensajeCtrl.guardar()">
+		            <span class="glyphicon glyphicon-ok"></span>
+		            Aceptar
+		        </button>
+	        </header>
+	
+	        <alertas data-alertas="alertas"></alertas>
+	
+			<article>
+				<div class="form-group">
+					<label for="asunto">Asunto</label>
+					<input id="asunto" class="form-control" type="text" 
+					   data-ng-model="mensaje.me_asunto" placeholder="Asunto..."/>
+				</div>
+				<div class="form-group">
+					<label for="texto">Mensaje</label>
+					<textarea id="texto" rows="4" class="form-control" 
+					   data-ng-model="mensaje.me_texto" placeholder="Mensaje..."></textarea>
+				</div>
+			</article>
+		</form>
+	</section>
+</div>
+<div class="col-md-3">
+    <section>
+        <header>
+            {{partida.pa_nombre}}
+            <br/>
+            {{user.usu_username}}
+        </header>
+        <nav>
+            <ul>
+                <li>
+                    <login data-user="user"></login>
+                </li>
+                <li><a href="#/inicio">Noticias</a></li>
+                <li><a href="#/listaPartidas">Partidas</a></li>
+                <li><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+            </ul>
+        </nav>
+    </section>
+</div>

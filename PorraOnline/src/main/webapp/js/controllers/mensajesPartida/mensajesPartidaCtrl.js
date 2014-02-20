@@ -1,7 +1,8 @@
 'use strict';
 
 /* Controllers */
-app.controller("mensajesPartidaCtrl", ['$scope','$routeParams', 'Partidas', 'Mensajes', 'User', 'Alertas', function ($scope, $routeParams, Partidas, Mensajes, User, Alertas) {
+app.controller("mensajesPartidaCtrl", ['$scope','$routeParams', '$window', 'Partidas', 'Mensajes', 'User', 'Alertas', 
+                                       function ($scope, $routeParams, $window, Partidas, Mensajes, User, Alertas) {
 	
 	$scope.user = User.getUser();
 		
@@ -27,6 +28,10 @@ app.controller("mensajesPartidaCtrl", ['$scope','$routeParams', 'Partidas', 'Men
 				},
 				this.mostrarAlertas);
 		}
+	};
+	
+	this.nuevoMensaje = function() {
+		$window.location.href = '#/nuevoMensaje/' + $scope.partida.pa_id;
 	};
 	
 	this.cargarPartida();

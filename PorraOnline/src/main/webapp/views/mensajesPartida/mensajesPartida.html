@@ -2,7 +2,11 @@
     <section id="main_section">
         <header>
             Mensajes
-            <a href="#/nuevoMensaje/{{partida.pa_id}}"><span class="glyphicon glyphicon-plus"></span>Nuevo Mensaje</a>
+            <button class="btn btn-success" type="button" 
+                    data-ng-click="mensajesPartidaCtrl.nuevoMensaje()">
+                <span class="glyphicon glyphicon-plus"></span>
+                Nuevo Mensaje
+            </button>
         </header>
 
         <alertas data-alertas="alertas"></alertas>

@@ -47,6 +47,24 @@ services.factory('Mensajes', ['$q', '$rootScope', function($q, $rootScope) {
 			
 			return deferred.promise; 
 		},
+		create: function(idPartida, mensaje) {
+			var deferred = $q.defer();
+			
+			MensajesRS.create({id:idPartida, $entity:mensaje, $callback:function(httpCode, xmlHttpRequest, value){
+				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
+			}});
+
+			return deferred.promise;
+		},
+		edit: function(mensaje) {
+			var deferred = $q.defer();
+			
+			MensajesRS.edit({$entity:mensaje, $callback:function(httpCode, xmlHttpRequest, value){
+				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
+			}});
+
+			return deferred.promise;
+		},
 		remove: function(id) {
 			var deferred = $q.defer();
 			

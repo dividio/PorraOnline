@@ -7,6 +7,7 @@ var app = angular.module('porraOnline', ['porraOnline.filters', 'porraOnline.ser
     $routeProvider.when('/inicio', {templateUrl: 'views/inicio.html', controller: "inicioCtrl"});
     $routeProvider.when('/listaPartidas', {templateUrl: 'views/listaPartidas/listaPartidas.html', controller: "listaPartidasCtrl"});
     $routeProvider.when('/mensajesPartida/:idPartida', {templateUrl: 'views/mensajesPartida/mensajesPartida.html', controller: "mensajesPartidaCtrl"});
+    $routeProvider.when('/nuevoMensaje/:idPartida', {templateUrl: 'views/mensajesPartida/nuevoMensaje.html', controller: "nuevoMensajeCtrl"});
     $routeProvider.otherwise({redirectTo: '/inicio'});
   }]);
 

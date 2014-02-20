@@ -7,13 +7,17 @@ app.controller("listaPartidasCtrl", ['$scope','Partidas', 'User', 'Alertas', fun
 	
 	$scope.alertas = Alertas.getAlertas();
 	
+	this.mostrarAlertas = function(value) {
+		$scope.alertas = Alertas.mostrarAlertas(value);
+	};
+	
 	this.partidasSuscritas = function() {
 		if(!$scope.listaPartidas) {
 			Partidas.partidasSuscritas().then(
 				function(value) {
 					$scope.listaPartidas = value;
 				},
-				Alertas.mostrarMensajes);
+				this.mostrarAlertas);
 		}
 	};
 	

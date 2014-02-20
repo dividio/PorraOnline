@@ -6,6 +6,10 @@ app.controller("inicioCtrl", ['$scope','Noticias', 'User', 'Alertas', function (
 	$scope.user = User.getUser();
 	
 	$scope.alertas = Alertas.getAlertas();
+	
+	this.mostrarAlertas = function(value) {
+		$scope.alertas = Alertas.mostrarAlertas(value);
+	};
 
 	
 	this.buscar = function() {
@@ -14,7 +18,7 @@ app.controller("inicioCtrl", ['$scope','Noticias', 'User', 'Alertas', function (
 				function(value) {
 					$scope.listaNoticias = value;
 				},
-				Alertas.mostrarMensajes);
+				this.mostrarAlertas);
 		}
 	};
 	

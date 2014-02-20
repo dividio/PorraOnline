@@ -7,6 +7,8 @@ app.controller("mensajesPartidaCtrl", ['$scope','$routeParams', 'Partidas', 'Men
 		
 	$scope.idPartida = $routeParams.idPartida;
 	
+	$scope.alertas = Alertas.getAlertas();
+	
 	this.mostrarAlertas = function(value) {
 		$scope.alertas = Alertas.mostrarAlertas(value);
 	};

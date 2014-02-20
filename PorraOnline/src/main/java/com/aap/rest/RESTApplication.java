@@ -9,6 +9,7 @@ import javax.ws.rs.ext.Provider;
 
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
+import com.aap.rest.exception.GeneralExceptionMapper;
 import com.aap.rest.exception.HibernateExceptionMapper;
 import com.aap.rest.exception.RestCustomExceptionMapper;
 import com.aap.rest.server.LoginRS;
@@ -31,6 +32,7 @@ public class RESTApplication extends Application {
 		ResteasyProviderFactory pf = ResteasyProviderFactory.getInstance();
 		pf.registerProvider(RestCustomExceptionMapper.class);
 		pf.registerProvider(HibernateExceptionMapper.class);
+		pf.registerProvider(GeneralExceptionMapper.class);
 		pf.registerProvider(SecurityInterceptor.class);
 	}
 	

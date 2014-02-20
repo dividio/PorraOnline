@@ -27,10 +27,12 @@ public class EntityManagerFilter implements Filter {
 
 	private static final Logger log = LoggerFactory.getLogger(EntityManagerFilter.class);
 
+	@Override
 	public void init(FilterConfig config) throws ServletException {
 		HibernateUtil.getSessionFactory();
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 	        FilterChain chain) throws ServletException, IOException {
 
@@ -80,6 +82,7 @@ public class EntityManagerFilter implements Filter {
 		}
 	}
 
+	@Override
 	public void destroy() {
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

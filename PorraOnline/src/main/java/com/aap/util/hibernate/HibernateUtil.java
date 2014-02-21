@@ -1,9 +1,8 @@
 package com.aap.util.hibernate;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,11 +19,14 @@ public class HibernateUtil {
 			ConfiguracionAnotaciones.cargaAnotaciones(configuration);
 			configuration.configure();
 
+			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
+					applySettings(configuration.getProperties());
+			return configuration.buildSessionFactory(builder.build());
 			// Create the SessionFactory from hibernate.cfg.xml
-			ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
-			        .applySettings(configuration.getProperties())
-			        .buildServiceRegistry();
-			return configuration.buildSessionFactory(serviceRegistry);
+//			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+//			        .applySettings(configuration.getProperties())
+//			        .getBootstrapServiceRegistry();
+//			 configuration.buildSessionFactory(serviceRegistry);
 		} catch (Throwable ex) {
 			// Make sure you log the exception, as it might be swallowed
 			log.error("Initial SessionFactory creation failed.", ex);

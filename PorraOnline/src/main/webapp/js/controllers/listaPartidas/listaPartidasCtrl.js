@@ -7,21 +7,27 @@ app.controller("listaPartidasCtrl", ['$scope','Partidas', 'User', 'Alertas', fun
 	
 	$scope.alertas = Alertas.getAlertas();
 	
+	$scope.filtro = {suscritas: true, enCurso: false};
+	
 	this.mostrarAlertas = function(value) {
 		$scope.alertas = Alertas.mostrarAlertas(value);
 	};
 	
-	this.partidasSuscritas = function() {
+	this.buscar = function(filtro) {
+		Partidas.findAll(filtro).then(
+			function(value) {
+				$scope.listaPartidas = value;
+			},
+			this.mostrarAlertas);
+	};
+	
+	this.inicializar = function() {
 		if(!$scope.listaPartidas) {
-			Partidas.partidasSuscritas().then(
-				function(value) {
-					$scope.listaPartidas = value;
-				},
-				this.mostrarAlertas);
+			this.buscar($scope.filtro);
 		}
 	};
 	
-	this.partidasSuscritas();
+	this.inicializar();
 	
 	return $scope.listaPartidasCtrl = this;
 }]);

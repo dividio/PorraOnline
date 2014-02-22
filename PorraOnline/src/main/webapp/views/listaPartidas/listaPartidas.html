@@ -3,6 +3,21 @@
         <header>Lista de Partidas</header>
 
 		<alertas data-alertas="alertas"></alertas>
+		<form  class="form-inline" role="form">
+			<div class="checkbox">
+			  <label>
+			    <input type="checkbox" data-ng-model="filtro.suscritas">
+			    Suscritas
+			  </label>
+			</div>
+		    <div class="checkbox">
+			  <label>
+	            <input type="checkbox" data-ng-model="filtro.enCurso">
+	            En Curso
+	          </label>
+			</div>
+			<button type="submit" class="btn btn-default" data-ng-click="listaPartidasCtrl.buscar(filtro)">Aplicar</button>
+		</form>
 		
 		<article data-ng-repeat="partida in listaPartidas">
 		    <a href="#/mensajesPartida/{{partida.pa_id}}">{{partida.pa_nombre}}</a>

@@ -29,19 +29,10 @@ services.factory('Partidas', ['$q', '$rootScope', function($q, $rootScope) {
 			
 			return deferred.promise;
 		},
-		partidasSuscritas: function() {
+		findAll: function(filtro) {
 			var deferred = $q.defer();
 			
-			PartidasRS.partidasSuscritas({$callback:function(httpCode, xmlHttpRequest, value){
-				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
-			}});
-			
-			return deferred.promise; 
-		},
-		partidasNoSuscritas: function() {
-			var deferred = $q.defer();
-			
-			PartidasRS.partidasNoSuscritas({$callback:function(httpCode, xmlHttpRequest, value){
+			PartidasRS.findAll({suscritas:filtro.suscritas, enCurso:filtro.enCurso, $callback:function(httpCode, xmlHttpRequest, value){
 				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
 			}});
 			

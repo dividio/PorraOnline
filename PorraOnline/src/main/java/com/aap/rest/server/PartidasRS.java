@@ -1,6 +1,5 @@
 package com.aap.rest.server;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
@@ -23,7 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import com.aap.dto.Partidas;
 import com.aap.dto.Usuarios;
-import com.aap.util.jsf.Contexts;
 
 @Path("/partidas")
 public class PartidasRS extends AbstractFacade<Partidas> {
@@ -86,47 +84,36 @@ public class PartidasRS extends AbstractFacade<Partidas> {
 	
 	@PermitAll
 	@GET
+	@Path("{suscritas}/{enCurso}")
 	@Produces({ "application/json" })
-	public List<Partidas> partidasNoSuscritas() {
-		Usuarios usuario = (Usuarios) Contexts.getSessionAttribute("usuario");
+	public List<Partidas> findAll(@PathParam("suscritas") Boolean suscritas, @PathParam("enCurso") Boolean enCurso) {
+		Usuarios usuario = (Usuarios) request.getSession().getAttribute("usuario");
+		String hql = "select PA " +
+					 "from Partidas PA ";
 		
-		if(usuario != null) {
-			Session session = Contexts.getHibernateSession();
-			String hql = "select PA " +
-					"from Partidas PA " +
-					"where COALESCE(PA.pa_fecha_fin,'2013-31-12') >= :FECHA " +
-					"and PA.pa_id not in (select PA1.pa_id " +
-					"from Partidas PA1 " +
-					"join PA1.usuarios USU " +
-					"where USU.usu_id = :ID_USUARIO)";
-			Query hqlQ = session.createQuery(hql);
-			hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
-			hqlQ.setDate("FECHA", new Date());
-			return hqlQ.list();
+		if(suscritas && usuario != null) {
+			hql += "join PA.usuarios USU ";
 		}
 		
-		return null;
+		hql += "where 1=1 ";
+		
+		if(suscritas && usuario != null) {
+			hql += "and USU.usu_id = :ID_USUARIO ";
+		}
+		
+		if(enCurso) {
+			hql += "and COALESCE(PA.pa_fecha_fin,'3013-31-12') >= sysdate() ";
+		}
+		hql += "order by PA.pa_fecha_inicio desc ";
+		
+		Query hqlQ = getSession().createQuery(hql);
+		
+		if(suscritas && usuario != null) {
+			hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
+		}
+		return hqlQ.list();
 	}
 	
-	@PermitAll
-	@GET
-	@Path("suscritas")
-	@Produces({ "application/json" })
-	public List<Partidas> partidasSuscritas() {
-		Usuarios usuario = (Usuarios) request.getSession().getAttribute("usuario");
-		
-		if(usuario != null) {
-			String hql = "select PA " +
-					"from Partidas PA " +
-					"join PA.usuarios USU " +
-					"where USU.usu_id = :ID_USUARIO";
-			Query hqlQ = getSession().createQuery(hql);
-			hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
-			return hqlQ.list();
-		}
-		
-		return null;
-	}
 	
 	@Override
 	protected Session getSession() {

@@ -1,5 +1,16 @@
 /* CSS para las aplicaciones AAP */
 
+@font-face {
+  font-family: 'FiraSans';
+  src: url('../lib/fonts/FiraSans/FiraSansOT-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+    font-family: 'FiraSans';
+}
+
 body {
 	background-image: url('../img/fondo.jpg');
 	background-position: center top;

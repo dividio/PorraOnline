@@ -2,7 +2,7 @@
     <section id="main_section">
         <form role="form">
 	        <header>
-	            <button class="btn" type="button" 
+	            <button class="btn btn-default" type="button" 
 	                    data-ng-click="nuevoMensajeCtrl.cancelar()" >
 	                <span class="glyphicon glyphicon-chevron-left"></span>
 	                Volver
@@ -47,6 +47,7 @@
                 <li><a href="#/inicio">Noticias</a></li>
                 <li><a href="#/listaPartidas">Partidas</a></li>
                 <li><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+                <li><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
             </ul>
         </nav>
     </section>

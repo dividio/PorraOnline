@@ -12,6 +12,7 @@ import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import com.aap.rest.exception.GeneralExceptionMapper;
 import com.aap.rest.exception.HibernateExceptionMapper;
 import com.aap.rest.exception.RestCustomExceptionMapper;
+import com.aap.rest.server.ClasificacionRS;
 import com.aap.rest.server.LoginRS;
 import com.aap.rest.server.LogoutRS;
 import com.aap.rest.server.MensajesRS;
@@ -29,6 +30,7 @@ public class RESTApplication extends Application {
 		singletons.add(new LogoutRS());
 		singletons.add(new PartidasRS());
 		singletons.add(new MensajesRS());
+		singletons.add(new ClasificacionRS());
 		ResteasyProviderFactory pf = ResteasyProviderFactory.getInstance();
 		pf.registerProvider(RestCustomExceptionMapper.class);
 		pf.registerProvider(HibernateExceptionMapper.class);

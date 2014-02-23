@@ -1,25 +1,17 @@
 <div class="col-md-9">
     <section id="main_section">
         <header>
-            Mensajes
-            <button class="btn btn-success" type="button" 
-                    data-ng-click="mensajesPartidaCtrl.nuevoMensaje()">
-                <span class="glyphicon glyphicon-plus"></span>
-                Nuevo Mensaje
-            </button>
+            Clasificación
         </header>
 
         <alertas data-alertas="alertas"></alertas>
 
-		<article data-ng-repeat="mensaje in listaMensajes">
+		<article data-ng-repeat="puesto in clasificacion">
 		    <p>
-		        (
-		        {{mensaje.me_fecha | date:'dd/MM/yyyy HH:mm'}}
-		        ) 
-		        <a href="#/pronosticosUsuario/{{partida.pa_id}}/{{mensaje.me_usu_id.usu_id}}">{{mensaje.me_usu_id.usu_username}}</a>
-		        dijo: {{mensaje.me_asunto}}
+		        {{puesto.posicion}} 
+		        <a href="#/pronosticosUsuario/{{partida.pa_id}}/{{puesto.usu_id}}">{{puesto.usu_username}}</a>
+		        {{puesto.puntos}}
 		    </p>
-		    <p class="preformatted">{{mensaje.me_texto}}</p>
 		</article>
 	</section>
 </div>

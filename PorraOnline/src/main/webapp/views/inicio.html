@@ -4,33 +4,30 @@
         
         <alertas data-alertas="alertas"></alertas>
 		
-		<article data-ng-repeat="noticia in listaNoticias">
-		    <p>
-		        (
-	            {{noticia.no_fecha | date:'dd/MM/yyyy HH:mm'}}
-	            ) - {{noticia.no_asunto}} 
-		        <a href="#/pronosticosUsuario/{{partida.pa_id}}/{{mensaje.me_usu_id.usu_id}}">{{mensaje.me_usu_id.usu_username}}</a>
-		        dijo: {{mensaje.me_asunto}}
-		    </p>
-		    <div class="preformatted">{{noticia.no_texto}}</div>
+		<article class="panel panel-default" data-ng-repeat="noticia in listaNoticias">
+		  <div class="panel-heading">
+				(
+				{{noticia.no_fecha | date:'dd/MM/yyyy HH:mm'}}
+				) - {{noticia.no_asunto}}
+		  </div>
+		  <div class="panel-body">
+		      <p class="preformatted">{{noticia.no_texto}}</p>
+		  </div>
 		</article>
     </section>
 </div>
 <div class="col-md-3">
     <section>
         <header>
-            {{partida.pa_nombre}}
             <br/>
             {{user.usu_username}}
             <br/>
+            <login data-user="user"></login>
         </header>
         <nav>
-            <ul>
-                <li>
-                    <login data-user="user"></login>
-                </li>
-                <li><a href="#/inicio">Noticias</a></li>
-                <li><a href="#/listaPartidas">Partidas</a></li>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+                <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
             </ul>
         </nav>
     </section>

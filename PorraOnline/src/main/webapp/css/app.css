@@ -24,11 +24,6 @@ body {
   max-width: 960px;
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
-  background-image: url('../img/glyphicons-halflings.png');
-}
-
 #contenido {
     background-color: white;
     border-radius: 10px;
@@ -38,44 +33,6 @@ body {
 
 a {
 	text-decoration: none;
-}
-
-article {
-	border-radius: 5px;
-	padding: 5px;
-	margin-top: 10px;
-    margin-bottom: 10px;
-    border: solid rgb(221, 221, 221) 1px;
-}
-
-.table-striped tbody > tr:nth-child(2n+1) > td, .table-striped tbody > tr:nth-child(2n+1) > th {
-    background-color: #F5F5F5;
-}
-
-.table-striped tbody > tr:nth-child(2n) > td, .table-striped tbody > tr:nth-child(2n) > th {
-    background-color: #FFFFFF;
-}
-
-/* Fondo para la cabecera de los richDataTable */
-.table-head {
-    background: #D4CFC7;
-    background: linear-gradient( 0deg, #D4CFC7, white);
-}
-
-.table {
-    width: 100%;
-}
-
-.table td {
-	text-align: left;
-}
-
-.table th, td {
-	text-align: center;
-}
-
-.table tfoot td {
-    text-align: center;
 }
 
 #top_header {
@@ -133,9 +90,14 @@ article {
 	border-left: 1px solid black;*/
 }
 
-article p {
-	overflow: hidden;
-	text-overflow: ellipsis;
+.panel-heading, .panel-body {
+	content: "";
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel-heading p, .panel-body p {
+	margin: 0px;
 }
 
 /* Estilo para que se conserven los saltos de linea en los textos */

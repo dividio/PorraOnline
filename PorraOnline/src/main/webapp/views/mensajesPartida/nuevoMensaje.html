@@ -1,18 +1,19 @@
 <div class="col-md-9">
     <section id="main_section">
         <form role="form">
-	        <header>
+	        <header class="navbar navbar-default navbar-static">
 	            <button class="btn btn-default" type="button" 
 	                    data-ng-click="nuevoMensajeCtrl.cancelar()" >
 	                <span class="glyphicon glyphicon-chevron-left"></span>
 	                Volver
 	            </button>
-	            Nuevo Mensaje
 	            <button class="btn btn-success" type="button" 
-		                data-ng-click="nuevoMensajeCtrl.guardar()">
-		            <span class="glyphicon glyphicon-ok"></span>
-		            Aceptar
-		        </button>
+                        data-ng-click="nuevoMensajeCtrl.guardar()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Aceptar
+                </button>
+	            <h1>Nuevo Mensaje</h1>
+	            
 	        </header>
 	
 	        <alertas data-alertas="alertas"></alertas>
@@ -38,16 +39,15 @@
             {{partida.pa_nombre}}
             <br/>
             {{user.usu_username}}
+            <br/>
+            <login data-user="user"></login>
         </header>
         <nav>
-            <ul>
-                <li>
-                    <login data-user="user"></login>
-                </li>
-                <li><a href="#/inicio">Noticias</a></li>
-                <li><a href="#/listaPartidas">Partidas</a></li>
-                <li><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
-                <li><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+                <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
+                <li class="list-group-item"><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+                <li class="list-group-item"><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
             </ul>
         </nav>
     </section>

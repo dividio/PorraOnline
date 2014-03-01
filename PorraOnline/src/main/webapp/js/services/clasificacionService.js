@@ -20,10 +20,19 @@ services.factory('Clasificacion', ['$q', '$rootScope', function($q, $rootScope) 
 	};
 	
 	return {
-		find: function(id) {
+		general: function(idPartida) {
 			var deferred = $q.defer();
 
-			ClasificacionRS.find({id:id, $callback:function(httpCode, xmlHttpRequest, value){
+			ClasificacionRS.general({id:idPartida, $callback:function(httpCode, xmlHttpRequest, value){
+				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
+			}});
+			
+			return deferred.promise;
+		},
+		evento: function(idPartida, idEvento) {
+			var deferred = $q.defer();
+
+			ClasificacionRS.evento({id:idPartida, idEvento:idEvento, $callback:function(httpCode, xmlHttpRequest, value){
 				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
 			}});
 			

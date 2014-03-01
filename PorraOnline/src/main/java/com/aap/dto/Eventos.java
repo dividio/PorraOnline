@@ -16,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "EVENTOS")
 public class Eventos implements Serializable {
@@ -43,10 +46,12 @@ public class Eventos implements Serializable {
 	@Size(max=250)
 	private String ev_url_referencia;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
+	@ManyToOne
 	@JoinColumn(name = "ev_pa_id", referencedColumnName = "pa_id")
 	private Partidas ev_pa_id;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="re_ev_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Resultados> listaResultados;
 	

@@ -1,11 +1,17 @@
 <div class="col-xs-12 col-md-9">
-    <section id="main_section">
+    <section id="main_section" data-ng-show="mostrarSeccionPrincipal">
         <header>
-            Clasificación
+            <button class="btn btn-default" type="button" 
+                    data-ng-click="clasificacionEventoCtrl.mostrarEventos()">
+                <span class="glyphicon glyphicon-search"></span>
+                Eventos
+            </button>
+            <h1>Clasificación por Eventos</h1>
         </header>
 
         <alertas data-alertas="alertas"></alertas>
 
+        <h3>{{evento.ev_nombre}}</h3>
         <ul class="list-group clasificacion">
             <li class="list-group-item" data-ng-repeat="puesto in clasificacion">
                 <div class="row">
@@ -15,6 +21,21 @@
                 </div>
             </li>
 		</ul>
+	</section>
+	<section class="list" data-ng-hide="mostrarSeccionPrincipal">
+	   <header>
+            <button class="btn btn-default" type="button" 
+                    data-ng-click="clasificacionEventoCtrl.cancelarSeleccion()" >
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                Volver
+            </button>
+            <h1>Eventos</h1>
+        </header>
+	   <ul class="list-group">
+            <li class="list-group-item" data-ng-repeat="elemento in listaEventos">
+                <a data-ng-click="clasificacionEventoCtrl.cargarEvento(elemento)">{{elemento.ev_fecha_evento | date:'dd/MM/yyyy HH:mm'}}: {{elemento.ev_nombre}} - {{elemento.ev_lugar}}</a>
+            </li>
+        </ul>
 	</section>
 </div>
 <div class="col-xs-12 col-md-3">

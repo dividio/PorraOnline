@@ -22,7 +22,7 @@ app.controller("clasificacionPartidaCtrl", ['$scope','$routeParams', '$window', 
 					$scope.partida = value;
 				},
 				this.mostrarAlertas);
-			Clasificacion.find(id).then(
+			Clasificacion.general(id).then(
 				function(value) {
 					$scope.clasificacion = value;
 				},

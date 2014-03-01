@@ -1,55 +1,60 @@
-<div class="col-md-9">
-    <section id="main_section">
-        <form role="form">
-	        <header>
-	            <button class="btn btn-default" type="button" 
-	                    data-ng-click="nuevoMensajeCtrl.cancelar()" >
-	                <span class="glyphicon glyphicon-chevron-left"></span>
-	                Volver
-	            </button>
-	            <button class="btn btn-success" type="button" 
-                        data-ng-click="nuevoMensajeCtrl.guardar()">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Aceptar
-                </button>
-	            <h1>Nuevo Mensaje</h1>
-	            
-	        </header>
-	
-	        <alertas data-alertas="alertas"></alertas>
-	
-			<article>
-				<div class="form-group">
-					<label for="asunto">Asunto</label>
-					<input id="asunto" class="form-control" type="text" 
-					   data-ng-model="mensaje.me_asunto" placeholder="Asunto..."/>
-				</div>
-				<div class="form-group">
-					<label for="texto">Mensaje</label>
-					<textarea id="texto" rows="4" class="form-control" 
-					   data-ng-model="mensaje.me_texto" placeholder="Mensaje..."></textarea>
-				</div>
-			</article>
-		</form>
-	</section>
+<div class="col-sm-9">
+  <section id="main_section">
+    <form role="form" data-ng-submit="nuevoMensajeCtrl.guardar()">
+      <header class="cabecera row">
+        <div class="col-xs-2">
+          <button class="btn btn-default btn-block" type="button"
+            data-ng-click="nuevoMensajeCtrl.cancelar()" title="Volver">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </button>
+        </div>
+        <div class="col-xs-8">
+          <h1>Nuevo Mensaje</h1>
+        </div>
+        <div class="col-xs-2">
+          <button class="btn btn-default btn-block" type="submit" title="Aceptar">
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+        </div>
+      </header>
+
+      <alertas data-alertas="alertas"></alertas>
+
+      <article>
+        <div class="form-group">
+          <label for="asunto">Asunto</label> <input id="asunto"
+            class="form-control" type="text"
+            data-ng-model="mensaje.me_asunto" placeholder="Asunto..." />
+        </div>
+        <div class="form-group">
+          <label for="texto">Mensaje</label>
+          <textarea id="texto" rows="4" class="form-control"
+            required="required" data-ng-model="mensaje.me_texto"
+            placeholder="Mensaje..."></textarea>
+        </div>
+      </article>
+    </form>
+  </section>
 </div>
-<div class="col-md-3">
-    <section>
-        <header>
-            {{partida.pa_nombre}}
-            <br/>
-            {{user.usu_username}}
-            <br/>
-            <login data-user="user"></login>
-        </header>
-        <nav>
-            <ul class="list-group">
-                <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
-                <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
-                <li class="list-group-item"><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
-                <li class="list-group-item"><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
-                <li class="list-group-item"><a href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación Eventos</a></li>
-            </ul>
-        </nav>
-    </section>
+<div class="col-sm-3">
+  <section>
+    <header>
+      {{partida.pa_nombre}} <br /> {{user.usu_username}} <br />
+      <login data-user="user"></login>
+    </header>
+    <nav>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+        <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
+        <li class="list-group-item"><a
+          href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+        <li class="list-group-item"><a
+          href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación
+            General</a></li>
+        <li class="list-group-item"><a
+          href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación
+            Eventos</a></li>
+      </ul>
+    </nav>
+  </section>
 </div>

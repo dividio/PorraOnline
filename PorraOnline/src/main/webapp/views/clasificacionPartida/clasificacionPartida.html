@@ -1,39 +1,47 @@
-<div class="col-xs-12 col-md-9">
-    <section id="main_section">
-        <header>
-            Clasificación
-        </header>
+<div class="col-sm-9">
+  <section id="main_section">
+    <header class="cabecera row">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-8"><h1>Clasificación</h1></div>
+      <div class="col-xs-2"></div>
+    </header>
 
-        <alertas data-alertas="alertas"></alertas>
+    <alertas data-alertas="alertas"></alertas>
 
-        <ul class="list-group clasificacion">
-            <li class="list-group-item" data-ng-repeat="puesto in clasificacion">
-                <div class="row">
-                    <div class="col-xs-1 col-sm-1">{{puesto.posicion}}</div>
-                    <div class="col-xs-9 col-sm-10"><a href="#/pronosticosUsuario/{{partida.pa_id}}/{{puesto.usu_id}}">{{puesto.usu_username}}</a></div>
-                    <div class="col-xs-1 col-sm-1">{{puesto.puntos}}</div>
-                </div>
-            </li>
-		</ul>
-	</section>
+    <ul class="list-group clasificacion">
+      <li class="list-group-item"
+        data-ng-repeat="puesto in clasificacion">
+        <div class="row">
+          <div class="col-xs-1 col-sm-1">{{puesto.posicion}}</div>
+          <div class="col-xs-9 col-sm-10">
+            <a
+              href="#/pronosticosUsuario/{{partida.pa_id}}/{{puesto.usu_id}}">{{puesto.usu_username}}</a>
+          </div>
+          <div class="col-xs-1 col-sm-1">{{puesto.puntos}}</div>
+        </div>
+      </li>
+    </ul>
+  </section>
 </div>
-<div class="col-xs-12 col-md-3">
-    <section>
-        <header>
-            {{partida.pa_nombre}}
-            <br/>
-            {{user.usu_username}}
-            <br/>
-            <login data-user="user"></login>
-        </header>
-        <nav>
-            <ul class="list-group">
-                <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
-                <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
-                <li class="list-group-item"><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
-                <li class="list-group-item"><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
-                <li class="list-group-item"><a href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación Eventos</a></li>
-            </ul>
-        </nav>
-    </section>
+<div class="col-sm-3">
+  <section>
+    <header>
+      {{partida.pa_nombre}} <br /> {{user.usu_username}} <br />
+      <login data-user="user"></login>
+    </header>
+    <nav>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+        <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
+        <li class="list-group-item"><a
+          href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+        <li class="list-group-item"><a
+          href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación
+            General</a></li>
+        <li class="list-group-item"><a
+          href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación
+            Eventos</a></li>
+      </ul>
+    </nav>
+  </section>
 </div>

@@ -1,60 +1,74 @@
-<div class="col-xs-12 col-md-9">
-    <section id="main_section" data-ng-show="mostrarSeccionPrincipal">
-        <header>
-            <button class="btn btn-default" type="button" 
-                    data-ng-click="clasificacionEventoCtrl.mostrarEventos()">
-                <span class="glyphicon glyphicon-search"></span>
-                Eventos
-            </button>
-            <h1>Clasificación por Eventos</h1>
-        </header>
+<div class="col-sm-9">
+  <section id="main_section" data-ng-show="mostrarSeccionPrincipal">
+    <header class="cabecera row">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-8">
+        <h1>Clasificación por Eventos</h1>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button"
+          data-ng-click="clasificacionEventoCtrl.mostrarEventos()" title="Buscar">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </div>
+    </header>
 
-        <alertas data-alertas="alertas"></alertas>
+    <alertas data-alertas="alertas"></alertas>
 
-        <h3>{{evento.ev_nombre}}</h3>
-        <ul class="list-group clasificacion">
-            <li class="list-group-item" data-ng-repeat="puesto in clasificacion">
-                <div class="row">
-                    <div class="col-xs-1 col-sm-1">{{puesto.posicion}}</div>
-                    <div class="col-xs-9 col-sm-10"><a href="#/pronosticosUsuario/{{partida.pa_id}}/{{puesto.usu_id}}">{{puesto.usu_username}}</a></div>
-                    <div class="col-xs-1 col-sm-1">{{puesto.puntos}}</div>
-                </div>
-            </li>
-		</ul>
-	</section>
-	<section class="list" data-ng-hide="mostrarSeccionPrincipal">
-	   <header>
-            <button class="btn btn-default" type="button" 
-                    data-ng-click="clasificacionEventoCtrl.cancelarSeleccion()" >
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                Volver
-            </button>
-            <h1>Eventos</h1>
-        </header>
-	   <ul class="list-group">
-            <li class="list-group-item" data-ng-repeat="elemento in listaEventos">
-                <a data-ng-click="clasificacionEventoCtrl.cargarEvento(elemento)">{{elemento.ev_fecha_evento | date:'dd/MM/yyyy HH:mm'}}: {{elemento.ev_nombre}} - {{elemento.ev_lugar}}</a>
-            </li>
-        </ul>
-	</section>
+    <h4>{{evento.ev_nombre}}</h4>
+    <ul class="list-group clasificacion">
+      <li class="list-group-item"
+        data-ng-repeat="puesto in clasificacion">
+        <div class="row">
+          <div class="col-xs-1 col-sm-1">{{puesto.posicion}}</div>
+          <div class="col-xs-9 col-sm-10">
+            <a
+              href="#/pronosticosUsuario/{{partida.pa_id}}/{{puesto.usu_id}}">{{puesto.usu_username}}</a>
+          </div>
+          <div class="col-xs-1 col-sm-1">{{puesto.puntos}}</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section class="list" data-ng-hide="mostrarSeccionPrincipal">
+    <header class="cabecera row">
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button"
+          data-ng-click="clasificacionEventoCtrl.cancelarSeleccion()" title="Volver">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </div>
+      <div class="col-xs-8"><h1>Eventos</h1></div>
+      <div class="col-xs-2"></div>
+    </header>
+    <ul class="list-group">
+      <li class="list-group-item"
+        data-ng-repeat="elemento in listaEventos"><a
+        data-ng-click="clasificacionEventoCtrl.cargarEvento(elemento)">{{elemento.ev_fecha_evento
+          | date:'dd/MM/yyyy HH:mm'}}: {{elemento.ev_nombre}} -
+          {{elemento.ev_lugar}}</a></li>
+    </ul>
+  </section>
 </div>
-<div class="col-xs-12 col-md-3">
-    <section>
-        <header>
-            {{partida.pa_nombre}}
-            <br/>
-            {{user.usu_username}}
-            <br/>
-            <login data-user="user"></login>
-        </header>
-        <nav>
-            <ul class="list-group">
-                <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
-                <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
-                <li class="list-group-item"><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
-                <li class="list-group-item"><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
-                <li class="list-group-item"><a href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación Eventos</a></li>
-            </ul>
-        </nav>
-    </section>
+<div class="col-sm-3">
+  <section>
+    <header>
+      {{partida.pa_nombre}} <br /> {{user.usu_username}} <br />
+      <login data-user="user"></login>
+    </header>
+    <nav>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+        <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
+        <li class="list-group-item"><a
+          href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+        <li class="list-group-item"><a
+          href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación
+            General</a></li>
+        <li class="list-group-item"><a
+          href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación
+            Eventos</a></li>
+      </ul>
+    </nav>
+  </section>
 </div>

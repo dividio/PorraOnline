@@ -1,47 +1,50 @@
-<div class="col-md-9">
-    <section id="main_section">
-        <header>Lista de Partidas</header>
+<div class="col-sm-9">
+  <section id="main_section">
+    <header class="cabecera row">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-8"><h1>Lista de Partidas</h1></div>
+      <div class="col-xs-2"></div>
+    </header>
 
-		<alertas data-alertas="alertas"></alertas>
-		<form  class="form-inline" role="form">
-			<div class="checkbox">
-			  <label>
-			    <input type="checkbox" data-ng-model="filtro.suscritas">
-			    Suscritas
-			  </label>
-			</div>
-		    <div class="checkbox">
-			  <label>
-	            <input type="checkbox" data-ng-model="filtro.enCurso">
-	            En Curso
-	          </label>
-			</div>
-			<button type="submit" class="btn btn-default" data-ng-click="listaPartidasCtrl.buscar(filtro)">Aplicar</button>
-		</form>
-		
-		<article class="panel panel-default" data-ng-repeat="partida in listaPartidas">
-          <div class="panel-heading">
-            <a href="#/mensajesPartida/{{partida.pa_id}}">{{partida.pa_nombre}}</a>
-          </div>
-          <div class="panel-body">
-              <p class="preformatted">{{partida.pa_descripcion}}</p>
-          </div>
-        </article>
-	</section>
+    <alertas data-alertas="alertas"></alertas>
+    
+    <form class="form-inline" role="form">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" data-ng-model="filtro.suscritas"> Suscritas
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" data-ng-model="filtro.enCurso"> En Curso
+        </label>
+      </div>
+      <button type="submit" class="btn btn-default"
+        data-ng-click="listaPartidasCtrl.buscar(filtro)">Aplicar</button>
+    </form>
+
+    <article class="panel panel-default"
+      data-ng-repeat="partida in listaPartidas">
+      <div class="panel-heading">
+        <a href="#/mensajesPartida/{{partida.pa_id}}">{{partida.pa_nombre}}</a>
+      </div>
+      <div class="panel-body">
+        <p class="preformatted">{{partida.pa_descripcion}}</p>
+      </div>
+    </article>
+  </section>
 </div>
-<div class="col-md-3">
-    <section>
-        <header>
-            <br/>
-            {{user.usu_username}}
-            <br/>
-            <login data-user="user"></login>
-        </header>
-        <nav>
-            <ul class="list-group">
-                <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
-                <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
-            </ul>
-        </nav>
-    </section>
+<div class="col-sm-3">
+  <section>
+    <header>
+      <br /> {{user.usu_username}} <br />
+      <login data-user="user"></login>
+    </header>
+    <nav>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+        <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
+      </ul>
+    </nav>
+  </section>
 </div>

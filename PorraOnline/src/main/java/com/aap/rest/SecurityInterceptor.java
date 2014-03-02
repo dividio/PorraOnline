@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This interceptor verify the access permissions for a user
- * based on username and passowrd provided in request
+ * based on username and password provided in request
  * */
 @Provider
 public class SecurityInterceptor implements ContainerRequestFilter
@@ -82,8 +82,8 @@ public class SecurityInterceptor implements ContainerRequestFilter
 			final String password = tokenizer.nextToken();
 			
 			// // Verifying Username and password
-			// System.out.println(username);
-			// System.out.println(password);
+			 System.out.println(username);
+			 System.out.println(password);
 			
 			// Verify user access
 			if(method.isAnnotationPresent(RolesAllowed.class)) {

@@ -36,11 +36,7 @@ app.controller("nuevoMensajeCtrl", ['$scope','$routeParams', '$window', 'Partida
 				this.mostrarAlertas);
 		}
 	};
-	
-	this.cancelar = function() {
-		$window.location.href = '#/mensajesPartida/' + $scope.partida.pa_id;
-	};
-	
+
 	this.inicializar();
 		
 	return $scope.nuevoMensajeCtrl = this;

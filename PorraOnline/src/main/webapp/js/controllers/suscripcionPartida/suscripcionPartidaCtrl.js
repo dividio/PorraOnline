@@ -50,10 +50,6 @@ app.controller("suscripcionPartidaCtrl", ['$scope','$routeParams', '$window', 'P
 		}
 	};
 	
-	this.cancelar = function() {
-		$window.location.href = '#/mensajesPartida/' + $scope.partida.pa_id;
-	};
-	
 	this.inicializar();
 	
 	return $scope.suscripcionPartidaCtrl = this;

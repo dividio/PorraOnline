@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response.Status;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import com.aap.dto.Partidas;
 import com.aap.dto.Usuarios;
+import com.aap.rest.exception.RestCustomException;
 
 @Path("/partidas")
 public class PartidasRS extends AbstractFacade<Partidas> {
@@ -114,6 +116,66 @@ public class PartidasRS extends AbstractFacade<Partidas> {
 		return hqlQ.list();
 	}
 	
+	@PermitAll
+	@GET
+	@Path("suscripcion/{id}")
+	@Produces({ "application/json" })
+	public Boolean suscrito(@PathParam("id") Long id) {
+		Session session = getSession();
+		
+		Partidas partida = (Partidas) session.get(Partidas.class, id);
+		if(partida != null) {
+			Usuarios usuario = (Usuarios) request.getSession().getAttribute("usuario");
+			if(usuario == null) {
+				return false;
+			} if(partida.getUsuarios().contains(usuario)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			throw new RestCustomException("No existe la partida.", "Incorrecto", Status.BAD_REQUEST, RestCustomException.ERROR);
+		}
+	}
+	
+	@PermitAll
+	@PUT
+	@Path("suscripcion/{id}/{suscribir}")
+	@Produces({ "application/json" })
+	public Boolean suscribir(@PathParam("id") Long id, @PathParam("suscribir") Boolean suscribir) {
+		Session session = getSession();
+		
+		Partidas partida = (Partidas) session.get(Partidas.class, id);
+		if(partida != null && suscribir != null) {
+			Usuarios usuario = (Usuarios) request.getSession().getAttribute("usuario");
+			if(usuario == null) {
+				throw new RestCustomException("El usuario no está registrado.", "Incorrecto", Status.FORBIDDEN, RestCustomException.ERROR);
+			} else {
+				if(suscribir) {
+					if(!partida.getUsuarios().contains(usuario)) {
+						partida.getUsuarios().add(usuario);
+						session.merge(partida);
+						session.flush();
+						return true;
+					} else {
+						throw new RestCustomException("El usuario ya está suscrito a la partida.", "Incorrecto", Status.NOT_FOUND, RestCustomException.ERROR);
+					}
+				} else {
+					if(partida.getUsuarios().contains(usuario)) {
+						partida.getUsuarios().remove(usuario);
+						session.merge(partida);
+						session.flush();
+						return true;
+					} else {
+						throw new RestCustomException("El usuario no está suscrito a la partida.", "Incorrecto", Status.NOT_FOUND, RestCustomException.ERROR);
+					}
+				}
+			}
+			
+		} else {
+			throw new RestCustomException("No existe la partida.", "Incorrecto", Status.BAD_REQUEST, RestCustomException.ERROR);
+		}
+	}
 	
 	@Override
 	protected Session getSession() {

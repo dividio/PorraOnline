@@ -38,6 +38,24 @@ services.factory('Partidas', ['$q', '$rootScope', function($q, $rootScope) {
 			
 			return deferred.promise; 
 		},
+		suscrito: function(id) {
+			var deferred = $q.defer();
+
+			PartidasRS.suscrito({id:id, $callback:function(httpCode, xmlHttpRequest, value){
+				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
+			}});
+			
+			return deferred.promise;
+		},
+		suscribir: function(idPartida, suscribir) {
+			var deferred = $q.defer();
+			
+			PartidasRS.suscribir({id:idPartida, suscribir:suscribir, $callback:function(httpCode, xmlHttpRequest, value){
+				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
+			}});
+
+			return deferred.promise;
+		},
 		create: function(partida) {
 			var deferred = $q.defer();
 			

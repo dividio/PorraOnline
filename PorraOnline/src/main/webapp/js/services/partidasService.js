@@ -38,6 +38,15 @@ services.factory('Partidas', ['$q', '$rootScope', function($q, $rootScope) {
 			
 			return deferred.promise; 
 		},
+		esAdmin: function(id) {
+			var deferred = $q.defer();
+
+			PartidasRS.esAdmin({id:id, $callback:function(httpCode, xmlHttpRequest, value){
+				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
+			}});
+			
+			return deferred.promise;
+		},
 		suscrito: function(id) {
 			var deferred = $q.defer();
 

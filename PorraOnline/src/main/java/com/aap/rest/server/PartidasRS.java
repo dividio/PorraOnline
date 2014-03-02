@@ -115,6 +115,28 @@ public class PartidasRS extends AbstractFacade<Partidas> {
 		}
 		return hqlQ.list();
 	}
+
+	@PermitAll
+	@GET
+	@Path("admin/{id}")
+	@Produces({ "application/json" })
+	public Boolean esAdmin(@PathParam("id") Long id) {
+		Session session = getSession();
+		
+		Partidas partida = (Partidas) session.get(Partidas.class, id);
+		if(partida != null) {
+			Usuarios usuario = (Usuarios) request.getSession().getAttribute("usuario");
+			if(usuario == null) {
+				return false;
+			} if(partida.getAdministradores().contains(usuario)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			throw new RestCustomException("No existe la partida.", "Incorrecto", Status.BAD_REQUEST, RestCustomException.ERROR);
+		}
+	}
 	
 	@PermitAll
 	@GET

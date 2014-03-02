@@ -2,25 +2,23 @@
   <section id="main_section">
     <header class="cabecera row">
       <div class="col-xs-2"></div>
-      <div class="col-xs-8"><h1>Clasificación</h1></div>
+      <div class="col-xs-8"><h1>Admin</h1></div>
       <div class="col-xs-2"></div>
     </header>
 
     <alertas data-alertas="alertas"></alertas>
 
-    <ul class="list-group clasificacion">
-      <li class="list-group-item"
-        data-ng-repeat="puesto in clasificacion">
-        <div class="row">
-          <div class="col-xs-1 col-sm-1">{{puesto.posicion}}</div>
-          <div class="col-xs-9 col-sm-10">
-            <a
-              href="#/pronosticosUsuario/{{partida.pa_id}}/{{puesto.usu_id}}">{{puesto.usu_username}}</a>
-          </div>
-          <div class="col-xs-1 col-sm-1">{{puesto.puntos}}</div>
-        </div>
-      </li>
-    </ul>
+    <article data-ng-show="esAdmin">
+      <nav>
+        <ul class="list-group">
+          <li class="list-group-item"><a href="#/adminPartida/partida/{{partida.pa_id}}">Partida</a></li>
+          <li class="list-group-item"><a href="#/adminPartida/eventos/{{partida.pa_id}}">Eventos</a></li>
+          <li class="list-group-item"><a href="#/adminPartida/pilotos/{{partida.pa_id}}">Pilotos</a></li>
+          <li class="list-group-item"><a href="#/adminPartida/administradores/{{partida.pa_id}}">Administradores</a></li>
+          <li class="list-group-item"><a href="#/adminPartida/resultados/{{partida.pa_id}}">Resultados</a></li>
+        </ul>
+      </nav>
+    </article>
   </section>
 </div>
 <div class="col-sm-3">

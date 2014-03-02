@@ -27,6 +27,7 @@ app.controller("adminPartidaCtrl", ['$scope','$routeParams', '$window', 'Partida
 					$scope.esAdmin = value;
 					if(!value) {
 						$scope.adminPartidaCtrl.mostrarAlertas('No tienes permisos para administrar esta partida.');
+						$window.location.href = '#/mensajesPartida/' + $scope.partida.pa_id;
 					}
 				},
 				this.mostrarAlertas);

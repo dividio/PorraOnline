@@ -1,0 +1,62 @@
+<div class="col-sm-9">
+  <section id="main_section">
+    <form role="form" data-ng-submit="partidaCtrl.guardar()">
+      <header class="cabecera row">
+        <div class="col-xs-2">
+          <button class="btn btn-default btn-block" type="button"
+            data-history-back title="Volver">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </button>
+        </div>
+        <div class="col-xs-8">
+          <h1>Partida</h1>
+        </div>
+        <div class="col-xs-2">
+          <button class="btn btn-default btn-block" type="submit" title="Aceptar">
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+        </div>
+      </header>
+
+      <alertas data-alertas="alertas"></alertas>
+
+      <article>
+        <div class="form-group">
+          <label for="asunto">Nombre</label>
+          <input id="asunto" class="form-control" type="text" required="required" data-ng-model="partida.pa_nombre" placeholder="Nombre..." />
+        </div>
+        <div class="form-group">
+          <label for="texto">Descripción</label>
+          <textarea id="texto" rows="4" class="form-control" required="required" data-ng-model="partida.pa_descripcion" placeholder="Descripción..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="texto">Fecha Inicio</label>
+          <input id="asunto" class="form-control" type="date" required="required" data-ng-model="fechaInicio"/>
+        </div>
+        <div class="form-group">
+          <label for="texto">Fecha Fin</label>
+          <input id="asunto" class="form-control" type="date" required="required" data-ng-model="fechaFin"/>
+        </div>
+      </article>
+    </form>
+  </section>
+</div>
+<div class="col-sm-3">
+  <section>
+    <header>
+      {{partida.pa_nombre}} <br /> {{user.usu_username}} <br />
+      <login data-user="user"></login>
+    </header>
+    <nav>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+        <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
+        <li class="list-group-item"><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+        <li class="list-group-item"><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
+        <li class="list-group-item"><a href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación Eventos</a></li>
+        <li class="list-group-item"><a href="#/suscripcionPartida/{{partida.pa_id}}">Suscripción</a></li>
+        <li class="list-group-item"><a href="#/adminPartida/{{partida.pa_id}}">Administrar Partida</a></li>
+      </ul>
+    </nav>
+  </section>
+</div>

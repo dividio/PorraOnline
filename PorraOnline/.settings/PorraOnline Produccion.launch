@@ -6,8 +6,9 @@
 <booleanAttribute key="M2_OFFLINE" value="false"/>
 <stringAttribute key="M2_PROFILES" value="produccion"/>
 <listAttribute key="M2_PROPERTIES"/>
-<stringAttribute key="M2_RUNTIME" value="/home/rothgar/Programas/Apache/apache-maven-3.0.4"/>
+<stringAttribute key="M2_RUNTIME" value="/home/rothgar/Programas/Apache/apache-maven-3.0.5"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="false"/>
+<intAttribute key="M2_THREADS" value="1"/>
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="false"/>
 <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
 <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${project}"/>

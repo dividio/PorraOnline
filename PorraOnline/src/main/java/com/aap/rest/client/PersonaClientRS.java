@@ -1,5 +1,7 @@
 package com.aap.rest.client;
 
+import java.util.ResourceBundle;
+
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -63,7 +65,8 @@ public class PersonaClientRS {
 	 */
 	public VerificationResult verificarCredenciales(String assertion) {
 		try {
-			String audience = "http://localhost:8080";
+			ResourceBundle bun 	= ResourceBundle.getBundle("persona");
+			String audience = bun.getString("persona.audience");
 
 			Client client = ClientBuilder.newClient();
 			String url = "https://verifier.login.persona.org/verify";
@@ -81,7 +84,7 @@ public class PersonaClientRS {
 		
 			return resultado;
 		} catch(BadRequestException e) {
-			System.out.println(e);
+			log.error("Error de peticion", e);
 //			error = e.getResponse().readEntity(ErrorResponseConverter.class);
 		} catch(Exception e) {
 			error = new ErrorResponseConverter(e.getMessage(), "Error no esperado", ErrorCode.ERR0R);

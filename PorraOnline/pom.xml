@@ -66,6 +66,8 @@
                 <Hibernate.connection.password>porraonline</Hibernate.connection.password>
                 <Hibernate.show_sql>true</Hibernate.show_sql>
                 
+                <Persona.audience>http://localhost:8080</Persona.audience>
+                
                 <Log.ficheroLog>/tmp/log/tomcat/PorraOnline_Log_</Log.ficheroLog>
                 <Log.nivelLog>INFO,A1,R</Log.nivelLog>
             </properties>
@@ -73,10 +75,12 @@
         <profile>
             <id>produccion</id>
             <properties>
-                <Hibernate.connection.url>xx</Hibernate.connection.url>
-                <Hibernate.connection.username>xx</Hibernate.connection.username>
-                <Hibernate.connection.password>xx</Hibernate.connection.password>
+				<Hibernate.connection.url>xx</Hibernate.connection.url>
+				<Hibernate.connection.username>xx</Hibernate.connection.username>
+				<Hibernate.connection.password>xx</Hibernate.connection.password>
                 <Hibernate.show_sql>false</Hibernate.show_sql>
+                
+                <Persona.audience>http://porraonline-ikarogames.rhcloud.com</Persona.audience>
                 
                 <Log.ficheroLog>/tmp/log/tomcat/PorraOnline_Log_</Log.ficheroLog>
                 <Log.nivelLog>INFO,R</Log.nivelLog>

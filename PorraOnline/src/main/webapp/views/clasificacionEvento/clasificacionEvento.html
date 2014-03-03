@@ -33,20 +33,21 @@
   <section class="list" data-ng-hide="mostrarSeccionPrincipal">
     <header class="cabecera row">
       <div class="col-xs-2">
-        <button class="btn btn-default btn-block" type="button"
-          data-ng-click="clasificacionEventoCtrl.cancelarSeleccion()" title="Volver">
+        <button class="btn btn-default btn-block" type="button" data-ng-click="clasificacionEventoCtrl.cancelarSeleccion()" title="Volver">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
       </div>
-      <div class="col-xs-8"><h1>Eventos</h1></div>
+      <div class="col-xs-8">
+        <h1>Eventos</h1>
+      </div>
       <div class="col-xs-2"></div>
     </header>
     <ul class="list-group">
-      <li class="list-group-item"
-        data-ng-repeat="elemento in listaEventos"><a
-        data-ng-click="clasificacionEventoCtrl.cargarEvento(elemento)">{{elemento.ev_fecha_evento
-          | date:'dd/MM/yyyy HH:mm'}}: {{elemento.ev_nombre}} -
-          {{elemento.ev_lugar}}</a></li>
+      <li class="list-group-item" data-ng-repeat="elemento in listaEventos">
+        <a href="#/adminPartida/editarEvento/{{elemento.ev_id}}">
+        {{elemento.ev_fecha_evento | date:'dd/MM/yyyy HH:mm'}}: {{elemento.ev_nombre}} - {{elemento.ev_lugar}}
+        </a>
+      </li>
     </ul>
   </section>
 </div>

@@ -32,6 +32,7 @@ app.controller("nuevoMensajeCtrl", ['$scope','$routeParams', '$window', 'Partida
 			Mensajes.create($scope.idPartida, $scope.mensaje).then(
 				function(value) {
 					$scope.mensaje = value;
+					$window.location.href = '#/mensajesPartida/' + $scope.partida.pa_id;
 				},
 				this.mostrarAlertas);
 		}

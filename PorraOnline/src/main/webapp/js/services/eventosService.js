@@ -20,10 +20,10 @@ services.factory('Eventos', ['$q', '$rootScope', function($q, $rootScope) {
 	};
 	
 	return {
-		find: function(idPartida) {
+		find: function(idEvento) {
 			var deferred = $q.defer();
 
-			EventosRS.find({id:idPartida, $callback:function(httpCode, xmlHttpRequest, value){
+			EventosRS.find({id:idEvento, $callback:function(httpCode, xmlHttpRequest, value){
 				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
 			}});
 			

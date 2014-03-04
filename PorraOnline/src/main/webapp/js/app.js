@@ -14,6 +14,7 @@ var app = angular.module('porraOnline', ['porraOnline.filters', 'porraOnline.ser
     $routeProvider.when('/suscripcionPartida/:idPartida', {templateUrl: 'views/suscripcionPartida/suscripcionPartida.html', controller: "suscripcionPartidaCtrl"});
     $routeProvider.when('/adminPartida/:idPartida', {templateUrl: 'views/adminPartida/adminPartida.html', controller: "adminPartidaCtrl"});
     $routeProvider.when('/adminPartida/partida/:idPartida', {templateUrl: 'views/adminPartida/partida.html', controller: "partidaCtrl"});
+    $routeProvider.when('/adminPartida/eventos/:idPartida', {templateUrl: 'views/adminPartida/eventos.html', controller: "eventosCtrl"});
     $routeProvider.otherwise({redirectTo: '/inicio'});
   }]);
 

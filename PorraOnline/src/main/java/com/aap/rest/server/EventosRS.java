@@ -45,8 +45,9 @@ public class EventosRS extends AbstractFacade<Eventos> {
 	@Produces({ "application/json" })
 	public Eventos create(@PathParam("id") Long id, Eventos entity) {
 		Usuarios usuario = (Usuarios) request.getSession().getAttribute("usuario");
-		if(validaGuardarEvento(id, usuario, entity)) {
-			Partidas partida = (Partidas) getSession().get(Partidas.class, id);
+		Partidas partida = (Partidas) getSession().get(Partidas.class, id);
+		if(validaGuardarEvento(partida, usuario, entity)) {
+			
 
 			entity.setEv_pa_id(partida);
 			return super.create(entity);
@@ -54,12 +55,12 @@ public class EventosRS extends AbstractFacade<Eventos> {
 		return null;
 	}
 	
-	private boolean validaGuardarEvento(Long idPartida, Usuarios usuario, Eventos evento) {
+	private boolean validaGuardarEvento(Partidas partida, Usuarios usuario, Eventos evento) {
 		if(evento == null) {
 			throw new RestCustomException("No se ha indicado ningun evento que guardar.", "Prohibido", Status.FORBIDDEN, RestCustomException.ERROR);
 		}
-		if(!administradorPartida(idPartida, usuario)) {
-			throw new RestCustomException("Hace falta estar suscrito a la partida para crear eventos.", "Prohibido", Status.FORBIDDEN, RestCustomException.ERROR);
+		if(!administradorPartida(partida, usuario)) {
+			throw new RestCustomException("Sólo los administradores de la partida pueden guardar eventos.", "Prohibido", Status.FORBIDDEN, RestCustomException.ERROR);
 		}
 		if(evento.getEv_nombre() == null || evento.getEv_nombre().isEmpty()) {
 			throw new RestCustomException("Hace falta indicar el nombre del evento.", "Prohibido", Status.FORBIDDEN, RestCustomException.ERROR);
@@ -67,18 +68,9 @@ public class EventosRS extends AbstractFacade<Eventos> {
 		return true;
 	}
 	
-	private boolean administradorPartida(Long idPartida, Usuarios usuario) {
-		if(idPartida != null && usuario != null && usuario.getUsu_id() != null) {
-			String hql = "select count(*) " +
-						"from Partidas PA " +
-						"join PA.administradores USU " +
-						"where USU.usu_id = :ID_USUARIO " +
-						"and PA.pa_id = :ID_PARTIDA ";
-			Query hqlQ = getSession().createQuery(hql);
-			hqlQ.setLong("ID_USUARIO", usuario.getUsu_id());
-			hqlQ.setLong("ID_PARTIDA", idPartida);
-			Long cont = (Long) hqlQ.uniqueResult();
-			return (cont.compareTo(Long.valueOf(0)) != 0);
+	private boolean administradorPartida(Partidas partida, Usuarios usuario) {
+		if(partida != null && usuario != null && partida.getAdministradores() != null && partida.getAdministradores().contains(usuario)) {
+			return true;
 		}
 		return false;
 	}
@@ -96,7 +88,7 @@ public class EventosRS extends AbstractFacade<Eventos> {
 		evento.setEv_lugar(entity.getEv_lugar());
 		evento.setEv_nombre(entity.getEv_nombre());
 		evento.setEv_url_referencia(entity.getEv_url_referencia());
-		if(validaGuardarEvento(evento.getEv_pa_id().getPa_id(), usuario, evento)) {
+		if(validaGuardarEvento(evento.getEv_pa_id(), usuario, evento)) {
 			super.edit(evento);
 		}
 	}

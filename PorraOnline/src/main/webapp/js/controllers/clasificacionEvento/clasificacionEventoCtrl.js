@@ -13,6 +13,8 @@ app.controller("clasificacionEventoCtrl", ['$scope','$routeParams', '$window', '
 	
 	$scope.mostrarSeccionPrincipal = true;
 	
+	$scope.fechaActual = new Date();
+	
 	this.mostrarAlertas = function(value) {
 		$scope.alertas = Alertas.mostrarAlertas(value);
 	};

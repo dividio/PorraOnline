@@ -56,10 +56,10 @@ services.factory('Eventos', ['$q', '$rootScope', function($q, $rootScope) {
 
 			return deferred.promise;
 		},
-		edit: function(mensaje) {
+		edit: function(evento) {
 			var deferred = $q.defer();
 			
-			EventosRS.edit({$entity:mensaje, $callback:function(httpCode, xmlHttpRequest, value){
+			EventosRS.edit({$entity:evento, $callback:function(httpCode, xmlHttpRequest, value){
 				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
 			}});
 

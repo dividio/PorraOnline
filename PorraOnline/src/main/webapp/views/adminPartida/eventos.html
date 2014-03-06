@@ -22,7 +22,7 @@
       <ul class="list-group">
         <li class="list-group-item" data-ng-repeat="elemento in listaEventos">
           <a href="#/adminPartida/editarEvento/{{partida.pa_id}}/{{elemento.ev_id}}">
-          {{elemento.ev_fecha_evento | date:'dd/MM/yyyy HH:mm'}}: {{elemento.ev_nombre}} - {{elemento.ev_lugar}}
+          {{elemento.ev_fecha_evento | date:'dd/MM/yyyy'}}: {{elemento.ev_nombre}} - {{elemento.ev_lugar}}
           </a>
         </li>
       </ul>

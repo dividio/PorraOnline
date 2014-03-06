@@ -45,7 +45,7 @@ public class EventosRS extends AbstractFacade<Eventos> {
 	@Produces({ "application/json" })
 	public Eventos create(@PathParam("id") Long id, Eventos entity) {
 		Usuarios usuario = (Usuarios) request.getSession().getAttribute("usuario");
-		if(validaGuardarMensaje(id, usuario, entity)) {
+		if(validaGuardarEvento(id, usuario, entity)) {
 			Partidas partida = (Partidas) getSession().get(Partidas.class, id);
 
 			entity.setEv_pa_id(partida);
@@ -54,18 +54,24 @@ public class EventosRS extends AbstractFacade<Eventos> {
 		return null;
 	}
 	
-	private boolean validaGuardarMensaje(Long idPartida, Usuarios usuario, Eventos evento) {
-		if(!suscritoPartida(idPartida, usuario)) {
+	private boolean validaGuardarEvento(Long idPartida, Usuarios usuario, Eventos evento) {
+		if(evento == null) {
+			throw new RestCustomException("No se ha indicado ningun evento que guardar.", "Prohibido", Status.FORBIDDEN, RestCustomException.ERROR);
+		}
+		if(!administradorPartida(idPartida, usuario)) {
 			throw new RestCustomException("Hace falta estar suscrito a la partida para crear eventos.", "Prohibido", Status.FORBIDDEN, RestCustomException.ERROR);
+		}
+		if(evento.getEv_nombre() == null || evento.getEv_nombre().isEmpty()) {
+			throw new RestCustomException("Hace falta indicar el nombre del evento.", "Prohibido", Status.FORBIDDEN, RestCustomException.ERROR);
 		}
 		return true;
 	}
 	
-	private boolean suscritoPartida(Long idPartida, Usuarios usuario) {
+	private boolean administradorPartida(Long idPartida, Usuarios usuario) {
 		if(idPartida != null && usuario != null && usuario.getUsu_id() != null) {
 			String hql = "select count(*) " +
 						"from Partidas PA " +
-						"join PA.usuarios USU " +
+						"join PA.administradores USU " +
 						"where USU.usu_id = :ID_USUARIO " +
 						"and PA.pa_id = :ID_PARTIDA ";
 			Query hqlQ = getSession().createQuery(hql);
@@ -77,11 +83,22 @@ public class EventosRS extends AbstractFacade<Eventos> {
 		return false;
 	}
 
+	@PermitAll
 	@PUT
 	@Override
 	@Consumes({ "application/json" })
 	public void edit(Eventos entity) {
-		super.edit(entity);
+		Usuarios usuario = (Usuarios) request.getSession().getAttribute("usuario");
+		Eventos evento = (Eventos) getSession().get(Eventos.class, entity.getEv_id());
+		evento.setEv_fecha_evento(entity.getEv_fecha_evento());
+		evento.setEv_fecha_inicio_pronosticos(entity.getEv_fecha_inicio_pronosticos());
+		evento.setEv_fecha_limite_pronosticos(entity.getEv_fecha_limite_pronosticos());
+		evento.setEv_lugar(entity.getEv_lugar());
+		evento.setEv_nombre(entity.getEv_nombre());
+		evento.setEv_url_referencia(entity.getEv_url_referencia());
+		if(validaGuardarEvento(evento.getEv_pa_id().getPa_id(), usuario, evento)) {
+			super.edit(evento);
+		}
 	}
 	
 	@RolesAllowed("ADMIN")
@@ -101,7 +118,7 @@ public class EventosRS extends AbstractFacade<Eventos> {
 	
 	@PermitAll
 	@GET
-	@Path("{id}")
+	@Path("ultimo/{id}")
 	@Produces({ "application/json" })
 	public Eventos ultimoEvento(@PathParam("id") Long id) {
 		if(id != null) {

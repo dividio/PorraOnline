@@ -30,13 +30,14 @@ app.controller("partidaCtrl", ['$scope','$routeParams', '$window', '$filter', 'P
 			if($scope.partida.pa_id) {
 				Partidas.edit($scope.partida).then(
 					function(value) {
-						$scope.partida = value;
+						$scope.partidaCtrl.mostrarAlertas('Partida guardada correctamente.');
 					},
 					this.mostrarAlertas);
 			} else {
 				Partidas.create($scope.partida).then(
 					function(value) {
 						$scope.partida = value;
+						$scope.partidaCtrl.mostrarAlertas('Partida guardada correctamente.');
 					},
 					this.mostrarAlertas);
 			}

@@ -20,8 +20,6 @@ app.controller("partidaCtrl", ['$scope','$routeParams', '$window', '$filter', 'P
 			Partidas.find(id).then(
 				function(value) {
 					$scope.partida = value;
-					$scope.fechaInicio = $filter('date')(value.pa_fecha_inicio, 'yyyy-MM-dd');
-					$scope.fechaFin = $filter('date')(value.pa_fecha_fin, 'yyyy-MM-dd');
 				},
 				this.mostrarAlertas);
 		}

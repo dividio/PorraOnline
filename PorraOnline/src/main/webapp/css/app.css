@@ -83,3 +83,7 @@ a {
 .cabecera h1 {
 	margin: 10px 0px 0px;
 }
+
+.btn-block {
+	overflow: hidden;
+}

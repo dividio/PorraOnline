@@ -1,23 +1,31 @@
 <div class="col-sm-9">
   <section id="main_section">
     <header class="cabecera row">
-      <div class="col-xs-2"></div>
-      <div class="col-xs-8"><h1>Administrar Partida</h1></div>
-      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button"
+            data-history-back title="Volver">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </div>
+      <div class="col-xs-8"><h1>Pilotos</h1></div>
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button"
+          data-ng-click="competidoresCtrl.nuevo()" title="Nuevo">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+      </div>
     </header>
 
     <alertas data-alertas="alertas"></alertas>
 
-    <article data-ng-show="esAdmin">
-      <nav>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="#/adminPartida/partida/{{partida.pa_id}}">Partida</a></li>
-          <li class="list-group-item"><a href="#/adminPartida/eventos/{{partida.pa_id}}">Eventos</a></li>
-          <li class="list-group-item"><a href="#/adminPartida/competidores/{{partida.pa_id}}">Pilotos</a></li>
-          <li class="list-group-item"><a href="#/adminPartida/administradores/{{partida.pa_id}}">Administradores</a></li>
-          <li class="list-group-item"><a href="#/adminPartida/resultados/{{partida.pa_id}}">Resultados</a></li>
-        </ul>
-      </nav>
+    <article>
+      <ul class="list-group">
+        <li class="list-group-item" data-ng-repeat="elemento in listaCompetidores">
+          <a href="#/adminPartida/editarCompetidor/{{partida.pa_id}}/{{elemento.co_id}}">
+          {{elemento.co_nombre}}
+          </a>
+        </li>
+      </ul>
     </article>
   </section>
 </div>

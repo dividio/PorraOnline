@@ -1,24 +1,32 @@
 <div class="col-sm-9">
   <section id="main_section">
-    <header class="cabecera row">
-      <div class="col-xs-2"></div>
-      <div class="col-xs-8"><h1>Administrar Partida</h1></div>
-      <div class="col-xs-2"></div>
-    </header>
+    <form role="form" data-ng-submit="editarCompetidorCtrl.guardar()">
+      <header class="cabecera row">
+        <div class="col-xs-2">
+          <button class="btn btn-default btn-block" type="button"
+            data-history-back title="Volver">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </button>
+        </div>
+        <div class="col-xs-8">
+          <h1>Editar Piloto</h1>
+        </div>
+        <div class="col-xs-2">
+          <button class="btn btn-default btn-block" type="submit" title="Aceptar">
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+        </div>
+      </header>
 
-    <alertas data-alertas="alertas"></alertas>
+      <alertas data-alertas="alertas"></alertas>
 
-    <article data-ng-show="esAdmin">
-      <nav>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="#/adminPartida/partida/{{partida.pa_id}}">Partida</a></li>
-          <li class="list-group-item"><a href="#/adminPartida/eventos/{{partida.pa_id}}">Eventos</a></li>
-          <li class="list-group-item"><a href="#/adminPartida/competidores/{{partida.pa_id}}">Pilotos</a></li>
-          <li class="list-group-item"><a href="#/adminPartida/administradores/{{partida.pa_id}}">Administradores</a></li>
-          <li class="list-group-item"><a href="#/adminPartida/resultados/{{partida.pa_id}}">Resultados</a></li>
-        </ul>
-      </nav>
-    </article>
+      <article>
+        <div class="form-group">
+          <label for="asunto">Nombre</label>
+          <input id="asunto" class="form-control" type="text" required="required" data-ng-model="competidor.co_nombre" placeholder="Nombre..." />
+        </div>
+      </article>
+    </form>
   </section>
 </div>
 <div class="col-sm-3">

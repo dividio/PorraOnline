@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity
 @Table(name = "PUNTOS_POSICION")
 public class PuntosPosicion implements Serializable {
@@ -28,10 +30,11 @@ public class PuntosPosicion implements Serializable {
 	private Long pp_puntos_aproximacion;
 	
 	private Long pp_nivel_aproximacion;
-
+	
+	@JsonBackReference
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "pp_pa_id", referencedColumnName = "pa_id")
-	private Partidas pp_pa_id;
+	@JoinColumn(name = "pp_bo_id", referencedColumnName = "bo_id")
+	private Bonificaciones pp_bo_id;
 
 	public Long getPp_id() {
 		return pp_id;
@@ -57,14 +60,6 @@ public class PuntosPosicion implements Serializable {
 		this.pp_puntos = pp_puntos;
 	}
 
-	public Partidas getPp_pa_id() {
-		return pp_pa_id;
-	}
-
-	public void setPp_pa_id(Partidas pp_pa_id) {
-		this.pp_pa_id = pp_pa_id;
-	}
-
 	public Long getPp_puntos_aproximacion() {
 		return pp_puntos_aproximacion;
 	}
@@ -81,6 +76,14 @@ public class PuntosPosicion implements Serializable {
 		this.pp_nivel_aproximacion = pp_nivel_aproximacion;
 	}
 	
+	public Bonificaciones getPp_bo_id() {
+		return pp_bo_id;
+	}
+
+	public void setPp_bo_id(Bonificaciones pp_bo_id) {
+		this.pp_bo_id = pp_bo_id;
+	}
+
 	@Override
     public int hashCode() {
 	    final int prime = 31;

@@ -39,6 +39,23 @@
           <input id="asunto" class="form-control" type="date" required="required" 
             data-ng-model="partida.pa_fecha_fin" data-datefield/>
         </div>
+        
+        <h2>Bonificaciones</h2>
+        <div data-ng-repeat="bonificacion in partida.listaBonificaciones | orderBy:'bo_orden'">
+          <h3>{{bonificacion.bo_nombre}}</h3>
+          <ul class="list-group">
+              <li class="list-group-item" data-ng-repeat="posicion in bonificacion.listaPuntosPosicion">
+              {{posicion.pp_posicion}} - {{posicion.pp_puntos}} - {{posicion.pp_puntos_aproximacion}} - {{posicion.pp_nivel_aproximacion}}
+              </li>
+          </ul>
+        </div>
+        
+        <h2>Penalizaciones</h2>
+        <ul class="list-group">
+          <li class="list-group-item" data-ng-repeat="penalizacion in partida.listaPenalizaciones | orderBy:'pe_nombre'">
+            {{penalizacion.pe_nombre}}: {{penalizacion.pe_puntos}}
+          </li>
+        </ul>
       </article>
     </form>
   </section>

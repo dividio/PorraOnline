@@ -38,8 +38,6 @@ public class Eventos implements Serializable {
 	
 	private Date ev_fecha_limite_pronosticos;
 	
-	private Long ev_numero_pronosticos;
-
 	@Size(max=100)
 	private String ev_lugar;
 	
@@ -109,14 +107,6 @@ public class Eventos implements Serializable {
 
 	public void setEv_fecha_inicio_pronosticos(Date ev_fecha_inicio_pronosticos) {
 		this.ev_fecha_inicio_pronosticos = ev_fecha_inicio_pronosticos;
-	}
-
-	public Long getEv_numero_pronosticos() {
-		return ev_numero_pronosticos;
-	}
-
-	public void setEv_numero_pronosticos(Long ev_numero_pronosticos) {
-		this.ev_numero_pronosticos = ev_numero_pronosticos;
 	}
 
 	public String getEv_lugar() {

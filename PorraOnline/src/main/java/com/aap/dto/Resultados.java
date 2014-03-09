@@ -28,6 +28,14 @@ public class Resultados implements Serializable {
 	private Competidores re_co_id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "re_bo_id", referencedColumnName = "bo_id")
+	private Bonificaciones re_bo_id;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "re_pe_id", referencedColumnName = "pe_id")
+	private Penalizaciones re_pe_id;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "re_ev_id", referencedColumnName = "ev_id")
 	private Eventos re_ev_id;
 
@@ -61,6 +69,22 @@ public class Resultados implements Serializable {
 
 	public void setRe_ev_id(Eventos re_ev_id) {
 		this.re_ev_id = re_ev_id;
+	}
+
+	public Bonificaciones getRe_bo_id() {
+		return re_bo_id;
+	}
+
+	public void setRe_bo_id(Bonificaciones re_bo_id) {
+		this.re_bo_id = re_bo_id;
+	}
+
+	public Penalizaciones getRe_pe_id() {
+		return re_pe_id;
+	}
+
+	public void setRe_pe_id(Penalizaciones re_pe_id) {
+		this.re_pe_id = re_pe_id;
 	}
 
 	@Override

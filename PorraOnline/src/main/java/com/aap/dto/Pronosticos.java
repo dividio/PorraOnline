@@ -32,6 +32,10 @@ public class Pronosticos implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "pr_ev_id", referencedColumnName = "ev_id")
 	private Eventos pr_ev_id;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "pr_bo_id", referencedColumnName = "bo_id")
+	private Bonificaciones pr_bo_id;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "pr_usu_id", referencedColumnName = "usu_id")
@@ -83,6 +87,14 @@ public class Pronosticos implements Serializable {
 
 	public void setPr_usu_id(Usuarios pr_usu_id) {
 		this.pr_usu_id = pr_usu_id;
+	}
+
+	public Bonificaciones getPr_bo_id() {
+		return pr_bo_id;
+	}
+
+	public void setPr_bo_id(Bonificaciones pr_bo_id) {
+		this.pr_bo_id = pr_bo_id;
 	}
 
 	@Override

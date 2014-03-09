@@ -69,9 +69,11 @@ public class Partidas implements Serializable {
 	@OneToMany(mappedBy="co_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Competidores> listaCompetidores;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="pp_pa_id", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
-	private List<PuntosPosicion> listaPuntosPosicion;
+	@OneToMany(mappedBy="bo_pa_id", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Bonificaciones> listaBonificaciones;
+	
+	@OneToMany(mappedBy="pe_pa_id", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Penalizaciones> listaPenalizaciones;
 	
 	public Long getPa_id() {
 		return pa_id;
@@ -153,20 +155,28 @@ public class Partidas implements Serializable {
 		this.listaCompetidores = listaCompetidores;
 	}
 
-	public List<PuntosPosicion> getListaPuntosPosicion() {
-		return listaPuntosPosicion;
-	}
-
-	public void setListaPuntosPosicion(List<PuntosPosicion> listaPuntosPosicion) {
-		this.listaPuntosPosicion = listaPuntosPosicion;
-	}
-
 	public Set<Usuarios> getAdministradores() {
 		return administradores;
 	}
 
 	public void setAdministradores(Set<Usuarios> administradores) {
 		this.administradores = administradores;
+	}
+
+	public List<Bonificaciones> getListaBonificaciones() {
+		return listaBonificaciones;
+	}
+
+	public void setListaBonificaciones(List<Bonificaciones> listaBonificaciones) {
+		this.listaBonificaciones = listaBonificaciones;
+	}
+
+	public List<Penalizaciones> getListaPenalizaciones() {
+		return listaPenalizaciones;
+	}
+
+	public void setListaPenalizaciones(List<Penalizaciones> listaPenalizaciones) {
+		this.listaPenalizaciones = listaPenalizaciones;
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package com.aap.dto;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "PRONOSTICOS")
 public class Pronosticos implements Serializable {
@@ -25,19 +28,21 @@ public class Pronosticos implements Serializable {
 
 	private Long pr_puntos_conseguidos;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "pr_co_id", referencedColumnName = "co_id")
 	private Competidores pr_co_id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference(value="pr_ev_id")
+	@ManyToOne
 	@JoinColumn(name = "pr_ev_id", referencedColumnName = "ev_id")
 	private Eventos pr_ev_id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "pr_bo_id", referencedColumnName = "bo_id")
 	private Bonificaciones pr_bo_id;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference(value="pr_usu_id")
+	@ManyToOne
 	@JoinColumn(name = "pr_usu_id", referencedColumnName = "usu_id")
 	private Usuarios pr_usu_id;
 

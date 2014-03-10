@@ -13,7 +13,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "MENSAJES")
 public class Mensajes implements Serializable {

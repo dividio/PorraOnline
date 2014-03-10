@@ -15,7 +15,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "BONIFICACIONES")
 public class Bonificaciones implements Serializable {
@@ -33,7 +35,7 @@ public class Bonificaciones implements Serializable {
 	
 	private Long bo_numero_posiciones;
 
-	@JsonBackReference
+	@JsonBackReference(value="bo_pa_id")
 	@ManyToOne
 	@JoinColumn(name = "bo_pa_id", referencedColumnName = "pa_id")
 	private Partidas bo_pa_id;

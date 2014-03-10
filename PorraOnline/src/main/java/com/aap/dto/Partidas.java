@@ -19,7 +19,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "PARTIDAS")
 public class Partidas implements Serializable {

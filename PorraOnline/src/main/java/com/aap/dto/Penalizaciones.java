@@ -12,7 +12,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "PENALIZACIONES")
 public class Penalizaciones implements Serializable {

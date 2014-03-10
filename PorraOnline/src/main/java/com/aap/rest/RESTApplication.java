@@ -20,6 +20,7 @@ import com.aap.rest.server.LogoutRS;
 import com.aap.rest.server.MensajesRS;
 import com.aap.rest.server.NoticiasRS;
 import com.aap.rest.server.PartidasRS;
+import com.aap.rest.server.PronosticosRS;
 
 @Provider
 public class RESTApplication extends Application {
@@ -35,6 +36,7 @@ public class RESTApplication extends Application {
 		singletons.add(new EventosRS());
 		singletons.add(new ClasificacionRS());
 		singletons.add(new CompetidoresRS());
+		singletons.add(new PronosticosRS());
 		ResteasyProviderFactory pf = ResteasyProviderFactory.getInstance();
 		pf.registerProvider(RestCustomExceptionMapper.class);
 		pf.registerProvider(HibernateExceptionMapper.class);

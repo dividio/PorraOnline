@@ -1,0 +1,133 @@
+<div class="col-sm-9">
+  <section id="main_section" data-ng-show="mostrarSeccionPrincipal">
+    <form role="form" data-ng-submit="pronosticosCtrl.guardar()">
+      <header class="cabecera row">
+        <div class="col-xs-2">
+          <button class="btn btn-default btn-block" type="button"
+            data-history-back title="Volver">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </button>
+        </div>
+        <div class="col-xs-8">
+          <h1>Pronósticos</h1>
+        </div>
+        <div class="col-xs-2">
+          <button class="btn btn-default btn-block" type="submit" title="Aceptar" data-ng-show="eventoEditable">
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+        </div>
+      </header>
+
+      <alertas data-alertas="alertas"></alertas>
+
+      <article>
+        <h3>
+          {{evento.ev_nombre}} ({{evento.ev_fecha_evento | date:'dd/MM/yyyy'}})
+          <button class="btn btn-default" type="button"
+            data-ng-click="pronosticosCtrl.mostrarEventos()" title="Buscar">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </h3>
+        <p>Lugar: {{evento.ev_lugar}}</p>
+        <p>Pronósticos desde el {{evento.ev_fecha_inicio_pronosticos | date:'dd/MM/yyyy'}} hasta el {{evento.ev_fecha_limite_pronosticos | date:'dd/MM/yyyy'}}</p>
+        <p><a href="{{evento.ev_url_referencia}}" target="blank"><span class="glyphicon glyphicon-info-sign"></span>Más información</a></p>
+        <div data-ng-repeat="bonificacion in partida.listaBonificaciones | orderBy:'bo_orden'">
+          <h3>
+            <button class="btn btn-default" type="button" data-ng-click="pronosticosCtrl.mostrarCompetidores(bonificacion)" 
+                title="Añadir" data-ng-show="eventoEditable">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            {{bonificacion.bo_nombre}}
+          </h3>
+          <ul class="list-group">
+              <li class="list-group-item" data-ng-repeat="pronostico in pronosticos[bonificacion.bo_id] | orderBy:'pr_posicion'">
+              <div class="row">
+                <div class="col-xs-5 col-sm-8">
+                    {{pronostico.pr_posicion}} - {{pronostico.pr_co_id.co_nombre}}
+                </div>
+  
+                <div class="col-xs-7 col-sm-4">
+                  <button class="btn btn-default" type="button"
+                    data-ng-click="pronosticosCtrl.bajarPronostico(pronostico)" title="Bajar" data-ng-show="eventoEditable">
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                  </button>
+                  <button class="btn btn-default" type="button"
+                    data-ng-click="pronosticosCtrl.subirPronostico(pronostico)" title="Subir" data-ng-show="eventoEditable">
+                    <span class="glyphicon glyphicon-arrow-up"></span>
+                  </button>
+                  <button class="btn btn-default" type="button"
+                    data-ng-click="pronosticosCtrl.eliminarPronostico(pronostico)" title="Eliminar" data-ng-show="eventoEditable">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </button>
+                </div>
+              </div>
+              </li>
+          </ul>
+        </div>
+      </article>
+    </form>
+  </section>
+  
+  <section class="list" data-ng-show="mostrarEventos">
+    <header class="cabecera row">
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button" data-ng-click="pronosticosCtrl.volverSeccionPrincipal()" title="Volver">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </div>
+      <div class="col-xs-8">
+        <h1>Eventos</h1>
+      </div>
+      <div class="col-xs-2"></div>
+    </header>
+    <ul class="list-group">
+      <li class="list-group-item" data-ng-repeat="elemento in listaEventos">
+        <button class="btn btn-block" data-ng-class="{'btn-success': elemento.ev_fecha_evento < fechaActual, 'btn-primary': elemento.ev_fecha_evento > fechaActual && elemento.ev_fecha_inicio_pronosticos <= fechaActual, 'btn-default': elemento.ev_fecha_evento > fechaActual && elemento.ev_fecha_inicio_pronosticos > fechaActual}"
+            data-ng-click="pronosticosCtrl.cargarEventoBuscador(elemento)">
+          {{elemento.ev_fecha_evento | date:'dd/MM/yyyy'}}: {{elemento.ev_nombre}} - {{elemento.ev_lugar}}
+        </button>
+      </li>
+    </ul>
+  </section>
+  
+  <section class="list" data-ng-show="mostrarCompetidores">
+    <header class="cabecera row">
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button" data-ng-click="pronosticosCtrl.volverSeccionPrincipal()" title="Volver">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </div>
+      <div class="col-xs-8">
+        <h1>Pilotos</h1>
+      </div>
+      <div class="col-xs-2"></div>
+    </header>
+    <ul class="list-group">
+      <li class="list-group-item" data-ng-repeat="elemento in listaCompetidoresBonificacion | orderBy:'co_nombre'">
+        <button class="btn btn-block" data-ng-click="pronosticosCtrl.cargarCompetidorBuscador(elemento)">
+          {{elemento.co_nombre}}
+        </button>
+      </li>
+    </ul>
+  </section>
+</div>
+<div class="col-sm-3">
+  <section>
+    <header>
+      {{partida.pa_nombre}} <br /> {{user.usu_username}} <br />
+      <login data-user="user"></login>
+    </header>
+    <nav>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+        <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
+        <li class="list-group-item"><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+        <li class="list-group-item"><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
+        <li class="list-group-item"><a href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación Eventos</a></li>
+        <li class="list-group-item"><a href="#/pronosticos/{{partida.pa_id}}">Pronósticos</a></li>
+        <li class="list-group-item"><a href="#/suscripcionPartida/{{partida.pa_id}}">Suscripción</a></li>
+        <li class="list-group-item"><a href="#/adminPartida/{{partida.pa_id}}">Administrar Partida</a></li>
+      </ul>
+    </nav>
+  </section>
+</div>

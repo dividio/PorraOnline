@@ -91,16 +91,20 @@ app.controller("pronosticosCtrl", ['$scope','$routeParams', '$window', 'Partidas
 		if(idEvento) {
 			return Eventos.find(idEvento);
 		} else {
-			return Eventos.ultimoEvento($scope.idPartida);
+			return Eventos.proximoEvento($scope.idPartida);
 		}
 	};
 	
 	this.cargarPronosticos = function(evento) {
-		$scope.evento = evento;
-		$scope.eventoEditable = evento.ev_fecha_inicio_pronosticos <= $scope.fechaActual && evento.ev_fecha_limite_pronosticos >= $scope.fechaActual;
-		
-		if($scope.user.usu_id) {
-			return Pronosticos.findAll(evento.ev_id, $scope.user.usu_id);
+		if(evento) {
+			$scope.evento = evento;
+			$scope.eventoEditable = evento.ev_fecha_inicio_pronosticos <= $scope.fechaActual && evento.ev_fecha_limite_pronosticos >= $scope.fechaActual;
+			
+			if($scope.user.usu_id) {
+				return Pronosticos.findAll(evento.ev_id, $scope.user.usu_id);
+			}
+		} else {
+			$scope.pronosticosCtrl.mostrarEventos();
 		}
 	};
 	

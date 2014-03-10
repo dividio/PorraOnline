@@ -38,6 +38,15 @@ services.factory('Eventos', ['$q', '$rootScope', function($q, $rootScope) {
 			
 			return deferred.promise; 
 		},
+		proximoEvento: function(idPartida) {
+			var deferred = $q.defer();
+
+			EventosRS.proximoEvento({id:idPartida, $callback:function(httpCode, xmlHttpRequest, value){
+				callback(httpCode, xmlHttpRequest, value, deferred, $rootScope);
+			}});
+			
+			return deferred.promise;
+		},
 		ultimoEvento: function(idPartida) {
 			var deferred = $q.defer();
 

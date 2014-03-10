@@ -22,11 +22,11 @@
 
       <article>
         <h3>
-          {{evento.ev_nombre}} ({{evento.ev_fecha_evento | date:'dd/MM/yyyy'}})
           <button class="btn btn-default" type="button"
             data-ng-click="pronosticosCtrl.mostrarEventos()" title="Buscar">
             <span class="glyphicon glyphicon-search"></span>
           </button>
+          {{evento.ev_nombre}} ({{evento.ev_fecha_evento | date:'dd/MM/yyyy'}})
         </h3>
         <p>Lugar: {{evento.ev_lugar}}</p>
         <p>Pronósticos desde el {{evento.ev_fecha_inicio_pronosticos | date:'dd/MM/yyyy'}} hasta el {{evento.ev_fecha_limite_pronosticos | date:'dd/MM/yyyy'}}</p>

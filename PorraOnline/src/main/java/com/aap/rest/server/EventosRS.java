@@ -110,6 +110,31 @@ public class EventosRS extends AbstractFacade<Eventos> {
 	
 	@PermitAll
 	@GET
+	@Path("proximo/{id}")
+	@Produces({ "application/json" })
+	public Eventos proximoEvento(@PathParam("id") Long id) {
+		if(id != null) {
+			Session session = getSession();
+			String hql = "select EV " +
+					"from Eventos EV " +
+					"join EV.ev_pa_id PA " +
+					"where PA.pa_id = :ID_PARTIDA " +
+					"and EV.ev_fecha_evento = " +
+					"(select min(EV1.ev_fecha_evento) " +
+					"from Eventos EV1 " +
+					"join EV1.ev_pa_id PA1 " +
+					"where PA1.pa_id = :ID_PARTIDA " +
+					"and EV1.ev_fecha_evento >= sysdate())";
+			Query hqlQ = session.createQuery(hql);
+			hqlQ.setLong("ID_PARTIDA", id);
+			
+			return (Eventos) hqlQ.uniqueResult();
+		}
+		return null;
+	}
+	
+	@PermitAll
+	@GET
 	@Path("ultimo/{id}")
 	@Produces({ "application/json" })
 	public Eventos ultimoEvento(@PathParam("id") Long id) {

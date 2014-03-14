@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -27,14 +28,13 @@ public class Usuarios implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long	   	usu_id;
 	
+	@JsonIgnore
 	@Size(max=100)
 	private String	   	usu_email;
 	
 	@Size(max=50)
 	private String     	usu_username;
 	
-	@Size(max=100)
-	private String     	usu_password;
 	
 	private Boolean    	usu_activo;
 	
@@ -67,12 +67,6 @@ public class Usuarios implements Serializable {
 	}
 	public void setRoles(Set<Roles> roles) {
 		this.roles = roles;
-	}
-	public void setUsu_password(String usu_password) {
-		this.usu_password = usu_password;
-	}
-	public String getUsu_password() {
-		return usu_password;
 	}
 	public void setUsu_activo(Boolean usu_activo) {
 		this.usu_activo = usu_activo;

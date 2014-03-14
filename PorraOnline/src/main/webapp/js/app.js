@@ -21,6 +21,7 @@ var app = angular.module('porraOnline', ['porraOnline.filters', 'porraOnline.ser
     $routeProvider.when('/adminPartida/competidores/:idPartida', {templateUrl: 'views/adminPartida/competidores.html', controller: "competidoresCtrl"});
     $routeProvider.when('/adminPartida/editarCompetidor/:idPartida', {templateUrl: 'views/adminPartida/editarCompetidor.html', controller: "editarCompetidorCtrl"});
     $routeProvider.when('/adminPartida/editarCompetidor/:idPartida/:idCompetidor', {templateUrl: 'views/adminPartida/editarCompetidor.html', controller: "editarCompetidorCtrl"});
+    $routeProvider.when('/adminPartida/administradores/:idPartida', {templateUrl: 'views/adminPartida/administradores.html', controller: "administradoresCtrl"});
     $routeProvider.otherwise({redirectTo: '/inicio'});
   }]);
 

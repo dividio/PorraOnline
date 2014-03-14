@@ -1,0 +1,80 @@
+<div class="col-sm-9">
+  <section id="main_section" data-ng-show="mostrarSeccionPrincipal">
+    <header class="cabecera row">
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button"
+            data-history-back title="Volver">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </div>
+      <div class="col-xs-8"><h1>Administradores</h1></div>
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button"
+          data-ng-click="administradoresCtrl.buscar()" title="Nuevo">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+      </div>
+    </header>
+
+    <alertas data-alertas="alertas"></alertas>
+
+    <article>
+      <ul class="list-group">
+        <li class="list-group-item" data-ng-repeat="elemento in listaAdministradores">
+        <div class="row">
+          <div class="col-xs-9">
+            {{elemento.usu_username}}
+          </div>
+          <div class="col-xs-3">
+            <button class="btn btn-default" type="button"
+              data-ng-click="administradoresCtrl.eliminarAdministrador(elemento)" title="Eliminar">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
+        </div>
+        </li>
+      </ul>
+    </article>
+  </section>
+  
+  <section class="list" data-ng-show="mostrarUsuarios">
+    <header class="cabecera row">
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button" data-ng-click="administradoresCtrl.volverSeccionPrincipal()" title="Volver">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </div>
+      <div class="col-xs-8">
+        <h1>Añadir Administrador</h1>
+      </div>
+      <div class="col-xs-2"></div>
+    </header>
+    <ul class="list-group">
+      <li class="list-group-item" data-ng-repeat="elemento in listaUsuarios | orderBy:'usu_username'">
+        <button class="btn btn-block" data-ng-click="administradoresCtrl.guardarAdministrador(elemento)">
+          {{elemento.usu_username}}
+        </button>
+      </li>
+    </ul>
+  </section>
+</div>
+<div class="col-sm-3">
+  <section>
+    <header>
+      {{partida.pa_nombre}} <br /> {{user.usu_username}} <br />
+      <login data-user="user"></login>
+    </header>
+    <nav>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#/inicio">Noticias</a></li>
+        <li class="list-group-item"><a href="#/listaPartidas">Partidas</a></li>
+        <li class="list-group-item"><a href="#/mensajesPartida/{{partida.pa_id}}">Mensajes</a></li>
+        <li class="list-group-item"><a href="#/clasificacionPartida/{{partida.pa_id}}">Clasificación General</a></li>
+        <li class="list-group-item"><a href="#/clasificacionEvento/{{partida.pa_id}}">Clasificación Eventos</a></li>
+        <li class="list-group-item"><a href="#/pronosticos/{{partida.pa_id}}">Pronósticos</a></li>
+        <li class="list-group-item"><a href="#/suscripcionPartida/{{partida.pa_id}}">Suscripción</a></li>
+        <li class="list-group-item"><a href="#/adminPartida/{{partida.pa_id}}">Administrar Partida</a></li>
+      </ul>
+    </nav>
+  </section>
+</div>

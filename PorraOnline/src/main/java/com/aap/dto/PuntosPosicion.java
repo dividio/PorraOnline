@@ -3,7 +3,6 @@ package com.aap.dto;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,8 +32,8 @@ public class PuntosPosicion implements Serializable {
 	
 	private Long pp_nivel_aproximacion;
 	
-	@JsonBackReference
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference(value="pp_bo_id")
+	@ManyToOne
 	@JoinColumn(name = "pp_bo_id", referencedColumnName = "bo_id")
 	private Bonificaciones pp_bo_id;
 

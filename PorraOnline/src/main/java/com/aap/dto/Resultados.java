@@ -3,7 +3,6 @@ package com.aap.dto;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -26,19 +26,20 @@ public class Resultados implements Serializable {
 	
 	private Long re_posicion;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "re_co_id", referencedColumnName = "co_id")
 	private Competidores re_co_id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "re_bo_id", referencedColumnName = "bo_id")
 	private Bonificaciones re_bo_id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "re_pe_id", referencedColumnName = "pe_id")
 	private Penalizaciones re_pe_id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference(value="re_ev_id")
+	@ManyToOne
 	@JoinColumn(name = "re_ev_id", referencedColumnName = "ev_id")
 	private Eventos re_ev_id;
 

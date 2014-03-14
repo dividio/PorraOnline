@@ -39,6 +39,7 @@
             </button>
             {{bonificacion.bo_nombre}}
           </h3>
+          <p>(Pilotos: {{bonificacion.bo_numero_posiciones}})</p>
           <ul class="list-group">
               <li class="list-group-item" data-ng-repeat="pronostico in pronosticos[bonificacion.bo_id] | orderBy:'pr_posicion'">
               <div class="row">

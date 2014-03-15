@@ -6,7 +6,7 @@
 directives.directive('alertas', ['Alertas', function(Alertas) {
     return {
         restrict: "E",
-        templateUrl: "views/alertasDirective.html",
+        templateUrl: "views/directives/alertasDirective.html",
         scope: {alertas: '=alertas'},
         controller: ['$scope', '$http', function($scope, $http) {
         	$scope.alertas = Alertas.getAlertas();

@@ -1,7 +1,7 @@
 <div class="col-sm-9">
   <section id="main_section" data-ng-show="mostrarSeccionPrincipal">
     <form role="form" data-ng-submit="resultadosCtrl.guardar()">
-      <header class="cabecera row">
+      <cabecera>
         <div class="col-xs-2">
           <button class="btn btn-default btn-block" type="button"
             data-history-back title="Volver">
@@ -9,14 +9,14 @@
           </button>
         </div>
         <div class="col-xs-8">
-          <h1>Resultados</h1>
+          <titulo>Resultados</titulo>
         </div>
         <div class="col-xs-2">
           <button class="btn btn-default btn-block" type="submit" title="Aceptar" data-ng-show="eventoEditable">
             <span class="glyphicon glyphicon-ok"></span>
           </button>
         </div>
-      </header>
+      </cabecera>
 
       <alertas data-alertas="alertas"></alertas>
 
@@ -82,17 +82,17 @@
   </section>
   
   <section class="list" data-ng-show="mostrarEventos">
-    <header class="cabecera row">
+    <cabecera>
       <div class="col-xs-2">
         <button class="btn btn-default btn-block" type="button" data-ng-click="resultadosCtrl.volverSeccionPrincipal()" title="Volver">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
       </div>
       <div class="col-xs-8">
-        <h1>Eventos</h1>
+        <titulo>Eventos</titulo>
       </div>
       <div class="col-xs-2"></div>
-    </header>
+    </cabecera>
     <ul class="list-group">
       <li class="list-group-item" data-ng-repeat="elemento in listaEventos">
         <button class="btn btn-block" data-ng-class="{'btn-success': elemento.ev_fecha_evento < fechaActual, 'btn-primary': elemento.ev_fecha_evento > fechaActual && elemento.ev_fecha_inicio_pronosticos <= fechaActual, 'btn-default': elemento.ev_fecha_evento > fechaActual && elemento.ev_fecha_inicio_pronosticos > fechaActual}"
@@ -104,17 +104,17 @@
   </section>
   
   <section class="list" data-ng-show="mostrarCompetidores">
-    <header class="cabecera row">
+    <cabecera>
       <div class="col-xs-2">
         <button class="btn btn-default btn-block" type="button" data-ng-click="resultadosCtrl.volverSeccionPrincipal()" title="Volver">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
       </div>
       <div class="col-xs-8">
-        <h1>Pilotos</h1>
+        <titulo>Pilotos</titulo>
       </div>
       <div class="col-xs-2"></div>
-    </header>
+    </cabecera>
     <ul class="list-group">
       <li class="list-group-item" data-ng-repeat="elemento in listaCompetidoresBonificacion | orderBy:'co_nombre'">
         <button class="btn btn-block" data-ng-click="resultadosCtrl.cargarCompetidorBuscador(elemento)">
@@ -125,17 +125,17 @@
   </section>
   
   <section class="list" data-ng-show="mostrarPenalizaciones">
-    <header class="cabecera row">
+    <cabecera>
       <div class="col-xs-2">
         <button class="btn btn-default btn-block" type="button" data-ng-click="resultadosCtrl.volverSeccionPrincipal()" title="Volver">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
       </div>
       <div class="col-xs-8">
-        <h1>Penalizaciones</h1>
+        <titulo>Penalizaciones</titulo>
       </div>
       <div class="col-xs-2"></div>
-    </header>
+    </cabecera>
     <ul class="list-group">
       <li class="list-group-item" data-ng-repeat="elemento in listaPenalizaciones | orderBy:'pe_nombre'">
         <button class="btn btn-block" data-ng-click="resultadosCtrl.cargarPenalizacionBuscador(elemento)">

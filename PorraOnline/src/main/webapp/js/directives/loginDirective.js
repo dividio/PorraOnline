@@ -7,7 +7,7 @@ directives.directive('login', ['Login', 'User', 'Alertas', function(Login, User,
     return {
         restrict: "E",
         scope: {currentUser: '=user'},
-        templateUrl: "views/loginDirective.html",
+        templateUrl: "views/directives/loginDirective.html",
         controller: ['$scope', '$http', function($scope, $http) {
         	this.signin = function() {
         		navigator.id.request();

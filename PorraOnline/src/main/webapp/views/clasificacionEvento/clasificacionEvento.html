@@ -1,9 +1,9 @@
 <div class="col-sm-9">
   <section id="main_section" data-ng-show="mostrarSeccionPrincipal">
-    <header class="cabecera row">
+    <cabecera>
       <div class="col-xs-2"></div>
       <div class="col-xs-8">
-        <h1>Clasificación por Eventos</h1>
+        <titulo>Clasificación por Eventos</titulo>
       </div>
       <div class="col-xs-2">
         <button class="btn btn-default btn-block" type="button"
@@ -11,7 +11,7 @@
           <span class="glyphicon glyphicon-search"></span>
         </button>
       </div>
-    </header>
+    </cabecera>
 
     <alertas data-alertas="alertas"></alertas>
 
@@ -31,17 +31,17 @@
     </ul>
   </section>
   <section class="list" data-ng-hide="mostrarSeccionPrincipal">
-    <header class="cabecera row">
+    <cabecera>
       <div class="col-xs-2">
         <button class="btn btn-default btn-block" type="button" data-ng-click="clasificacionEventoCtrl.cancelarSeleccion()" title="Volver">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
       </div>
       <div class="col-xs-8">
-        <h1>Eventos</h1>
+        <titulo>Eventos</titulo>
       </div>
       <div class="col-xs-2"></div>
-    </header>
+    </cabecera>
     <ul class="list-group">
       <li class="list-group-item" data-ng-repeat="elemento in listaEventos">
         <button class="btn btn-block" data-ng-class="{'btn-success': elemento.ev_fecha_evento < fechaActual, 'btn-primary': elemento.ev_fecha_evento > fechaActual && elemento.ev_fecha_inicio_pronosticos <= fechaActual, 'btn-default': elemento.ev_fecha_evento > fechaActual && elemento.ev_fecha_inicio_pronosticos > fechaActual}"

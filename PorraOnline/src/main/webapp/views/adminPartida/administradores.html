@@ -22,10 +22,10 @@
       <ul class="list-group">
         <li class="list-group-item" data-ng-repeat="elemento in listaAdministradores">
         <div class="row">
-          <div class="col-xs-9">
+          <div class="col-xs-5">
             {{elemento.usu_username}}
           </div>
-          <div class="col-xs-3">
+          <div class="col-xs-7 botonera">
             <button class="btn btn-default" type="button"
               data-ng-click="administradoresCtrl.eliminarAdministrador(elemento)" title="Eliminar">
               <span class="glyphicon glyphicon-trash"></span>

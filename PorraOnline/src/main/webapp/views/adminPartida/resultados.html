@@ -42,11 +42,11 @@
           <ul class="list-group">
               <li class="list-group-item" data-ng-repeat="resultado in resultados[bonificacion.bo_id] | orderBy:'re_posicion'">
               <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-5">
                     {{resultado.re_posicion}} - {{resultado.re_co_id.co_nombre}}
                 </div>
   
-                <div class="col-xs-6">
+                <div class="col-xs-7 botonera">
                   <button class="btn btn-default" type="button"
                     data-ng-click="resultadosCtrl.bajarResultado(resultado)" title="Bajar" data-ng-show="eventoEditable">
                     <span class="glyphicon glyphicon-arrow-down"></span>
@@ -60,16 +60,16 @@
                     <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-5">
                     {{resultado.re_pe_id.pe_nombre}}
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-7 botonera">
                   <button class="btn btn-default" type="button"
                     data-ng-click="resultadosCtrl.mostrarPenalizaciones(resultado)" title="Penalización" data-ng-show="eventoEditable">
                     <span class="glyphicon glyphicon-flag"></span>
                   </button>
                   <button class="btn btn-default" type="button"
-                    data-ng-click="resultadosCtrl.eliminarPenalizacion(resultado)" title="Eliminar" data-ng-show="eventoEditable">
+                    data-ng-click="resultadosCtrl.eliminarPenalizacion(resultado)" title="Eliminar Penalización" data-ng-show="eventoEditable">
                     <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </div>

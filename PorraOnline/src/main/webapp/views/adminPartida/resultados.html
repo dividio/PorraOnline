@@ -56,16 +56,22 @@
                     <span class="glyphicon glyphicon-arrow-up"></span>
                   </button>
                   <button class="btn btn-default" type="button"
-                    data-ng-click="resultadosCtrl.penalizacion(resultado)" title="Penalización" data-ng-show="eventoEditable">
-                    <span class="glyphicon glyphicon-flag"></span>
-                  </button>
-                  <button class="btn btn-default" type="button"
                     data-ng-click="resultadosCtrl.eliminarResultado(resultado)" title="Eliminar" data-ng-show="eventoEditable">
                     <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </div>
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     {{resultado.re_pe_id.pe_nombre}}
+                </div>
+                <div class="col-xs-6">
+                  <button class="btn btn-default" type="button"
+                    data-ng-click="resultadosCtrl.mostrarPenalizaciones(resultado)" title="Penalización" data-ng-show="eventoEditable">
+                    <span class="glyphicon glyphicon-flag"></span>
+                  </button>
+                  <button class="btn btn-default" type="button"
+                    data-ng-click="resultadosCtrl.eliminarPenalizacion(resultado)" title="Eliminar" data-ng-show="eventoEditable">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </button>
                 </div>
               </div>
               </li>
@@ -113,6 +119,27 @@
       <li class="list-group-item" data-ng-repeat="elemento in listaCompetidoresBonificacion | orderBy:'co_nombre'">
         <button class="btn btn-block" data-ng-click="resultadosCtrl.cargarCompetidorBuscador(elemento)">
           {{elemento.co_nombre}}
+        </button>
+      </li>
+    </ul>
+  </section>
+  
+  <section class="list" data-ng-show="mostrarPenalizaciones">
+    <header class="cabecera row">
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button" data-ng-click="resultadosCtrl.volverSeccionPrincipal()" title="Volver">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </div>
+      <div class="col-xs-8">
+        <h1>Penalizaciones</h1>
+      </div>
+      <div class="col-xs-2"></div>
+    </header>
+    <ul class="list-group">
+      <li class="list-group-item" data-ng-repeat="elemento in listaPenalizaciones | orderBy:'pe_nombre'">
+        <button class="btn btn-block" data-ng-click="resultadosCtrl.cargarPenalizacionBuscador(elemento)">
+          {{elemento.pe_nombre}}: {{elemento.pe_puntos}} puntos 
         </button>
       </li>
     </ul>

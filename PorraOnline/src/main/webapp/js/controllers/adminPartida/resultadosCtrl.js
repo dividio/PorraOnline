@@ -1,8 +1,8 @@
 'use strict';
 
 /* Controllers */
-app.controller("resultadosCtrl", ['$scope','$routeParams', '$window', 'Partidas', 'Eventos', 'Resultados', 'Competidores', 'User', 'Alertas', 
-                                    function ($scope, $routeParams, $window, Partidas, Eventos, Resultados, Competidores, User, Alertas) {
+app.controller("resultadosCtrl", ['$scope','$routeParams', '$window', 'Partidas', 'Eventos', 'Resultados', 'Competidores', 'Penalizaciones', 'User', 'Alertas', 
+                                    function ($scope, $routeParams, $window, Partidas, Eventos, Resultados, Competidores, Penalizaciones, User, Alertas) {
 	
 	$scope.user = User.getUser();
 		
@@ -82,6 +82,31 @@ app.controller("resultadosCtrl", ['$scope','$routeParams', '$window', 'Partidas'
 		lista.push(resultado);
 
 		this.volverSeccionPrincipal();
+	};
+	
+	this.mostrarPenalizaciones = function(resultado) {
+		$scope.resultadoSeleccionado = resultado;
+		if($scope.idPartida && !$scope.listaPenalizaciones) {
+			Penalizaciones.findAll($scope.idPartida).then(
+				function(value) {
+					$scope.listaPenalizaciones = value;
+				},
+				this.mostrarAlertas);
+		}
+		$scope.mostrarSeccionPrincipal = false;
+		$scope.mostrarPenalizaciones = true;
+	};
+	
+	this.cargarPenalizacionBuscador = function(penalizacion) {
+		if($scope.resultadoSeleccionado) {
+			$scope.resultadoSeleccionado.re_pe_id = penalizacion;
+		}
+		
+		this.volverSeccionPrincipal();
+	};
+	
+	this.eliminarPenalizacion = function(resultado) {
+		resultado.re_pe_id = null;
 	};
 	
 	this.cargarEvento = function() {

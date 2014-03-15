@@ -20,6 +20,7 @@ import com.aap.rest.server.LogoutRS;
 import com.aap.rest.server.MensajesRS;
 import com.aap.rest.server.NoticiasRS;
 import com.aap.rest.server.PartidasRS;
+import com.aap.rest.server.PenalizacionesRS;
 import com.aap.rest.server.PronosticosRS;
 import com.aap.rest.server.ResultadosRS;
 import com.aap.rest.server.UsuariosRS;
@@ -41,6 +42,7 @@ public class RESTApplication extends Application {
 		singletons.add(new PronosticosRS());
 		singletons.add(new UsuariosRS());
 		singletons.add(new ResultadosRS());
+		singletons.add(new PenalizacionesRS());
 		ResteasyProviderFactory pf = ResteasyProviderFactory.getInstance();
 		pf.registerProvider(RestCustomExceptionMapper.class);
 		pf.registerProvider(HibernateExceptionMapper.class);

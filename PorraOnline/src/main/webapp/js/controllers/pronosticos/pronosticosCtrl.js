@@ -1,8 +1,8 @@
 'use strict';
 
 /* Controllers */
-app.controller("pronosticosCtrl", ['$scope','$routeParams', '$window', 'Partidas', 'Eventos', 'Pronosticos', 'Competidores', 'User', 'Alertas', 
-                                    function ($scope, $routeParams, $window, Partidas, Eventos, Pronosticos, Competidores, User, Alertas) {
+app.controller("pronosticosCtrl", ['$scope','$routeParams', '$window', 'Partidas', 'Eventos', 'Pronosticos', 'Competidores', 'Usuarios', 'User', 'Alertas', 
+                                    function ($scope, $routeParams, $window, Partidas, Eventos, Pronosticos, Competidores, Usuarios, User, Alertas) {
 	
 	$scope.user = User.getUser();
 		
@@ -86,6 +86,17 @@ app.controller("pronosticosCtrl", ['$scope','$routeParams', '$window', 'Partidas
 		this.volverSeccionPrincipal();
 	};
 	
+	this.cargarUsuario = function() {
+		var idUsuario = $routeParams.idUsuario || $scope.user.usu_id;
+		if(idUsuario) {
+			Usuarios.find(idUsuario).then(
+				function(value) {
+					$scope.usuario = value;
+				},
+				this.mostrarAlertas);
+		}
+	};
+	
 	this.cargarEvento = function() {
 		var idEvento = $routeParams.idEvento;
 		if(idEvento) {
@@ -100,9 +111,12 @@ app.controller("pronosticosCtrl", ['$scope','$routeParams', '$window', 'Partidas
 			$scope.evento = evento;
 			$scope.eventoEditable = evento.ev_fecha_inicio_pronosticos <= $scope.fechaActual && evento.ev_fecha_limite_pronosticos >= $scope.fechaActual;
 			
-			if($scope.user.usu_id) {
-				return Pronosticos.findAll(evento.ev_id, $scope.user.usu_id);
+			var idUsuario = $routeParams.idUsuario || $scope.user.usu_id || -1;
+			if(idUsuario != $scope.user.usu_id) {
+				$scope.eventoEditable = false;
 			}
+			return Pronosticos.findAll(evento.ev_id, idUsuario);
+			
 		} else {
 			$scope.pronosticosCtrl.mostrarEventos();
 		}
@@ -186,6 +200,7 @@ app.controller("pronosticosCtrl", ['$scope','$routeParams', '$window', 'Partidas
 				},
 				this.mostrarAlertas);
 			
+			this.cargarUsuario();
 			this.cargarEvento()
 				.then(this.cargarPronosticos)
 				.then(this.asignarPronosticosBonificaciones,

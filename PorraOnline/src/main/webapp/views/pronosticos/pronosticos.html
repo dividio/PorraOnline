@@ -48,6 +48,7 @@
                 </div>
   
                 <div class="col-xs-7 botonera">
+                  <span data-ng-hide="eventoEditable">{{pronostico.pr_puntos_conseguidos}} Puntos</span>
                   <button class="btn btn-default" type="button"
                     data-ng-click="pronosticosCtrl.bajarPronostico(pronostico)" title="Bajar" data-ng-show="eventoEditable">
                     <span class="glyphicon glyphicon-arrow-down"></span>

@@ -63,6 +63,7 @@ public class PronosticosRS extends AbstractFacade<Pronosticos> {
 				nuevoPronostico.setPr_ev_id(evento);
 				nuevoPronostico.setPr_usu_id(usuario);
 				nuevoPronostico.setPr_bo_id(pronostico.getPr_bo_id());
+				nuevoPronostico.setPr_puntos_conseguidos(Long.valueOf(0));
 				session.save(nuevoPronostico);
 			}
 			session.flush();

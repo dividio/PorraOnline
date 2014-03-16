@@ -31,8 +31,10 @@ directives.directive('login', ['Login', 'User', 'Alertas', function(Login, User,
 	        			if(!User.getUser().usu_email) {
 	        				Login.login(assertion).then(
 								function(value) {
-									User.setUser(value.usuario);
-									scope.currentUser = value.usuario;
+									var usuario = value.usuario;
+									usuario.usu_email = value.email;
+									User.setUser(usuario);
+									scope.currentUser = usuario;
 								},
 								Alertas.mostrarMensajes);
 	        			}

@@ -2,7 +2,7 @@ package com.aap.rest.exception;
 
 
 /**
- * Clase para encapsular los mensajes de error producidos por un wer service de tipo REST.
+ * Clase para encapsular los mensajes de error producidos por un web service de tipo REST.
  * 
  */
 public class ErrorResponseConverter {

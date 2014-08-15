@@ -88,6 +88,7 @@ public class EventosRS extends AbstractFacade<Eventos> {
 		evento.setEv_lugar(entity.getEv_lugar());
 		evento.setEv_nombre(entity.getEv_nombre());
 		evento.setEv_url_referencia(entity.getEv_url_referencia());
+		evento.setEv_anulado(entity.getEv_anulado());
 		if(validaGuardarEvento(evento.getEv_pa_id(), usuario, evento)) {
 			super.edit(evento);
 		}

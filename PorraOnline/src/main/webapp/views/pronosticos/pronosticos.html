@@ -29,6 +29,7 @@
           {{evento.ev_nombre}} ({{evento.ev_fecha_evento | date:'dd/MM/yyyy'}})
         </h3>
         <p>Lugar: {{evento.ev_lugar}}</p>
+        <p class="text-danger" data-ng-show="evento.ev_anulado">Evento anulado</p>
         <p>Pronósticos desde el {{evento.ev_fecha_inicio_pronosticos | date:'dd/MM/yyyy'}} hasta el {{evento.ev_fecha_limite_pronosticos | date:'dd/MM/yyyy'}}</p>
         <p><a href="{{evento.ev_url_referencia}}" target="blank"><span class="glyphicon glyphicon-info-sign"></span>Más información</a></p>
         <p>Pronósticos de {{usuario.usu_username}}</p>

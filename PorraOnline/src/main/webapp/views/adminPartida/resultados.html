@@ -31,6 +31,7 @@
         <p>Lugar: {{evento.ev_lugar}}</p>
         <p>Pronósticos desde el {{evento.ev_fecha_inicio_pronosticos | date:'dd/MM/yyyy'}} hasta el {{evento.ev_fecha_limite_pronosticos | date:'dd/MM/yyyy'}}</p>
         <p><a href="{{evento.ev_url_referencia}}" target="blank"><span class="glyphicon glyphicon-info-sign"></span>Más información</a></p>
+        <p class="text-danger" data-ng-show="evento.ev_anulado">Evento anulado</p>
         <div data-ng-repeat="bonificacion in partida.listaBonificaciones | orderBy:'bo_orden'">
           <h3>
             <button class="btn btn-default" type="button" data-ng-click="resultadosCtrl.mostrarCompetidores(bonificacion)" 

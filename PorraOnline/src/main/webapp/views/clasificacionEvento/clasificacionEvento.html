@@ -16,6 +16,7 @@
     <alertas data-alertas="alertas"></alertas>
 
     <h4>{{evento.ev_nombre}}</h4>
+    <p class="text-danger" data-ng-show="evento.ev_anulado">Evento anulado</p>
     <ul class="list-group clasificacion">
       <li class="list-group-item"
         data-ng-repeat="puesto in clasificacion">

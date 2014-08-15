@@ -130,35 +130,36 @@ public class ResultadosRS extends AbstractFacade<Resultados> {
     			.list();
     	for(Pronosticos pronostico:pronosticosUsuarios) {
     		Long puntos = Long.valueOf(0);
-    		Long idCompetidor = pronostico.getPr_co_id().getCo_id();
-    		Bonificaciones bonificacion = pronostico.getPr_bo_id();
-    		Resultados resultado = mapaBonificaciones.get(bonificacion.getBo_id()).get(idCompetidor);
-    		if(resultado != null) {
-	    		Long posicionFinal = resultado.getRe_posicion();
-	    		
-	    		if(posicionFinal != null) {
-	    			List<PuntosPosicion> listaPuntos = bonificacion.getListaPuntosPosicion();
-	        		int posicionPronostico = pronostico.getPr_posicion().intValue();
-	        		int posicionObtenida = posicionFinal.intValue();
-	    			if(listaPuntos.size() >= posicionObtenida) {
-	        			int diferencia = posicionPronostico-posicionObtenida;
-	        			diferencia = diferencia * Integer.signum(diferencia);
-		    			PuntosPosicion puntosPosicion = listaPuntos.get(posicionObtenida-1);
-		    			int nivelAproximacion = puntosPosicion.getPp_nivel_aproximacion().intValue();
-		    			
-		    			if(diferencia == 0) {
-		    				puntos = puntosPosicion.getPp_puntos();
-		    			} else if(diferencia <= nivelAproximacion) {
-		    				puntos = puntosPosicion.getPp_puntos_aproximacion();
+    		if(!evento.getEv_anulado()) {
+	    		Long idCompetidor = pronostico.getPr_co_id().getCo_id();
+	    		Bonificaciones bonificacion = pronostico.getPr_bo_id();
+	    		Resultados resultado = mapaBonificaciones.get(bonificacion.getBo_id()).get(idCompetidor);
+	    		if(resultado != null) {
+		    		Long posicionFinal = resultado.getRe_posicion();
+		    		
+		    		if(posicionFinal != null) {
+		    			List<PuntosPosicion> listaPuntos = bonificacion.getListaPuntosPosicion();
+		        		int posicionPronostico = pronostico.getPr_posicion().intValue();
+		        		int posicionObtenida = posicionFinal.intValue();
+		    			if(listaPuntos.size() >= posicionObtenida) {
+		        			int diferencia = posicionPronostico-posicionObtenida;
+		        			diferencia = diferencia * Integer.signum(diferencia);
+			    			PuntosPosicion puntosPosicion = listaPuntos.get(posicionObtenida-1);
+			    			int nivelAproximacion = puntosPosicion.getPp_nivel_aproximacion().intValue();
+			    			
+			    			if(diferencia == 0) {
+			    				puntos = puntosPosicion.getPp_puntos();
+			    			} else if(diferencia <= nivelAproximacion) {
+			    				puntos = puntosPosicion.getPp_puntos_aproximacion();
+			    			}
 		    			}
-	    			}
-	    		} 
-	    		
-	    		if(resultado.getRe_pe_id() != null){
-	    			puntos += resultado.getRe_pe_id().getPe_puntos();
+		    		} 
+		    		
+		    		if(resultado.getRe_pe_id() != null) {
+		    			puntos += resultado.getRe_pe_id().getPe_puntos();
+		    		}
 	    		}
     		}
-    		
     		pronostico.setPr_puntos_conseguidos(puntos);
     		session.merge(pronostico);
     	}

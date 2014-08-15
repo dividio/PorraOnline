@@ -46,6 +46,8 @@ public class Eventos implements Serializable {
 	@Size(max=250)
 	private String ev_url_referencia;
 	
+	private Boolean ev_anulado;
+	
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "ev_pa_id", referencedColumnName = "pa_id")
@@ -125,6 +127,14 @@ public class Eventos implements Serializable {
 
 	public void setEv_url_referencia(String ev_url_referencia) {
 		this.ev_url_referencia = ev_url_referencia;
+	}
+
+	public Boolean getEv_anulado() {
+		return ev_anulado;
+	}
+
+	public void setEv_anulado(Boolean ev_anulado) {
+		this.ev_anulado = ev_anulado;
 	}
 
 	@Override
